@@ -1,6 +1,7 @@
 package me.hsgamer.topin.manager;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -53,5 +54,14 @@ public class DataListManager {
    */
   public Optional<DataList> getDataList(String name) {
     return Optional.ofNullable(dataListMap.get(name));
+  }
+
+  /**
+   * Get the list of the available data lists' name
+   *
+   * @return the list of name
+   */
+  public Collection<String> getDataListNames() {
+    return dataListMap.keySet();
   }
 }

@@ -2,12 +2,10 @@ package me.hsgamer.topin.value;
 
 import java.math.BigDecimal;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class PairDecimal implements Comparable<PairDecimal> {
 
   private final UUID uuid;
-  private final int hashValue = ThreadLocalRandom.current().nextInt(100);
   private BigDecimal value = new BigDecimal(0);
 
   /**
@@ -68,7 +66,7 @@ public abstract class PairDecimal implements Comparable<PairDecimal> {
    */
   @Override
   public int hashCode() {
-    return hashValue + uuid.hashCode();
+    return uuid.hashCode() - value.hashCode();
   }
 
   /**

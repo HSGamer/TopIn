@@ -18,6 +18,9 @@ public class DataListManager {
   public DataListManager(JavaPlugin plugin) {
     this.plugin = plugin;
     this.dataDir = new File(plugin.getDataFolder(), "data");
+    if (!dataDir.exists()) {
+      dataDir.mkdirs();
+    }
   }
 
   /**

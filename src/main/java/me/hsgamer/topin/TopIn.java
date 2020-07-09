@@ -1,6 +1,8 @@
 package me.hsgamer.topin;
 
 import me.hsgamer.topin.command.GetTopTenCommand;
+import me.hsgamer.topin.config.impl.MainConfig;
+import me.hsgamer.topin.config.impl.MessageConfig;
 import me.hsgamer.topin.impl.PlayerExpData;
 import me.hsgamer.topin.manager.CommandManager;
 import me.hsgamer.topin.manager.DataListManager;
@@ -11,6 +13,8 @@ public final class TopIn extends JavaPlugin {
   private static TopIn instance;
   private final DataListManager dataListManager = new DataListManager(this);
   private final CommandManager commandManager = new CommandManager(this);
+  private final MainConfig mainConfig = new MainConfig(this);
+  private final MessageConfig messageConfig = new MessageConfig(this);
 
   public static TopIn getInstance() {
     return instance;
@@ -47,5 +51,13 @@ public final class TopIn extends JavaPlugin {
 
   public CommandManager getCommandManager() {
     return commandManager;
+  }
+
+  public MainConfig getMainConfig() {
+    return mainConfig;
+  }
+
+  public MessageConfig getMessageConfig() {
+    return messageConfig;
   }
 }

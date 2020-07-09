@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import me.hsgamer.topin.config.PluginConfig;
 import me.hsgamer.topin.data.list.DataList;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -63,5 +64,14 @@ public class DataListManager {
    */
   public Collection<String> getDataListNames() {
     return dataListMap.keySet();
+  }
+
+  /**
+   * Add a new unique id to the data list
+   *
+   * @param uuid the unique id
+   */
+  public void addNew(UUID uuid) {
+    dataListMap.values().forEach(dataList -> dataList.add(uuid));
   }
 }

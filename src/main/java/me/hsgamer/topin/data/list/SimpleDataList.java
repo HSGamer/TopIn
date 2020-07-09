@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import me.hsgamer.topin.config.PluginConfig;
-import me.hsgamer.topin.utils.ServerUtils;
 import me.hsgamer.topin.data.value.PairDecimal;
+import me.hsgamer.topin.utils.ServerUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public abstract class SimpleDataList implements DataList {

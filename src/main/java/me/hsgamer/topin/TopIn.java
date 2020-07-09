@@ -3,7 +3,7 @@ package me.hsgamer.topin;
 import me.hsgamer.topin.command.GetTopTenCommand;
 import me.hsgamer.topin.config.impl.MainConfig;
 import me.hsgamer.topin.config.impl.MessageConfig;
-import me.hsgamer.topin.impl.PlayerExpData;
+import me.hsgamer.topin.data.impl.PlayerExpData;
 import me.hsgamer.topin.manager.CommandManager;
 import me.hsgamer.topin.manager.DataListManager;
 import org.bukkit.plugin.java.JavaPlugin;

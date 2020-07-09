@@ -1,4 +1,4 @@
-package me.hsgamer.topin.data;
+package me.hsgamer.topin.data.list;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 import me.hsgamer.topin.config.PluginConfig;
 import me.hsgamer.topin.utils.ServerUtils;
-import me.hsgamer.topin.value.PairDecimal;
+import me.hsgamer.topin.data.value.PairDecimal;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public abstract class SimpleDataList implements DataList {

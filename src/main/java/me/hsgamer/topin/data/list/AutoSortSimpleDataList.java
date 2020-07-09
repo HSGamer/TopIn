@@ -1,4 +1,4 @@
-package me.hsgamer.topin.data;
+package me.hsgamer.topin.data.list;
 
 import me.hsgamer.topin.TopIn;
 import org.bukkit.scheduler.BukkitRunnable;

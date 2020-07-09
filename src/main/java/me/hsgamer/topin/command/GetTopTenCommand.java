@@ -2,7 +2,7 @@ package me.hsgamer.topin.command;
 
 import java.util.Optional;
 import me.hsgamer.topin.TopIn;
-import me.hsgamer.topin.data.DataList;
+import me.hsgamer.topin.data.list.DataList;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;

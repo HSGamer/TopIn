@@ -1,4 +1,4 @@
-package me.hsgamer.topin.value;
+package me.hsgamer.topin.data.value;
 
 import java.math.BigDecimal;
 import java.util.UUID;

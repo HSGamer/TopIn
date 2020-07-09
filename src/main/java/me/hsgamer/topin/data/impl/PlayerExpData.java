@@ -1,9 +1,9 @@
-package me.hsgamer.topin.impl;
+package me.hsgamer.topin.data.impl;
 
 import java.math.BigDecimal;
 import java.util.UUID;
-import me.hsgamer.topin.data.AutoSortSimpleDataList;
-import me.hsgamer.topin.value.PairDecimal;
+import me.hsgamer.topin.data.list.AutoSortSimpleDataList;
+import me.hsgamer.topin.data.value.PairDecimal;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 

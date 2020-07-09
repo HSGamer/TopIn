@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import me.hsgamer.topin.config.PluginConfig;
-import me.hsgamer.topin.data.DataList;
+import me.hsgamer.topin.data.list.DataList;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DataListManager {

@@ -32,14 +32,6 @@ public abstract class SimpleDataList implements DataList {
   }
 
   /**
-   * Create a pair
-   *
-   * @param uuid the unique id
-   * @return the pair
-   */
-  public abstract PairDecimal createPairDecimal(UUID uuid);
-
-  /**
    * {@inheritDoc}
    */
   @Override

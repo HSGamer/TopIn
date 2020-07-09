@@ -27,6 +27,14 @@ public interface DataList {
   }
 
   /**
+   * Create a pair
+   *
+   * @param uuid the unique id
+   * @return the pair
+   */
+  PairDecimal createPairDecimal(UUID uuid);
+
+  /**
    * Update all values of the list
    */
   void updateAll();

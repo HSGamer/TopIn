@@ -13,6 +13,6 @@ public class MessageConfig extends PluginConfig {
   }
 
   private void setDefaultPath() {
-
+    // TODO
   }
 }

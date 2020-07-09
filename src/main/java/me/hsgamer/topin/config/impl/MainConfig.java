@@ -13,6 +13,6 @@ public class MainConfig extends PluginConfig {
   }
 
   private void setDefaultPath() {
-
+    // TODO
   }
 }

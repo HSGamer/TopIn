@@ -1,0 +1,5 @@
+name: TopIn
+version: ${project.version}
+main: me.hsgamer.topin.TopIn
+authors: [HSGamer]
+description: Collect data and work with leaderboard

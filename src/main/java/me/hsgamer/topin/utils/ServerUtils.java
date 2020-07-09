@@ -20,6 +20,7 @@ public class ServerUtils {
    */
   public static List<UUID> getAllUniqueIds() {
     return Arrays.stream(Bukkit.getOfflinePlayers())
+        .parallel()
         .map(OfflinePlayer::getUniqueId)
         .collect(Collectors.toList());
   }

@@ -11,7 +11,7 @@
 
   <name>TopIn</name>
 
-  <description>oWrk with data and leaderboard</description>
+  <description>Work with data and leaderboard</description>
   <properties>
     <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

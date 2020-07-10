@@ -53,7 +53,7 @@ public final class TopIn extends JavaPlugin {
     loadCommands();
     commandManager.syncCommand();
     registerListener();
-    startNewUpdateTask(MainConfig.UPDATE_PERIOD.getValue());
+    startNewUpdateTask();
   }
 
   @Override
@@ -65,12 +65,11 @@ public final class TopIn extends JavaPlugin {
 
   /**
    * Start new update task
-   *
-   * @param period the delay time between each run
    */
-  public void startNewUpdateTask(int period) {
+  public void startNewUpdateTask() {
     stopUpdateTask();
 
+    int period = MainConfig.UPDATE_PERIOD.getValue();
     if (period >= 0) {
       if (MainConfig.UPDATE_ASYNC.getValue().equals(Boolean.TRUE)) {
         updateTask = updateRunnable.runTaskTimerAsynchronously(this, 0, period);

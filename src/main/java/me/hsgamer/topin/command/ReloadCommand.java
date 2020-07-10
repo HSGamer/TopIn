@@ -4,7 +4,6 @@ import static me.hsgamer.topin.TopIn.getInstance;
 
 import java.util.Collections;
 import me.hsgamer.topin.Permissions;
-import me.hsgamer.topin.config.impl.MainConfig;
 import me.hsgamer.topin.config.impl.MessageConfig;
 import me.hsgamer.topin.utils.CommonUtils;
 import org.bukkit.command.CommandSender;
@@ -27,7 +26,7 @@ public class ReloadCommand extends BukkitCommand {
     getInstance().getMainConfig().reloadConfig();
     getInstance().getMessageConfig().reloadConfig();
     getInstance().getCommandManager().syncCommand();
-    getInstance().startNewUpdateTask(MainConfig.UPDATE_PERIOD.getValue());
+    getInstance().startNewUpdateTask();
     CommonUtils.sendMessage(sender, MessageConfig.SUCCESS.getValue());
     return true;
   }

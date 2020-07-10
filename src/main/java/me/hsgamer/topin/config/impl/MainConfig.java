@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class MainConfig extends PluginConfig {
 
-  public static final ConfigPath<Integer> UPDATE_PERIOD = new ConfigPath<>(int.class,
+  public static final ConfigPath<Integer> UPDATE_PERIOD = new ConfigPath<>(Integer.class,
       "update-period", 2000);
 
   public MainConfig(JavaPlugin plugin) {

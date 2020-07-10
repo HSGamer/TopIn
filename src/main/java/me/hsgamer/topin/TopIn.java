@@ -11,7 +11,6 @@ import me.hsgamer.topin.listener.JoinListener;
 import me.hsgamer.topin.manager.CommandManager;
 import me.hsgamer.topin.manager.DataListManager;
 import me.hsgamer.topin.utils.CommonUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -70,7 +69,7 @@ public final class TopIn extends JavaPlugin {
         public void run() {
           getDataListManager().updateAll();
           getDataListManager().saveAll();
-          CommonUtils.sendMessage(Bukkit.getConsoleSender(), MessageConfig.UPDATE.getValue());
+          CommonUtils.sendMessage(getServer().getConsoleSender(), MessageConfig.UPDATE.getValue());
         }
       }.runTaskTimerAsynchronously(this, period, period);
     }

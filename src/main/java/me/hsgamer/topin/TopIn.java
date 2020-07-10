@@ -73,9 +73,9 @@ public final class TopIn extends JavaPlugin {
 
     if (period >= 0) {
       if (MainConfig.UPDATE_ASYNC.getValue().equals(Boolean.TRUE)) {
-        updateTask = updateRunnable.runTaskTimerAsynchronously(this, period, period);
+        updateTask = updateRunnable.runTaskTimerAsynchronously(this, 0, period);
       } else {
-        updateTask = updateRunnable.runTaskTimer(this, period, period);
+        updateTask = updateRunnable.runTaskTimer(this, 0, period);
       }
     }
   }

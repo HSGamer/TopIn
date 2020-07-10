@@ -4,6 +4,7 @@ import me.hsgamer.topin.command.GetTopTenCommand;
 import me.hsgamer.topin.config.impl.MainConfig;
 import me.hsgamer.topin.config.impl.MessageConfig;
 import me.hsgamer.topin.data.impl.PlayerExpData;
+import me.hsgamer.topin.data.impl.PlayerLevelData;
 import me.hsgamer.topin.listener.JoinListener;
 import me.hsgamer.topin.manager.CommandManager;
 import me.hsgamer.topin.manager.DataListManager;
@@ -60,6 +61,7 @@ public final class TopIn extends JavaPlugin {
    */
   private void registerDefaultDataList() {
     dataListManager.register("player_exp", new PlayerExpData());
+    dataListManager.register("player_level", new PlayerLevelData());
   }
 
   /**

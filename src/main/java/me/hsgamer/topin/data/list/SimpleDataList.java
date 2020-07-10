@@ -55,7 +55,7 @@ public abstract class SimpleDataList implements DataList {
    */
   @Override
   public List<PairDecimal> getTopRange(int from, int to) {
-    return list.subList(from, Math.min(list.size(), to));
+    return list.subList(Math.min(list.size(), from), Math.min(list.size(), to));
   }
 
   /**

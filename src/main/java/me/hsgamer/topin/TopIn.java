@@ -1,6 +1,8 @@
 package me.hsgamer.topin;
 
 import me.hsgamer.topin.command.GetTopTenCommand;
+import me.hsgamer.topin.command.MainCommand;
+import me.hsgamer.topin.command.ReloadCommand;
 import me.hsgamer.topin.config.impl.MainConfig;
 import me.hsgamer.topin.config.impl.MessageConfig;
 import me.hsgamer.topin.data.impl.PlayerExpData;
@@ -8,8 +10,12 @@ import me.hsgamer.topin.data.impl.PlayerLevelData;
 import me.hsgamer.topin.listener.JoinListener;
 import me.hsgamer.topin.manager.CommandManager;
 import me.hsgamer.topin.manager.DataListManager;
+import me.hsgamer.topin.utils.CommonUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 public final class TopIn extends JavaPlugin {
 
@@ -18,6 +24,7 @@ public final class TopIn extends JavaPlugin {
   private final CommandManager commandManager = new CommandManager(this);
   private final MainConfig mainConfig = new MainConfig(this);
   private final MessageConfig messageConfig = new MessageConfig(this);
+  private BukkitTask updateTask;
 
   /**
    * Get the instance
@@ -39,12 +46,43 @@ public final class TopIn extends JavaPlugin {
     loadCommands();
     commandManager.syncCommand();
     registerListener();
+    startNewUpdateTask(MainConfig.UPDATE_PERIOD.getValue());
   }
 
   @Override
   public void onDisable() {
+    stopUpdateTask();
     dataListManager.saveAll();
     HandlerList.unregisterAll(this);
+  }
+
+  /**
+   * Start new update task
+   *
+   * @param period the delay time between each run
+   */
+  public void startNewUpdateTask(int period) {
+    stopUpdateTask();
+
+    if (period >= 0) {
+      updateTask = new BukkitRunnable() {
+        @Override
+        public void run() {
+          getDataListManager().updateAll();
+          getDataListManager().saveAll();
+          CommonUtils.sendMessage(Bukkit.getConsoleSender(), MessageConfig.UPDATE.getValue());
+        }
+      }.runTaskTimerAsynchronously(this, period, period);
+    }
+  }
+
+  /**
+   * Stop the update task
+   */
+  public void stopUpdateTask() {
+    if (updateTask != null && !updateTask.isCancelled()) {
+      updateTask.cancel();
+    }
   }
 
   /**
@@ -69,6 +107,8 @@ public final class TopIn extends JavaPlugin {
    */
   private void loadCommands() {
     commandManager.register(new GetTopTenCommand());
+    commandManager.register(new MainCommand(getName().toLowerCase()));
+    commandManager.register(new ReloadCommand());
   }
 
   /**

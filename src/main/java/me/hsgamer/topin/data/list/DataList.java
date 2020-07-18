@@ -104,4 +104,11 @@ public interface DataList {
    * @return the display name
    */
   String getDisplayName();
+
+  /**
+   * Get the size of the date list
+   *
+   * @return the size
+   */
+  int getSize();
 }

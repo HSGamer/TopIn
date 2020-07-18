@@ -95,4 +95,12 @@ public abstract class SimpleDataList implements DataList {
     }
     config.saveConfig();
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int getSize() {
+    return list.size();
+  }
 }

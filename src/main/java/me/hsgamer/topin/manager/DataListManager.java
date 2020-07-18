@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import me.hsgamer.topin.config.PluginConfig;
+import me.hsgamer.hscore.config.PluginConfig;
 import me.hsgamer.topin.data.list.DataList;
 import org.bukkit.plugin.java.JavaPlugin;
 

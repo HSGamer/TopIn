@@ -6,9 +6,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import me.hsgamer.topin.config.PluginConfig;
+import me.hsgamer.hscore.config.PluginConfig;
+import me.hsgamer.hscore.utils.BukkitUtils;
 import me.hsgamer.topin.data.value.PairDecimal;
-import me.hsgamer.topin.utils.ServerUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public abstract class SimpleDataList implements DataList {
@@ -44,9 +44,6 @@ public abstract class SimpleDataList implements DataList {
    * {@inheritDoc}
    */
   @Override
-  /**
-   * {@inheritDoc}
-   */
   public Optional<PairDecimal> getPair(UUID uuid) {
     return list.parallelStream()
         .filter(pairDecimal -> pairDecimal.getUniqueId().equals(uuid))
@@ -81,7 +78,7 @@ public abstract class SimpleDataList implements DataList {
    */
   @Override
   public void loadData(PluginConfig config) {
-    ServerUtils.getAllUniqueIds().forEach(this::add);
+    BukkitUtils.getAllUniqueIds().forEach(this::add);
     FileConfiguration configuration = config.getConfig();
     configuration.getValues(false)
         .forEach((k, v) -> set(UUID.fromString(k), new BigDecimal(String.valueOf(v))));

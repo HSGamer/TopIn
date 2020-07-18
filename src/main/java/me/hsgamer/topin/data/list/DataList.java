@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import me.hsgamer.topin.config.PluginConfig;
+import me.hsgamer.hscore.config.PluginConfig;
 import me.hsgamer.topin.data.value.PairDecimal;
 
 public interface DataList {

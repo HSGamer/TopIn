@@ -1,7 +1,7 @@
-package me.hsgamer.topin.config.impl;
+package me.hsgamer.topin.config;
 
-import me.hsgamer.topin.config.ConfigPath;
-import me.hsgamer.topin.config.PluginConfig;
+import me.hsgamer.hscore.config.ConfigPath;
+import me.hsgamer.hscore.config.PluginConfig;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MainConfig extends PluginConfig {

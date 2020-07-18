@@ -1,16 +1,16 @@
 package me.hsgamer.topin;
 
+import me.hsgamer.hscore.command.CommandManager;
+import me.hsgamer.hscore.utils.CommonUtils;
 import me.hsgamer.topin.command.GetTopTenCommand;
 import me.hsgamer.topin.command.MainCommand;
 import me.hsgamer.topin.command.ReloadCommand;
-import me.hsgamer.topin.config.impl.MainConfig;
-import me.hsgamer.topin.config.impl.MessageConfig;
+import me.hsgamer.topin.config.MainConfig;
+import me.hsgamer.topin.config.MessageConfig;
 import me.hsgamer.topin.data.impl.PlayerExpData;
 import me.hsgamer.topin.data.impl.PlayerLevelData;
 import me.hsgamer.topin.listener.JoinListener;
-import me.hsgamer.topin.manager.CommandManager;
 import me.hsgamer.topin.manager.DataListManager;
-import me.hsgamer.topin.utils.CommonUtils;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -45,6 +45,7 @@ public final class TopIn extends JavaPlugin {
   @Override
   public void onLoad() {
     instance = this;
+    CommonUtils.setPrefix(MessageConfig.PREFIX::getValue);
   }
 
   @Override

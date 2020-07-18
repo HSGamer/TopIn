@@ -1,5 +1,6 @@
 package me.hsgamer.topin;
 
+import static me.hsgamer.hscore.utils.PermissionUtils.createPermission;
 import static me.hsgamer.topin.TopIn.getInstance;
 
 import org.bukkit.permissions.Permission;
@@ -16,18 +17,5 @@ public class Permissions {
 
   private Permissions() {
 
-  }
-
-  public static Permission createPermission(String name, String description,
-      PermissionDefault permissionDefault) {
-    Permission permission = new Permission(name);
-    if (description != null) {
-      permission.setDescription(description);
-    }
-    if (permissionDefault != null) {
-      permission.setDefault(permissionDefault);
-    }
-    getInstance().getServer().getPluginManager().addPermission(permission);
-    return permission;
   }
 }

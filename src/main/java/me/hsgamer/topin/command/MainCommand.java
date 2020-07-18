@@ -1,15 +1,15 @@
 package me.hsgamer.topin.command;
 
+import static me.hsgamer.hscore.utils.CommonUtils.sendMessage;
 import static me.hsgamer.topin.TopIn.getInstance;
-import static me.hsgamer.topin.utils.CommonUtils.sendMessage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import me.hsgamer.hscore.command.CommandManager;
+import me.hsgamer.hscore.utils.Validate;
 import me.hsgamer.topin.Permissions;
-import me.hsgamer.topin.config.impl.MessageConfig;
-import me.hsgamer.topin.manager.CommandManager;
-import me.hsgamer.topin.utils.Validate;
+import me.hsgamer.topin.config.MessageConfig;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;

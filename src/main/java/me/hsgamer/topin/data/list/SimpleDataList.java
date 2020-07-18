@@ -44,6 +44,9 @@ public abstract class SimpleDataList implements DataList {
    * {@inheritDoc}
    */
   @Override
+  /**
+   * {@inheritDoc}
+   */
   public Optional<PairDecimal> getPair(UUID uuid) {
     return list.parallelStream()
         .filter(pairDecimal -> pairDecimal.getUniqueId().equals(uuid))

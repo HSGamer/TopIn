@@ -1,7 +1,7 @@
 package me.hsgamer.topin;
 
+import me.hsgamer.hscore.bukkitutils.MessageUtils;
 import me.hsgamer.hscore.command.CommandManager;
-import me.hsgamer.hscore.utils.CommonUtils;
 import me.hsgamer.topin.command.GetTopTenCommand;
 import me.hsgamer.topin.command.MainCommand;
 import me.hsgamer.topin.command.ReloadCommand;
@@ -28,7 +28,7 @@ public final class TopIn extends JavaPlugin {
     public void run() {
       dataListManager.updateAll();
       dataListManager.saveAll();
-      CommonUtils.sendMessage(getServer().getConsoleSender(), MessageConfig.UPDATE.getValue());
+      MessageUtils.sendMessage(getServer().getConsoleSender(), MessageConfig.UPDATE.getValue());
     }
   };
   private BukkitTask updateTask;
@@ -45,7 +45,7 @@ public final class TopIn extends JavaPlugin {
   @Override
   public void onLoad() {
     instance = this;
-    CommonUtils.setPrefix(MessageConfig.PREFIX::getValue);
+    MessageUtils.setPrefix(MessageConfig.PREFIX::getValue);
   }
 
   @Override

@@ -1,6 +1,6 @@
 package me.hsgamer.topin;
 
-import static me.hsgamer.hscore.utils.PermissionUtils.createPermission;
+import static me.hsgamer.hscore.bukkitutils.PermissionUtils.createPermission;
 import static me.hsgamer.topin.TopIn.getInstance;
 
 import org.bukkit.permissions.Permission;

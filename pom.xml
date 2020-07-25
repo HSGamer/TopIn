@@ -80,17 +80,17 @@
     </dependency>
     <dependency>
       <groupId>me.HSGamer</groupId>
-      <artifactId>HSCore-command</artifactId>
+      <artifactId>HSCore-bukkit-command</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>me.HSGamer</groupId>
-      <artifactId>HSCore-config</artifactId>
+      <artifactId>HSCore-bukkit-config</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>me.HSGamer</groupId>
-      <artifactId>HSCore-bukkitutils</artifactId>
+      <artifactId>HSCore-bukkit-utils</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>

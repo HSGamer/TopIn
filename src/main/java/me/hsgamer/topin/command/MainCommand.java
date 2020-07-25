@@ -1,12 +1,12 @@
 package me.hsgamer.topin.command;
 
-import static me.hsgamer.hscore.bukkitutils.MessageUtils.sendMessage;
+import static me.hsgamer.hscore.bukkit.utils.MessageUtils.sendMessage;
 import static me.hsgamer.topin.TopIn.getInstance;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import me.hsgamer.hscore.command.CommandManager;
+import me.hsgamer.hscore.bukkit.command.CommandManager;
 import me.hsgamer.hscore.common.Validate;
 import me.hsgamer.topin.Permissions;
 import me.hsgamer.topin.config.MessageConfig;

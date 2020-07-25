@@ -1,7 +1,7 @@
 package me.hsgamer.topin;
 
-import me.hsgamer.hscore.bukkitutils.MessageUtils;
-import me.hsgamer.hscore.command.CommandManager;
+import me.hsgamer.hscore.bukkit.command.CommandManager;
+import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.topin.command.GetTopTenCommand;
 import me.hsgamer.topin.command.MainCommand;
 import me.hsgamer.topin.command.ReloadCommand;

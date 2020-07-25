@@ -6,8 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import me.hsgamer.hscore.bukkitutils.BukkitUtils;
-import me.hsgamer.hscore.config.PluginConfig;
+import me.hsgamer.hscore.bukkit.config.PluginConfig;
+import me.hsgamer.hscore.bukkit.utils.BukkitUtils;
 import me.hsgamer.topin.data.value.PairDecimal;
 import org.bukkit.configuration.file.FileConfiguration;
 

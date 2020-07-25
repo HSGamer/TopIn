@@ -3,7 +3,7 @@ package me.hsgamer.topin.command;
 import static me.hsgamer.topin.TopIn.getInstance;
 
 import java.util.Collections;
-import me.hsgamer.hscore.bukkitutils.MessageUtils;
+import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.topin.Permissions;
 import me.hsgamer.topin.config.MessageConfig;
 import org.bukkit.command.CommandSender;

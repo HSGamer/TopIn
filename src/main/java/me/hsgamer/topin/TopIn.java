@@ -23,14 +23,6 @@ public final class TopIn extends JavaPlugin {
   private final CommandManager commandManager = new CommandManager(this);
   private final MainConfig mainConfig = new MainConfig(this);
   private final MessageConfig messageConfig = new MessageConfig(this);
-  private final BukkitRunnable updateRunnable = new BukkitRunnable() {
-    @Override
-    public void run() {
-      dataListManager.updateAll();
-      dataListManager.saveAll();
-      MessageUtils.sendMessage(getServer().getConsoleSender(), MessageConfig.UPDATE.getValue());
-    }
-  };
   private BukkitTask updateTask;
 
   /**
@@ -70,6 +62,14 @@ public final class TopIn extends JavaPlugin {
   public void startNewUpdateTask() {
     stopUpdateTask();
 
+    final BukkitRunnable updateRunnable = new BukkitRunnable() {
+      @Override
+      public void run() {
+        dataListManager.updateAll();
+        dataListManager.saveAll();
+        MessageUtils.sendMessage(getServer().getConsoleSender(), MessageConfig.UPDATE.getValue());
+      }
+    };
     int period = MainConfig.UPDATE_PERIOD.getValue();
     if (period >= 0) {
       if (MainConfig.UPDATE_ASYNC.getValue().equals(Boolean.TRUE)) {

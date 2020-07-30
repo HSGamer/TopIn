@@ -1,20 +1,18 @@
 package me.hsgamer.topin.config;
 
-import me.hsgamer.hscore.bukkit.config.ConfigPath;
 import me.hsgamer.hscore.bukkit.config.PluginConfig;
+import me.hsgamer.hscore.bukkit.config.path.StringConfigPath;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MessageConfig extends PluginConfig {
 
-  public static final ConfigPath<String> PREFIX = new ConfigPath<>(String.class, "prefix",
-      "&f[&aTopIn&f] ");
-  public static final ConfigPath<String> UPDATE = new ConfigPath<>(String.class, "update",
+  public static final StringConfigPath PREFIX = new StringConfigPath("prefix", "&f[&aTopIn&f] ");
+  public static final StringConfigPath UPDATE = new StringConfigPath("update",
       "&eThe database has been saved");
-  public static final ConfigPath<String> SUCCESS = new ConfigPath<>(String.class, "success",
-      "&aSuccess");
-  public static final ConfigPath<String> NO_PERMISSION = new ConfigPath<>(String.class,
-      "no-permission", "&cYou don't have permission to do this");
-  public static final ConfigPath<String> PLAYER_ONLY = new ConfigPath<>(String.class, "player-only",
+  public static final StringConfigPath SUCCESS = new StringConfigPath("success", "&aSuccess");
+  public static final StringConfigPath NO_PERMISSION = new StringConfigPath("no-permission",
+      "&cYou don't have permission to do this");
+  public static final StringConfigPath PLAYER_ONLY = new StringConfigPath("player-only",
       "&cYou should be a player to do this");
 
   public MessageConfig(JavaPlugin plugin) {

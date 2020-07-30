@@ -1,15 +1,14 @@
 package me.hsgamer.topin.config;
 
-import me.hsgamer.hscore.bukkit.config.ConfigPath;
 import me.hsgamer.hscore.bukkit.config.PluginConfig;
+import me.hsgamer.hscore.bukkit.config.path.BooleanConfigPath;
+import me.hsgamer.hscore.bukkit.config.path.IntegerConfigPath;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MainConfig extends PluginConfig {
 
-  public static final ConfigPath<Integer> UPDATE_PERIOD = new ConfigPath<>(Integer.class,
-      "update.period", 600);
-  public static final ConfigPath<Boolean> UPDATE_ASYNC = new ConfigPath<>(Boolean.class,
-      "update.async", false);
+  public static final IntegerConfigPath UPDATE_PERIOD = new IntegerConfigPath("update.period", 600);
+  public static final BooleanConfigPath UPDATE_ASYNC = new BooleanConfigPath("update.async", false);
 
   public MainConfig(JavaPlugin plugin) {
     super(plugin, "config.yml");

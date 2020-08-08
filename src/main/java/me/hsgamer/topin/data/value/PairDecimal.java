@@ -3,6 +3,9 @@ package me.hsgamer.topin.data.value;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+/**
+ * A combination of UUID and BigDecimal
+ */
 public abstract class PairDecimal implements Comparable<PairDecimal> {
 
   private final UUID uuid;

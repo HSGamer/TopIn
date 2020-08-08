@@ -10,6 +10,9 @@ import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.topin.data.list.DataList;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * The data list manager
+ */
 public class DataListManager {
 
   private final Map<String, DataList> dataListMap = new HashMap<>();

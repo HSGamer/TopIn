@@ -7,6 +7,9 @@ import java.util.UUID;
 import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.topin.data.value.PairDecimal;
 
+/**
+ * The interface for all data lists
+ */
 public interface DataList {
 
   /**

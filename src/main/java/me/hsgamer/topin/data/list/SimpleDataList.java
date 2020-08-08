@@ -12,6 +12,9 @@ import me.hsgamer.hscore.bukkit.utils.BukkitUtils;
 import me.hsgamer.topin.data.value.PairDecimal;
 import org.bukkit.configuration.file.FileConfiguration;
 
+/**
+ * A simple data list with an synchronized ArrayList
+ */
 public abstract class SimpleDataList implements DataList {
 
   protected final List<PairDecimal> list = Collections.synchronizedList(new ArrayList<>());

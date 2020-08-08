@@ -2,6 +2,7 @@ package me.hsgamer.topin.data.list;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public abstract class SimpleDataList implements DataList {
 
-  protected final List<PairDecimal> list = new ArrayList<>();
+  protected final List<PairDecimal> list = Collections.synchronizedList(new ArrayList<>());
 
   /**
    * {@inheritDoc}

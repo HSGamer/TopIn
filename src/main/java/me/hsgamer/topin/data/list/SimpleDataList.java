@@ -2,6 +2,7 @@ package me.hsgamer.topin.data.list;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -55,7 +56,7 @@ public abstract class SimpleDataList implements DataList {
    */
   @Override
   public List<PairDecimal> getTopRange(int from, int to) {
-    return list.subList(from, Math.min(list.size(), to));
+    return Collections.synchronizedList(list).subList(from, Math.min(list.size(), to));
   }
 
   /**
@@ -63,7 +64,7 @@ public abstract class SimpleDataList implements DataList {
    */
   @Override
   public PairDecimal getPair(int index) {
-    return list.get(index);
+    return Collections.synchronizedList(list).get(index);
   }
 
   /**

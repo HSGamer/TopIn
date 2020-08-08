@@ -53,6 +53,7 @@ public abstract class PairDecimal implements Comparable<PairDecimal> {
   /**
    * {@inheritDoc}
    */
+  @Override
   public boolean equals(Object obj) {
     if (obj instanceof PairDecimal) {
       PairDecimal pairDecimal = (PairDecimal) obj;

@@ -11,7 +11,7 @@ public abstract class AutoSortSimpleDataList extends SimpleDataList {
   /**
    * Create an auto-update data list
    *
-   * @param delay the delay before the first update call
+   * @param delay  the delay before the first update call
    * @param period the delay for each update call
    */
   public AutoSortSimpleDataList(int delay, int period) {

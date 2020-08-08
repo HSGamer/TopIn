@@ -9,6 +9,7 @@ import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.config.MessageConfig;
 import me.hsgamer.topin.data.impl.PlayerExpData;
 import me.hsgamer.topin.data.impl.PlayerLevelData;
+import me.hsgamer.topin.data.impl.PlayerOnlineTime;
 import me.hsgamer.topin.listener.JoinListener;
 import me.hsgamer.topin.manager.DataListManager;
 import org.bukkit.event.HandlerList;
@@ -104,6 +105,7 @@ public final class TopIn extends JavaPlugin {
   private void registerDefaultDataList() {
     dataListManager.register("player_exp", new PlayerExpData());
     dataListManager.register("player_level", new PlayerLevelData());
+    dataListManager.register("player_online_time", new PlayerOnlineTime());
   }
 
   /**

@@ -2,11 +2,7 @@ package me.hsgamer.topin.getter.placeholderapi;
 
 import static me.hsgamer.topin.TopIn.getInstance;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
-import me.clip.placeholderapi.expansion.Configurable;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.hsgamer.topin.data.list.DataList;
 import me.hsgamer.topin.data.value.PairDecimal;
@@ -14,7 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
-public class Expansion extends PlaceholderExpansion implements Configurable {
+public class Expansion extends PlaceholderExpansion {
 
   private static final String PLAYER_PREFIX = "player_";
   private static final String VALUE_PREFIX = "value_";
@@ -55,7 +51,7 @@ public class Expansion extends PlaceholderExpansion implements Configurable {
       return String.valueOf(
           getDataList(params.substring(CURRENT_INDEX.length()))
               .flatMap(dataList -> dataList.getTopIndex(offlinePlayer.getUniqueId()))
-              .orElse(0)
+              .orElse(-1)
       );
     } else if (params.startsWith(CURRENT_VALUE)) {
       return getDataList(params.substring(CURRENT_VALUE.length()))
@@ -67,7 +63,6 @@ public class Expansion extends PlaceholderExpansion implements Configurable {
   }
 
   private PairDecimal getTopPair(String params) {
-    boolean fromOne = Objects.requireNonNull(getConfigSection()).getBoolean("start-from-one");
     int firstIndex = params.indexOf("_");
     if (firstIndex < 0) {
       return null;
@@ -78,9 +73,6 @@ public class Expansion extends PlaceholderExpansion implements Configurable {
       topIndex = Integer.parseInt(params.substring(0, firstIndex).toLowerCase());
     } catch (NumberFormatException e) {
       return null;
-    }
-    if (fromOne) {
-      topIndex++;
     }
     Optional<DataList> optional = getDataList(params.substring(firstIndex + 1));
     if (optional.isPresent()) {
@@ -94,12 +86,5 @@ public class Expansion extends PlaceholderExpansion implements Configurable {
 
   private Optional<DataList> getDataList(String name) {
     return getInstance().getDataListManager().getDataList(name);
-  }
-
-  @Override
-  public Map<String, Object> getDefaults() {
-    Map<String, Object> map = new HashMap<>();
-    map.put("start-from-one", false);
-    return map;
   }
 }

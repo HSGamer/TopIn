@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import me.hsgamer.hscore.bukkit.config.PluginConfig;
@@ -18,6 +20,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 public abstract class SimpleDataList implements DataList {
 
   protected final List<PairDecimal> list = Collections.synchronizedList(new ArrayList<>());
+  protected final Map<UUID, Integer> indexMap = new HashMap<>();
 
   /**
    * {@inheritDoc}
@@ -75,6 +78,9 @@ public abstract class SimpleDataList implements DataList {
    */
   protected void sort() {
     list.sort(Comparator.reverseOrder());
+    for (int i = 0; i < list.size(); i++) {
+      indexMap.put(list.get(i).getUniqueId(), i);
+    }
   }
 
   /**
@@ -113,11 +119,6 @@ public abstract class SimpleDataList implements DataList {
    */
   @Override
   public Optional<Integer> getTopIndex(UUID uuid) {
-    for (int i = 0; i < list.size(); i++) {
-      if (list.get(i).getUniqueId().equals(uuid)) {
-        return Optional.of(i);
-      }
-    }
-    return Optional.empty();
+    return Optional.ofNullable(indexMap.get(uuid));
   }
 }

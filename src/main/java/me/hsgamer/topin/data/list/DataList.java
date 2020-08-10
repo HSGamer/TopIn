@@ -16,7 +16,7 @@ public interface DataList {
    * Set the value of the unique id in the list
    *
    * @param uuid  the unique
-   * @param value the value
+   * @param value the value, nullable
    */
   void set(UUID uuid, BigDecimal value);
 

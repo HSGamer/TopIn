@@ -7,10 +7,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class MainConfig extends PluginConfig {
 
-  public static final IntegerConfigPath UPDATE_PERIOD = new IntegerConfigPath("update.period", 600);
-  public static final BooleanConfigPath UPDATE_ASYNC = new BooleanConfigPath("update.async", false);
-  public static final BooleanConfigPath UPDATE_SILENT = new BooleanConfigPath("update.silent",
-      false);
+  public static final IntegerConfigPath SAVE_PERIOD = new IntegerConfigPath("save.period", 600);
+  public static final BooleanConfigPath SAVE_ASYNC = new BooleanConfigPath("save.async", false);
+  public static final BooleanConfigPath SAVE_SILENT = new BooleanConfigPath("save.silent", false);
 
   public MainConfig(JavaPlugin plugin) {
     super(plugin, "config.yml");
@@ -20,8 +19,8 @@ public class MainConfig extends PluginConfig {
   }
 
   private void setDefaultPath() {
-    UPDATE_PERIOD.setConfig(this);
-    UPDATE_ASYNC.setConfig(this);
-    UPDATE_SILENT.setConfig(this);
+    SAVE_PERIOD.setConfig(this);
+    SAVE_ASYNC.setConfig(this);
+    SAVE_SILENT.setConfig(this);
   }
 }

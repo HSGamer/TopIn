@@ -51,13 +51,6 @@ public class DataListManager {
   }
 
   /**
-   * Update all data lists
-   */
-  public void updateAll() {
-    dataListMap.values().forEach(DataList::updateAll);
-  }
-
-  /**
    * Get the data list
    *
    * @param name the name

@@ -29,7 +29,7 @@ public final class TopIn extends JavaPlugin {
   private final MainConfig mainConfig = new MainConfig(this);
   private final MessageConfig messageConfig = new MessageConfig(this);
   private final GetterManager getterManager = new GetterManager();
-  private BukkitTask updateTask;
+  private BukkitTask saveTask;
 
   /**
    * Get the instance
@@ -53,49 +53,48 @@ public final class TopIn extends JavaPlugin {
     commandManager.syncCommand();
     registerListener();
     registerDefaultGetters();
-    startNewUpdateTask();
+    startNewSaveTask();
   }
 
   @Override
   public void onDisable() {
-    stopUpdateTask();
+    stopSaveTask();
     getterManager.unregisterAll();
     dataListManager.saveAll();
     HandlerList.unregisterAll(this);
   }
 
   /**
-   * Start new update task
+   * Start new save task
    */
-  public void startNewUpdateTask() {
-    stopUpdateTask();
+  public void startNewSaveTask() {
+    stopSaveTask();
 
-    final BukkitRunnable updateRunnable = new BukkitRunnable() {
+    final BukkitRunnable saveRunnable = new BukkitRunnable() {
       @Override
       public void run() {
-        dataListManager.updateAll();
         dataListManager.saveAll();
-        if (MainConfig.UPDATE_SILENT.getValue().equals(Boolean.FALSE)) {
+        if (MainConfig.SAVE_SILENT.getValue().equals(Boolean.FALSE)) {
           MessageUtils.sendMessage(getServer().getConsoleSender(), MessageConfig.UPDATE.getValue());
         }
       }
     };
-    int period = MainConfig.UPDATE_PERIOD.getValue();
+    int period = MainConfig.SAVE_PERIOD.getValue();
     if (period >= 0) {
-      if (MainConfig.UPDATE_ASYNC.getValue().equals(Boolean.TRUE)) {
-        updateTask = updateRunnable.runTaskTimerAsynchronously(this, 0, period);
+      if (MainConfig.SAVE_ASYNC.getValue().equals(Boolean.TRUE)) {
+        saveTask = saveRunnable.runTaskTimerAsynchronously(this, 0, period);
       } else {
-        updateTask = updateRunnable.runTaskTimer(this, 0, period);
+        saveTask = saveRunnable.runTaskTimer(this, 0, period);
       }
     }
   }
 
   /**
-   * Stop the update task
+   * Stop the save task
    */
-  public void stopUpdateTask() {
-    if (updateTask != null && !updateTask.isCancelled()) {
-      updateTask.cancel();
+  public void stopSaveTask() {
+    if (saveTask != null && !saveTask.isCancelled()) {
+      saveTask.cancel();
     }
   }
 

@@ -9,6 +9,8 @@ public class MainConfig extends PluginConfig {
 
   public static final IntegerConfigPath UPDATE_PERIOD = new IntegerConfigPath("update.period", 600);
   public static final BooleanConfigPath UPDATE_ASYNC = new BooleanConfigPath("update.async", false);
+  public static final BooleanConfigPath UPDATE_SILENT = new BooleanConfigPath("update.silent",
+      false);
 
   public MainConfig(JavaPlugin plugin) {
     super(plugin, "config.yml");
@@ -20,5 +22,6 @@ public class MainConfig extends PluginConfig {
   private void setDefaultPath() {
     UPDATE_PERIOD.setConfig(this);
     UPDATE_ASYNC.setConfig(this);
+    UPDATE_SILENT.setConfig(this);
   }
 }

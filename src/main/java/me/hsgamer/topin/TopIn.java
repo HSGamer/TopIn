@@ -68,7 +68,9 @@ public final class TopIn extends JavaPlugin {
       public void run() {
         dataListManager.updateAll();
         dataListManager.saveAll();
-        MessageUtils.sendMessage(getServer().getConsoleSender(), MessageConfig.UPDATE.getValue());
+        if (MainConfig.UPDATE_SILENT.getValue().equals(Boolean.TRUE)) {
+          MessageUtils.sendMessage(getServer().getConsoleSender(), MessageConfig.UPDATE.getValue());
+        }
       }
     };
     int period = MainConfig.UPDATE_PERIOD.getValue();

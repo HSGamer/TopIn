@@ -36,8 +36,8 @@ public class DataListManager {
    */
   public void register(String name, DataList dataList) {
     dataListMap.computeIfAbsent(name, s -> {
-      PluginConfig config = new PluginConfig(plugin, new File(dataDir, name + ".yml"));
-      dataConfigMap.put(name, config);
+      PluginConfig config = new PluginConfig(plugin, new File(dataDir, s + ".yml"));
+      dataConfigMap.put(s, config);
       dataList.loadData(config);
       return dataList;
     });

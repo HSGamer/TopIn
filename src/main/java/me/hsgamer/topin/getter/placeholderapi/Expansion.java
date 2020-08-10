@@ -2,7 +2,10 @@ package me.hsgamer.topin.getter.placeholderapi;
 
 import static me.hsgamer.topin.TopIn.getInstance;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import me.clip.placeholderapi.expansion.Configurable;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.hsgamer.topin.data.list.DataList;
 import me.hsgamer.topin.data.value.PairDecimal;
@@ -10,7 +13,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
-public class Expansion extends PlaceholderExpansion {
+public class Expansion extends PlaceholderExpansion implements Configurable {
 
   private static final String PLAYER_PREFIX = "player_";
   private static final String VALUE_PREFIX = "value_";
@@ -51,6 +54,7 @@ public class Expansion extends PlaceholderExpansion {
       return String.valueOf(
           getDataList(params.substring(CURRENT_INDEX.length()))
               .flatMap(dataList -> dataList.getTopIndex(offlinePlayer.getUniqueId()))
+              .map(integer -> integer + getInt("display-top-index-from", 0))
               .orElse(-1)
       );
     } else if (params.startsWith(CURRENT_VALUE)) {
@@ -86,5 +90,12 @@ public class Expansion extends PlaceholderExpansion {
 
   private Optional<DataList> getDataList(String name) {
     return getInstance().getDataListManager().getDataList(name);
+  }
+
+  @Override
+  public Map<String, Object> getDefaults() {
+    Map<String, Object> map = new HashMap<>();
+    map.put("display-top-index-from", 0);
+    return map;
   }
 }

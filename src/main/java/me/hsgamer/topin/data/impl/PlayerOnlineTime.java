@@ -7,7 +7,6 @@ import me.hsgamer.topin.data.value.PairDecimal;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
-// TODO: Use built-in Statistics
 public class PlayerOnlineTime extends AutoUpdateSimpleDataList {
 
   public PlayerOnlineTime() {

@@ -75,7 +75,7 @@ public final class TopIn extends JavaPlugin {
       public void run() {
         dataListManager.saveAll();
         if (MainConfig.SAVE_SILENT.getValue().equals(Boolean.FALSE)) {
-          MessageUtils.sendMessage(getServer().getConsoleSender(), MessageConfig.UPDATE.getValue());
+          MessageUtils.sendMessage(getServer().getConsoleSender(), MessageConfig.SAVE.getValue());
         }
       }
     };

@@ -7,7 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class MessageConfig extends PluginConfig {
 
   public static final StringConfigPath PREFIX = new StringConfigPath("prefix", "&f[&aTopIn&f] ");
-  public static final StringConfigPath UPDATE = new StringConfigPath("update",
+  public static final StringConfigPath SAVE = new StringConfigPath("save",
       "&eThe database has been saved");
   public static final StringConfigPath SUCCESS = new StringConfigPath("success", "&aSuccess");
   public static final StringConfigPath NO_PERMISSION = new StringConfigPath("no-permission",
@@ -29,7 +29,7 @@ public class MessageConfig extends PluginConfig {
 
   private void setDefaultPath() {
     PREFIX.setConfig(this);
-    UPDATE.setConfig(this);
+    SAVE.setConfig(this);
     SUCCESS.setConfig(this);
     NO_PERMISSION.setConfig(this);
     PLAYER_ONLY.setConfig(this);

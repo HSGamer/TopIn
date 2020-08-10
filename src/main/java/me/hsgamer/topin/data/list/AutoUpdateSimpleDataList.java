@@ -6,7 +6,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 /**
  * {@link SimpleDataList SimpleDataList} but can update itself
  */
-public abstract class AutoSortSimpleDataList extends SimpleDataList {
+public abstract class AutoUpdateSimpleDataList extends SimpleDataList {
 
   /**
    * Create an auto-update data list
@@ -14,7 +14,7 @@ public abstract class AutoSortSimpleDataList extends SimpleDataList {
    * @param delay  the delay before the first update call
    * @param period the delay for each update call
    */
-  public AutoSortSimpleDataList(int delay, int period) {
+  public AutoUpdateSimpleDataList(int delay, int period) {
     super();
     new BukkitRunnable() {
       @Override
@@ -29,7 +29,7 @@ public abstract class AutoSortSimpleDataList extends SimpleDataList {
    *
    * @param period the delay for each update call
    */
-  public AutoSortSimpleDataList(int period) {
+  public AutoUpdateSimpleDataList(int period) {
     this(period, period);
   }
 }

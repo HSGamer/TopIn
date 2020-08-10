@@ -47,15 +47,19 @@ public class Expansion extends PlaceholderExpansion {
   }
 
   private PairDecimal getTopPair(String params) {
-    int lastIndex = params.lastIndexOf("_");
+    int firstIndex = params.indexOf("_");
+    if (firstIndex < 0) {
+      return null;
+    }
+
     int topIndex;
     try {
-      topIndex = Integer.parseInt(params.substring(lastIndex + 1).toLowerCase());
+      topIndex = Integer.parseInt(params.substring(0, firstIndex).toLowerCase());
     } catch (NumberFormatException e) {
       return null;
     }
     Optional<DataList> optional = getInstance().getDataListManager()
-        .getDataList(params.substring(0, lastIndex));
+        .getDataList(params.substring(firstIndex + 1));
     if (optional.isPresent()) {
       DataList dataList = optional.get();
       if (topIndex < dataList.getSize()) {

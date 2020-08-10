@@ -23,6 +23,7 @@ public class ReloadCommand extends BukkitCommand {
       return false;
     }
 
+    getInstance().getDataListManager().saveAll();
     getInstance().getMainConfig().reloadConfig();
     getInstance().getMessageConfig().reloadConfig();
     getInstance().getCommandManager().syncCommand();

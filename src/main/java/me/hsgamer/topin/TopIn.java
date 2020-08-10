@@ -2,6 +2,7 @@ package me.hsgamer.topin;
 
 import me.hsgamer.hscore.bukkit.command.CommandManager;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
+import me.hsgamer.topin.command.GetGettersCommand;
 import me.hsgamer.topin.command.GetTopTenCommand;
 import me.hsgamer.topin.command.MainCommand;
 import me.hsgamer.topin.command.ReloadCommand;
@@ -10,8 +11,11 @@ import me.hsgamer.topin.config.MessageConfig;
 import me.hsgamer.topin.data.impl.PlayerExpData;
 import me.hsgamer.topin.data.impl.PlayerLevelData;
 import me.hsgamer.topin.data.impl.PlayerOnlineTime;
+import me.hsgamer.topin.getter.placeholderapi.PlaceholderAPIGetter;
 import me.hsgamer.topin.listener.JoinListener;
 import me.hsgamer.topin.manager.DataListManager;
+import me.hsgamer.topin.manager.GetterManager;
+import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -24,6 +28,7 @@ public final class TopIn extends JavaPlugin {
   private final CommandManager commandManager = new CommandManager(this);
   private final MainConfig mainConfig = new MainConfig(this);
   private final MessageConfig messageConfig = new MessageConfig(this);
+  private final GetterManager getterManager = new GetterManager();
   private BukkitTask updateTask;
 
   /**
@@ -47,12 +52,14 @@ public final class TopIn extends JavaPlugin {
     loadCommands();
     commandManager.syncCommand();
     registerListener();
+    registerDefaultGetters();
     startNewUpdateTask();
   }
 
   @Override
   public void onDisable() {
     stopUpdateTask();
+    getterManager.unregisterAll();
     dataListManager.saveAll();
     HandlerList.unregisterAll(this);
   }
@@ -111,12 +118,22 @@ public final class TopIn extends JavaPlugin {
   }
 
   /**
+   * Register default getters
+   */
+  private void registerDefaultGetters() {
+    Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
+      getterManager.register(new PlaceholderAPIGetter());
+    });
+  }
+
+  /**
    * Register the default commands
    */
   private void loadCommands() {
     commandManager.register(new GetTopTenCommand());
     commandManager.register(new MainCommand(getName().toLowerCase()));
     commandManager.register(new ReloadCommand());
+    commandManager.register(new GetGettersCommand());
   }
 
   /**
@@ -145,11 +162,20 @@ public final class TopIn extends JavaPlugin {
   }
 
   /**
-   * Get the massage config
+   * Get the message config
    *
    * @return the message config
    */
   public MessageConfig getMessageConfig() {
     return messageConfig;
+  }
+
+  /**
+   * Get the getter manager
+   *
+   * @return the getter manager
+   */
+  public GetterManager getGetterManager() {
+    return getterManager;
   }
 }

@@ -14,6 +14,8 @@ public class Permissions {
       PermissionDefault.OP);
   public static final Permission HELP = createPermission(PREFIX + ".help", null,
       PermissionDefault.OP);
+  public static final Permission GETTERS = createPermission(PREFIX + ".getters", null,
+      PermissionDefault.OP);
 
   private Permissions() {
 

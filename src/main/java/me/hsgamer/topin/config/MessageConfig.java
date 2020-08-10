@@ -14,6 +14,11 @@ public class MessageConfig extends PluginConfig {
       "&cYou don't have permission to do this");
   public static final StringConfigPath PLAYER_ONLY = new StringConfigPath("player-only",
       "&cYou should be a player to do this");
+  public static final StringConfigPath GETTER_REGISTERED = new StringConfigPath("getter-registered",
+      "&aThe getter '<getter>' is successfully registered");
+  public static final StringConfigPath GETTER_UNREGISTERED = new StringConfigPath(
+      "getter-unregistered",
+      "&aThe getter '<getter>' is successfully unregistered");
 
   public MessageConfig(JavaPlugin plugin) {
     super(plugin, "messages.yml");
@@ -28,5 +33,7 @@ public class MessageConfig extends PluginConfig {
     SUCCESS.setConfig(this);
     NO_PERMISSION.setConfig(this);
     PLAYER_ONLY.setConfig(this);
+    GETTER_REGISTERED.setConfig(this);
+    GETTER_UNREGISTERED.setConfig(this);
   }
 }

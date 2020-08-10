@@ -70,6 +70,14 @@ public class DataListManager {
   }
 
   /**
+   * Clear all data lists
+   */
+  public void clearAll() {
+    dataListMap.clear();
+    dataConfigMap.clear();
+  }
+
+  /**
    * Add a new unique id to the data list
    *
    * @param uuid the unique id

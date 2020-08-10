@@ -34,14 +34,11 @@ public class Expansion extends PlaceholderExpansion {
   public String onPlaceholderRequest(Player player, @NotNull String params) {
     if (params.startsWith(PLAYER_PREFIX)) {
       PairDecimal pairDecimal = getTopPair(params.substring(PLAYER_PREFIX.length()).trim());
-      if (pairDecimal != null) {
-        return Bukkit.getOfflinePlayer(pairDecimal.getUniqueId()).getName();
-      }
+      return pairDecimal != null ? Bukkit.getOfflinePlayer(pairDecimal.getUniqueId()).getName()
+          : "";
     } else if (params.startsWith(VALUE_PREFIX)) {
       PairDecimal pairDecimal = getTopPair(params.substring(VALUE_PREFIX.length()).trim());
-      if (pairDecimal != null) {
-        return pairDecimal.getValue().toPlainString();
-      }
+      return pairDecimal != null ? pairDecimal.getValue().toPlainString() : "";
     }
     return null;
   }

@@ -88,6 +88,14 @@ public interface DataList {
   PairDecimal getPair(int index);
 
   /**
+   * Get the index of the unique id
+   *
+   * @param uuid the unique id
+   * @return the index
+   */
+  Optional<Integer> getTopIndex(UUID uuid);
+
+  /**
    * Load data from configuration file
    *
    * @param config the configuration file

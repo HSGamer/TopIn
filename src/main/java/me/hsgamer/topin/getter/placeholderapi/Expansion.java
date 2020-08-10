@@ -2,18 +2,24 @@ package me.hsgamer.topin.getter.placeholderapi;
 
 import static me.hsgamer.topin.TopIn.getInstance;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import me.clip.placeholderapi.expansion.Configurable;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.hsgamer.topin.data.list.DataList;
 import me.hsgamer.topin.data.value.PairDecimal;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
-public class Expansion extends PlaceholderExpansion {
+public class Expansion extends PlaceholderExpansion implements Configurable {
 
   private static final String PLAYER_PREFIX = "player_";
   private static final String VALUE_PREFIX = "value_";
+  private static final String CURRENT_INDEX = "current_top_";
+  private static final String CURRENT_VALUE = "current_value_";
 
   @Override
   public @NotNull String getIdentifier() {
@@ -31,7 +37,7 @@ public class Expansion extends PlaceholderExpansion {
   }
 
   @Override
-  public String onPlaceholderRequest(Player player, @NotNull String params) {
+  public String onRequest(OfflinePlayer offlinePlayer, @NotNull String params) {
     if (params.startsWith(PLAYER_PREFIX)) {
       PairDecimal pairDecimal = getTopPair(params.substring(PLAYER_PREFIX.length()).trim());
       return pairDecimal != null ? Bukkit.getOfflinePlayer(pairDecimal.getUniqueId()).getName()
@@ -40,10 +46,28 @@ public class Expansion extends PlaceholderExpansion {
       PairDecimal pairDecimal = getTopPair(params.substring(VALUE_PREFIX.length()).trim());
       return pairDecimal != null ? pairDecimal.getValue().toPlainString() : "";
     }
+
+    if (offlinePlayer == null) {
+      return null;
+    }
+
+    if (params.startsWith(CURRENT_INDEX)) {
+      return String.valueOf(
+          getDataList(params.substring(CURRENT_INDEX.length()))
+              .flatMap(dataList -> dataList.getTopIndex(offlinePlayer.getUniqueId()))
+              .orElse(0)
+      );
+    } else if (params.startsWith(CURRENT_VALUE)) {
+      return getDataList(params.substring(CURRENT_VALUE.length()))
+          .flatMap(dataList -> dataList.getPair(offlinePlayer.getUniqueId()))
+          .map(decimal -> decimal.getValue().toPlainString())
+          .orElse("");
+    }
     return null;
   }
 
   private PairDecimal getTopPair(String params) {
+    boolean fromOne = Objects.requireNonNull(getConfigSection()).getBoolean("start-from-one");
     int firstIndex = params.indexOf("_");
     if (firstIndex < 0) {
       return null;
@@ -55,8 +79,10 @@ public class Expansion extends PlaceholderExpansion {
     } catch (NumberFormatException e) {
       return null;
     }
-    Optional<DataList> optional = getInstance().getDataListManager()
-        .getDataList(params.substring(firstIndex + 1));
+    if (fromOne) {
+      topIndex++;
+    }
+    Optional<DataList> optional = getDataList(params.substring(firstIndex + 1));
     if (optional.isPresent()) {
       DataList dataList = optional.get();
       if (topIndex < dataList.getSize()) {
@@ -64,5 +90,16 @@ public class Expansion extends PlaceholderExpansion {
       }
     }
     return null;
+  }
+
+  private Optional<DataList> getDataList(String name) {
+    return getInstance().getDataListManager().getDataList(name);
+  }
+
+  @Override
+  public Map<String, Object> getDefaults() {
+    Map<String, Object> map = new HashMap<>();
+    map.put("start-from-one", false);
+    return map;
   }
 }

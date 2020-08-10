@@ -107,4 +107,17 @@ public abstract class SimpleDataList implements DataList {
   public int getSize() {
     return list.size();
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Optional<Integer> getTopIndex(UUID uuid) {
+    for (int i = 0; i < list.size(); i++) {
+      if (list.get(i).getUniqueId().equals(uuid)) {
+        return Optional.of(i);
+      }
+    }
+    return Optional.empty();
+  }
 }

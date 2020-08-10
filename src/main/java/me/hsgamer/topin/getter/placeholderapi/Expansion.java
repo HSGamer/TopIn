@@ -50,12 +50,12 @@ public class Expansion extends PlaceholderExpansion {
     int lastIndex = params.lastIndexOf("_");
     int topIndex;
     try {
-      topIndex = Integer.parseInt(params.substring(0, lastIndex).toLowerCase());
+      topIndex = Integer.parseInt(params.substring(lastIndex + 1).toLowerCase());
     } catch (NumberFormatException e) {
       return null;
     }
     Optional<DataList> optional = getInstance().getDataListManager()
-        .getDataList(params.substring(lastIndex + 1));
+        .getDataList(params.substring(0, lastIndex));
     if (optional.isPresent()) {
       DataList dataList = optional.get();
       if (topIndex < dataList.getSize()) {

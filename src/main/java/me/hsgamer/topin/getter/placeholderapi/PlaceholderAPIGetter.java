@@ -21,7 +21,7 @@ public class PlaceholderAPIGetter extends Getter {
 
   @Override
   public void unregister() {
-    if (expansion != null) {
+    if (expansion != null && expansion.getPlaceholderAPI() != null) {
       expansion.unregister();
     }
   }

@@ -3,8 +3,8 @@ package me.hsgamer.topin.command;
 import static me.hsgamer.hscore.bukkit.utils.MessageUtils.sendMessage;
 import static me.hsgamer.topin.TopIn.getInstance;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import me.hsgamer.hscore.bukkit.command.CommandManager;
 import me.hsgamer.hscore.common.Validate;
@@ -17,7 +17,7 @@ import org.bukkit.command.defaults.BukkitCommand;
 public final class MainCommand extends BukkitCommand {
 
   public MainCommand(String name) {
-    super(name, "Show all available commands", "/" + name, new ArrayList<>());
+    super(name, "Show all available commands", "/" + name, Collections.emptyList());
   }
 
   @Override

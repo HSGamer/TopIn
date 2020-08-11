@@ -2,7 +2,9 @@ package me.hsgamer.topin.getter.skull;
 
 import static me.hsgamer.hscore.bukkit.utils.MessageUtils.sendMessage;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import me.hsgamer.topin.Permissions;
 import me.hsgamer.topin.TopIn;
 import me.hsgamer.topin.config.MessageConfig;
@@ -56,5 +58,14 @@ public class SkullCommand extends BukkitCommand {
     skullGetter.addSkull(new TopSkull(block.getLocation(), args[0], index));
     sendMessage(sender, MessageConfig.SUCCESS.getValue());
     return true;
+  }
+
+  @Override
+  public List<String> tabComplete(CommandSender sender, String alias, String[] args) {
+    List<String> list = new ArrayList<>();
+    if (args.length == 1) {
+      list.addAll(TopIn.getInstance().getDataListManager().getDataListNames());
+    }
+    return list;
   }
 }

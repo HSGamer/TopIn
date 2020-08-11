@@ -19,6 +19,14 @@ public class MessageConfig extends PluginConfig {
   public static final StringConfigPath GETTER_UNREGISTERED = new StringConfigPath(
       "getter-unregistered",
       "&aThe getter '<getter>' is successfully unregistered");
+  public static final StringConfigPath NUMBER_REQUIRED = new StringConfigPath("number-required",
+      "&cNumber is required");
+  public static final StringConfigPath SKULL_REMOVED = new StringConfigPath("skull-removed",
+      "&aThe skull is removed");
+  public static final StringConfigPath SKULL_REQUIRED = new StringConfigPath("skull-required",
+      "&cA skull is required");
+  public static final StringConfigPath DATA_LIST_NOT_FOUND = new StringConfigPath(
+      "data-list-not-found", "&cThe data list is not found");
 
   public MessageConfig(JavaPlugin plugin) {
     super(plugin, "messages.yml");
@@ -35,5 +43,9 @@ public class MessageConfig extends PluginConfig {
     PLAYER_ONLY.setConfig(this);
     GETTER_REGISTERED.setConfig(this);
     GETTER_UNREGISTERED.setConfig(this);
+    NUMBER_REQUIRED.setConfig(this);
+    SKULL_REMOVED.setConfig(this);
+    SKULL_REQUIRED.setConfig(this);
+    DATA_LIST_NOT_FOUND.setConfig(this);
   }
 }

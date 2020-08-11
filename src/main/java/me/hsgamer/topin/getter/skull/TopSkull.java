@@ -15,7 +15,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Skull;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
-public class TopSkull implements ConfigurationSerializable {
+public final class TopSkull implements ConfigurationSerializable {
 
   private static Method setOwningPlayerMethod;
   private static Method setOwnerMethod;
@@ -82,5 +82,9 @@ public class TopSkull implements ConfigurationSerializable {
     map.put("data-list", dataListName);
     map.put("index", index);
     return map;
+  }
+
+  public Location getLocation() {
+    return location;
   }
 }

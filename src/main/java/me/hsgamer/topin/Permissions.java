@@ -18,6 +18,10 @@ public class Permissions {
       PermissionDefault.OP);
   public static final Permission SKULL = createPermission(PREFIX + ".skull", null,
       PermissionDefault.OP);
+  public static final Permission SKULL_BREAK = createPermission(PREFIX + ".skull.break", null,
+      PermissionDefault.OP);
+  public static final Permission DATALIST = createPermission(PREFIX + ".datalist", null,
+      PermissionDefault.OP);
 
   private Permissions() {
 

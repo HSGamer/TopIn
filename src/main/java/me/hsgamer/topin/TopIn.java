@@ -2,6 +2,7 @@ package me.hsgamer.topin;
 
 import me.hsgamer.hscore.bukkit.command.CommandManager;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
+import me.hsgamer.topin.command.GetDataListCommand;
 import me.hsgamer.topin.command.GetGettersCommand;
 import me.hsgamer.topin.command.GetTopTenCommand;
 import me.hsgamer.topin.command.MainCommand;
@@ -136,6 +137,7 @@ public final class TopIn extends JavaPlugin {
     commandManager.register(new MainCommand(getName().toLowerCase()));
     commandManager.register(new ReloadCommand());
     commandManager.register(new GetGettersCommand());
+    commandManager.register(new GetDataListCommand());
   }
 
   /**

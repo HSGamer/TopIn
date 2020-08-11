@@ -4,16 +4,22 @@ import static me.hsgamer.hscore.bukkit.utils.MessageUtils.sendMessage;
 
 import java.util.Collections;
 import me.hsgamer.topin.Permissions;
+import me.hsgamer.topin.TopIn;
 import me.hsgamer.topin.config.MessageConfig;
+import org.bukkit.block.Block;
+import org.bukkit.block.Skull;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 
 public class SkullCommand extends BukkitCommand {
 
-  public SkullCommand() {
-    super("settopskull", "Set the skull for top players", "/settopskull <top_name> <index>",
+  private final SkullGetter skullGetter;
+
+  public SkullCommand(SkullGetter skullGetter) {
+    super("settopskull", "Set the skull for top players", "/settopskull <data_list> <index>",
         Collections.singletonList("topskull"));
+    this.skullGetter = skullGetter;
   }
 
   @Override
@@ -26,7 +32,28 @@ public class SkullCommand extends BukkitCommand {
       sendMessage(sender, MessageConfig.NO_PERMISSION.getValue());
       return false;
     }
+    if (args.length < 2) {
+      sendMessage(sender, "&c" + getUsage());
+      return false;
+    }
+    if (!TopIn.getInstance().getDataListManager().getDataList(args[0]).isPresent()) {
+      sendMessage(sender, MessageConfig.DATA_LIST_NOT_FOUND.getValue());
+      return false;
+    }
+    int index;
+    try {
+      index = Integer.parseInt(args[1]);
+    } catch (NumberFormatException e) {
+      sendMessage(sender, MessageConfig.NUMBER_REQUIRED.getValue());
+      return false;
+    }
+    Block block = ((Player) sender).getTargetBlock(null, 5);
+    if (!(block instanceof Skull)) {
+      sendMessage(sender, MessageConfig.SKULL_REQUIRED.getValue());
+      return false;
+    }
 
+    skullGetter.addSkull(new TopSkull(block.getLocation(), args[0], index));
     sendMessage(sender, MessageConfig.SUCCESS.getValue());
     return true;
   }

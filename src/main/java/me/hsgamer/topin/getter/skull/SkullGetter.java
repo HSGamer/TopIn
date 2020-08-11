@@ -9,8 +9,11 @@ import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.hscore.bukkit.config.path.BooleanConfigPath;
 import me.hsgamer.hscore.bukkit.config.path.IntegerConfigPath;
 import me.hsgamer.topin.getter.Getter;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.event.HandlerList;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -18,9 +21,10 @@ public class SkullGetter extends Getter {
 
   public static final IntegerConfigPath UPDATE_PERIOD = new IntegerConfigPath("update.period", 20);
   public static final BooleanConfigPath UPDATE_ASYNC = new BooleanConfigPath("update.async", true);
-  private final SkullCommand skullCommand = new SkullCommand();
-  private PluginConfig skullConfig;
+  private final SkullCommand skullCommand = new SkullCommand(this);
   private final List<TopSkull> topSkullList = new ArrayList<>();
+  private final SkullBreakListener listener = new SkullBreakListener(this);
+  private PluginConfig skullConfig;
   private BukkitTask updateTask;
 
   @Override
@@ -40,16 +44,19 @@ public class SkullGetter extends Getter {
       }
     };
     if (UPDATE_ASYNC.getValue().equals(Boolean.TRUE)) {
-      updateTask = updateRunnable.runTaskTimerAsynchronously(getInstance(), 0, UPDATE_PERIOD.getValue());
+      updateTask = updateRunnable
+          .runTaskTimerAsynchronously(getInstance(), 0, UPDATE_PERIOD.getValue());
     } else {
       updateTask = updateRunnable.runTaskTimer(getInstance(), 0, UPDATE_PERIOD.getValue());
     }
     getInstance().getCommandManager().register(skullCommand);
+    Bukkit.getPluginManager().registerEvents(listener, getInstance());
     return true;
   }
 
   @Override
   public void unregister() {
+    HandlerList.unregisterAll(listener);
     updateTask.cancel();
     saveSkull();
     ConfigurationSerialization.unregisterClass(TopSkull.class);
@@ -68,6 +75,19 @@ public class SkullGetter extends Getter {
     FileConfiguration config = skullConfig.getConfig();
     config.set("data", topSkullList);
     skullConfig.saveConfig();
+  }
+
+  public void addSkull(TopSkull topSkull) {
+    removeSkull(topSkull.getLocation());
+    topSkullList.add(topSkull);
+  }
+
+  public void removeSkull(Location location) {
+    topSkullList.removeIf(topSkull -> topSkull.getLocation().equals(location));
+  }
+
+  public boolean containsSkull(Location location) {
+    return topSkullList.stream().allMatch(topSkull -> topSkull.getLocation().equals(location));
   }
 
   @Override

@@ -45,6 +45,9 @@ public final class TopSkull implements ConfigurationSerializable {
   }
 
   public void update() {
+    if (!location.getChunk().isLoaded()) {
+      return;
+    }
     Optional<DataList> optionalDataList = TopIn.getInstance().getDataListManager()
         .getDataList(dataListName);
     if (!optionalDataList.isPresent()) {

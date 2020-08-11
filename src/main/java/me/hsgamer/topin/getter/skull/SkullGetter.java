@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import me.hsgamer.hscore.bukkit.config.PluginConfig;
-import me.hsgamer.hscore.bukkit.config.path.BooleanConfigPath;
 import me.hsgamer.hscore.bukkit.config.path.IntegerConfigPath;
 import me.hsgamer.topin.getter.Getter;
 import org.bukkit.Bukkit;
@@ -19,8 +18,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 public class SkullGetter extends Getter {
 
-  public static final IntegerConfigPath UPDATE_PERIOD = new IntegerConfigPath("update.period", 20);
-  public static final BooleanConfigPath UPDATE_ASYNC = new BooleanConfigPath("update.async", true);
+  public static final IntegerConfigPath UPDATE_PERIOD = new IntegerConfigPath("update", 20);
   private final SkullCommand skullCommand = new SkullCommand(this);
   private final List<TopSkull> topSkullList = new ArrayList<>();
   private final SkullBreakListener listener = new SkullBreakListener(this);
@@ -33,7 +31,6 @@ public class SkullGetter extends Getter {
     skullConfig = new PluginConfig(getInstance(), "skull.yml");
     skullConfig.getConfig().options().copyDefaults(true);
     UPDATE_PERIOD.setConfig(skullConfig);
-    UPDATE_ASYNC.setConfig(skullConfig);
     skullConfig.saveConfig();
     loadSkull();
 
@@ -43,12 +40,7 @@ public class SkullGetter extends Getter {
         topSkullList.forEach(TopSkull::update);
       }
     };
-    if (UPDATE_ASYNC.getValue().equals(Boolean.TRUE)) {
-      updateTask = updateRunnable
-          .runTaskTimerAsynchronously(getInstance(), 0, UPDATE_PERIOD.getValue());
-    } else {
-      updateTask = updateRunnable.runTaskTimer(getInstance(), 0, UPDATE_PERIOD.getValue());
-    }
+    updateTask = updateRunnable.runTaskTimer(getInstance(), 0, UPDATE_PERIOD.getValue());
     getInstance().getCommandManager().register(skullCommand);
     Bukkit.getPluginManager().registerEvents(listener, getInstance());
     return true;

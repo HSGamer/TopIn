@@ -11,7 +11,7 @@ import me.hsgamer.topin.data.list.DataList;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Skull;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
@@ -55,9 +55,9 @@ public final class TopSkull implements ConfigurationSerializable {
       return;
     }
     OfflinePlayer topPlayer = Bukkit.getOfflinePlayer(dataList.getPair(index).getUniqueId());
-    Block block = location.getBlock();
-    if (block instanceof Skull) {
-      Skull skull = (Skull) block;
+    BlockState blockState = location.getBlock().getState();
+    if (blockState instanceof Skull) {
+      Skull skull = (Skull) blockState;
       if (setOwningPlayerMethod != null) {
         try {
           setOwningPlayerMethod.invoke(skull, topPlayer);
@@ -73,6 +73,7 @@ public final class TopSkull implements ConfigurationSerializable {
               .log(Level.WARNING, "Error when setting owner for skulls", e);
         }
       }
+      skull.update();
     }
   }
 

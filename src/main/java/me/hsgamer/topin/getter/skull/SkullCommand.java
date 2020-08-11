@@ -48,7 +48,7 @@ public class SkullCommand extends BukkitCommand {
       return false;
     }
     Block block = ((Player) sender).getTargetBlock(null, 5);
-    if (!(block instanceof Skull)) {
+    if (block == null || !(block.getState() instanceof Skull)) {
       sendMessage(sender, MessageConfig.SKULL_REQUIRED.getValue());
       return false;
     }

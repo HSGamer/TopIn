@@ -27,7 +27,6 @@ public class SkullCommand extends BukkitCommand {
       return false;
     }
 
-
     sendMessage(sender, MessageConfig.SUCCESS.getValue());
     return true;
   }

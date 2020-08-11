@@ -87,7 +87,7 @@ public class SkullGetter extends Getter {
   }
 
   public boolean containsSkull(Location location) {
-    return topSkullList.stream().allMatch(topSkull -> topSkull.getLocation().equals(location));
+    return topSkullList.stream().anyMatch(topSkull -> topSkull.getLocation().equals(location));
   }
 
   @Override

@@ -44,7 +44,6 @@ public class TopSkull implements ConfigurationSerializable {
         (int) args.get("index"));
   }
 
-  @SuppressWarnings("deprecated")
   public void update() {
     Optional<DataList> optionalDataList = TopIn.getInstance().getDataListManager()
         .getDataList(dataListName);

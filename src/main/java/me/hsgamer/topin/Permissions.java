@@ -22,6 +22,10 @@ public final class Permissions {
       PermissionDefault.OP);
   public static final Permission DATALIST = createPermission(PREFIX + ".datalist", null,
       PermissionDefault.OP);
+  public static final Permission SIGN = createPermission(PREFIX + ".sign", null,
+      PermissionDefault.OP);
+  public static final Permission SIGN_BREAK = createPermission(PREFIX + ".sign.break", null,
+      PermissionDefault.OP);
 
   private Permissions() {
 

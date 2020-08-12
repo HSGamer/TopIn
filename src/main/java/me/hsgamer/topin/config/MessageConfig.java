@@ -1,7 +1,11 @@
 package me.hsgamer.topin.config;
 
+import java.util.Arrays;
+import java.util.List;
+import me.hsgamer.hscore.bukkit.config.ConfigPath;
 import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.hscore.bukkit.config.path.StringConfigPath;
+import me.hsgamer.hscore.common.CommonUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MessageConfig extends PluginConfig {
@@ -27,6 +31,17 @@ public final class MessageConfig extends PluginConfig {
       "&cA skull is required");
   public static final StringConfigPath DATA_LIST_NOT_FOUND = new StringConfigPath(
       "data-list-not-found", "&cThe data list is not found");
+  public static final ConfigPath<List<String>> SIGN_LINES = new ConfigPath<>("sign-lines",
+      Arrays.asList(
+          "&6==============",
+          "&a<name>",
+          "&a<value>",
+          "&6=============="
+      ), o -> CommonUtils.createStringListFromObject(o, true));
+  public static final StringConfigPath SIGN_REMOVED = new StringConfigPath("sign-removed",
+      "&aThe sign is removed");
+  public static final StringConfigPath SIGN_REQUIRED = new StringConfigPath("sign-required",
+      "&cA sign is required");
 
   public MessageConfig(JavaPlugin plugin) {
     super(plugin, "messages.yml");
@@ -47,5 +62,8 @@ public final class MessageConfig extends PluginConfig {
     SKULL_REMOVED.setConfig(this);
     SKULL_REQUIRED.setConfig(this);
     DATA_LIST_NOT_FOUND.setConfig(this);
+    SIGN_LINES.setConfig(this);
+    SIGN_REMOVED.setConfig(this);
+    SIGN_REQUIRED.setConfig(this);
   }
 }

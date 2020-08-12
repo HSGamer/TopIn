@@ -13,6 +13,7 @@ import me.hsgamer.topin.data.impl.PlayerExpData;
 import me.hsgamer.topin.data.impl.PlayerLevelData;
 import me.hsgamer.topin.data.impl.PlayerOnlineTime;
 import me.hsgamer.topin.getter.placeholderapi.PlaceholderAPIGetter;
+import me.hsgamer.topin.getter.sign.SignGetter;
 import me.hsgamer.topin.getter.skull.SkullGetter;
 import me.hsgamer.topin.listener.JoinListener;
 import me.hsgamer.topin.manager.DataListManager;
@@ -126,6 +127,7 @@ public final class TopIn extends JavaPlugin {
     Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
       getterManager.register(new PlaceholderAPIGetter());
       getterManager.register(new SkullGetter());
+      getterManager.register(new SignGetter());
     });
   }
 

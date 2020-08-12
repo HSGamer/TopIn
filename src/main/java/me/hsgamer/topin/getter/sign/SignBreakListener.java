@@ -6,6 +6,7 @@ import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.topin.Permissions;
 import me.hsgamer.topin.config.MessageConfig;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,7 +33,14 @@ public final class SignBreakListener implements Listener {
 
   @EventHandler
   public void onBreak(BlockBreakEvent event) {
-    Location location = event.getBlock().getLocation();
+    Block block = event.getBlock();
+    if (checkBlockFaceList.stream().anyMatch(
+        blockFace -> signGetter.containsSign(block.getRelative(blockFace).getLocation()))) {
+      event.setCancelled(true);
+      return;
+    }
+
+    Location location = block.getLocation();
     Player player = event.getPlayer();
     if (signGetter.containsSign(location)) {
       if (!player.hasPermission(Permissions.SIGN_BREAK) || !player.isSneaking()) {

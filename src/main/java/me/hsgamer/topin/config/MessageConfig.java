@@ -1,11 +1,9 @@
 package me.hsgamer.topin.config;
 
 import java.util.Arrays;
-import java.util.List;
-import me.hsgamer.hscore.bukkit.config.ConfigPath;
+import java.util.Collections;
 import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.hscore.bukkit.config.path.StringConfigPath;
-import me.hsgamer.hscore.common.CommonUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MessageConfig extends PluginConfig {
@@ -31,23 +29,25 @@ public final class MessageConfig extends PluginConfig {
       "&cA skull is required");
   public static final StringConfigPath DATA_LIST_NOT_FOUND = new StringConfigPath(
       "data-list-not-found", "&cThe data list is not found");
-  public static final ConfigPath<List<String>> SIGN_LINES = new ConfigPath<>("sign-lines",
+  public static final StringListConfigPath SIGN_LINES = new StringListConfigPath("sign-lines",
       Arrays.asList(
           "&6==============",
           "&a<name>",
           "&a<value>",
           "&6=============="
-      ), o -> CommonUtils.createStringListFromObject(o, true));
+      ));
   public static final StringConfigPath SIGN_REMOVED = new StringConfigPath("sign-removed",
       "&aThe sign is removed");
   public static final StringConfigPath SIGN_REQUIRED = new StringConfigPath("sign-required",
       "&cA sign is required");
-  public static final StringConfigPath TOP_LIST_HEADER = new StringConfigPath("top-list.header",
-      "&6=========== &e<data_list> &6===========");
-  public static final StringConfigPath TOP_LIST_FOOTER = new StringConfigPath("top-list.footer",
-      "&6=========== &e<data_list> &6===========");
-  public static final StringConfigPath TOP_LIST_BODY = new StringConfigPath("top-list.body",
-      "&a&l#<index> &b<name> &f: &e<value>");
+  public static final StringListConfigPath TOP_LIST_HEADER = new StringListConfigPath(
+      "top-list.header",
+      Collections.singletonList("&6=========== &e<data_list> &6==========="));
+  public static final StringListConfigPath TOP_LIST_FOOTER = new StringListConfigPath(
+      "top-list.footer",
+      Collections.singletonList("&6=========== &e<data_list> &6==========="));
+  public static final StringListConfigPath TOP_LIST_BODY = new StringListConfigPath("top-list.body",
+      Collections.singletonList("&a&l#<index> &b<name> &f: &e<value>"));
 
   public MessageConfig(JavaPlugin plugin) {
     super(plugin, "messages.yml");

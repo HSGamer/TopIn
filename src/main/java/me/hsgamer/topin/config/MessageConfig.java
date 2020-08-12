@@ -42,6 +42,12 @@ public final class MessageConfig extends PluginConfig {
       "&aThe sign is removed");
   public static final StringConfigPath SIGN_REQUIRED = new StringConfigPath("sign-required",
       "&cA sign is required");
+  public static final StringConfigPath TOP_LIST_HEADER = new StringConfigPath("top-list.header",
+      "&6=========== &e<data_list> &6===========");
+  public static final StringConfigPath TOP_LIST_FOOTER = new StringConfigPath("top-list.footer",
+      "&6=========== &e<data_list> &6===========");
+  public static final StringConfigPath TOP_LIST_BODY = new StringConfigPath("top-list.body",
+      "&a&l#<index> &b<name> &f: &e<value>");
 
   public MessageConfig(JavaPlugin plugin) {
     super(plugin, "messages.yml");
@@ -65,5 +71,8 @@ public final class MessageConfig extends PluginConfig {
     SIGN_LINES.setConfig(this);
     SIGN_REMOVED.setConfig(this);
     SIGN_REQUIRED.setConfig(this);
+    TOP_LIST_HEADER.setConfig(this);
+    TOP_LIST_FOOTER.setConfig(this);
+    TOP_LIST_BODY.setConfig(this);
   }
 }

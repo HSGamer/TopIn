@@ -26,6 +26,8 @@ public final class Permissions {
       PermissionDefault.OP);
   public static final Permission SIGN_BREAK = createPermission(PREFIX + ".sign.break", null,
       PermissionDefault.OP);
+  public static final Permission TOP = createPermission(PREFIX + ".top", null,
+      PermissionDefault.OP);
 
   private Permissions() {
 

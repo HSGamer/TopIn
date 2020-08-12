@@ -4,7 +4,7 @@ import me.hsgamer.hscore.bukkit.command.CommandManager;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.topin.command.GetDataListCommand;
 import me.hsgamer.topin.command.GetGettersCommand;
-import me.hsgamer.topin.command.GetTopTenCommand;
+import me.hsgamer.topin.command.GetTopCommand;
 import me.hsgamer.topin.command.MainCommand;
 import me.hsgamer.topin.command.ReloadCommand;
 import me.hsgamer.topin.config.MainConfig;
@@ -135,11 +135,11 @@ public final class TopIn extends JavaPlugin {
    * Register the default commands
    */
   private void loadCommands() {
-    commandManager.register(new GetTopTenCommand());
     commandManager.register(new MainCommand(getName().toLowerCase()));
     commandManager.register(new ReloadCommand());
     commandManager.register(new GetGettersCommand());
     commandManager.register(new GetDataListCommand());
+    commandManager.register(new GetTopCommand());
   }
 
   /**

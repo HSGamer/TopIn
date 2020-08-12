@@ -1,4 +1,4 @@
-package me.hsgamer.topin.config;
+package me.hsgamer.topin.config.path;
 
 import java.util.List;
 import me.hsgamer.hscore.bukkit.config.ConfigPath;

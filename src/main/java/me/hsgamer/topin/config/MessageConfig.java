@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.hscore.bukkit.config.path.StringConfigPath;
+import me.hsgamer.topin.config.path.StringListConfigPath;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MessageConfig extends PluginConfig {

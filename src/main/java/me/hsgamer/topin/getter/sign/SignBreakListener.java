@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 
 public final class SignBreakListener implements Listener {
 
@@ -33,7 +34,12 @@ public final class SignBreakListener implements Listener {
   }
 
   @EventHandler
-  public void onExplode(BlockExplodeEvent event) {
+  public void onBlockExplode(BlockExplodeEvent event) {
+    event.blockList().removeIf(block -> signGetter.containsSign(block.getLocation()));
+  }
+
+  @EventHandler
+  public void onEntityExplode(EntityExplodeEvent event) {
     event.blockList().removeIf(block -> signGetter.containsSign(block.getLocation()));
   }
 }

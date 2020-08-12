@@ -13,6 +13,6 @@ public class StringListConfigPath extends ConfigPath<List<String>> {
    * @param def  the default value if it's not found
    */
   public StringListConfigPath(String path, List<String> def) {
-    super(path, def, o -> CommonUtils.createStringListFromObject(o, true));
+    super(path, def, o -> CommonUtils.createStringListFromObject(o, false));
   }
 }

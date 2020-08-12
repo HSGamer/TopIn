@@ -24,6 +24,11 @@ public final class MessageConfig extends PluginConfig {
       "&aThe getter '<getter>' is successfully unregistered");
   public static final StringConfigPath NUMBER_REQUIRED = new StringConfigPath("number-required",
       "&cNumber is required");
+  public static final StringConfigPath ILLEGAL_FROM_TO_NUMBER = new StringConfigPath(
+      "illegal-from-to-number",
+      "&cThe 'to' number must be higher than the 'from' number");
+  public static final StringConfigPath OUT_OF_BOUND = new StringConfigPath("out-of-bound",
+      "&cA number is out-of-bound");
   public static final StringConfigPath SKULL_REMOVED = new StringConfigPath("skull-removed",
       "&aThe skull is removed");
   public static final StringConfigPath SKULL_REQUIRED = new StringConfigPath("skull-required",
@@ -32,10 +37,10 @@ public final class MessageConfig extends PluginConfig {
       "data-list-not-found", "&cThe data list is not found");
   public static final StringListConfigPath SIGN_LINES = new StringListConfigPath("sign-lines",
       Arrays.asList(
-          "&6==============",
-          "&a<name>",
-          "&a<value>",
-          "&6=============="
+          "&6&m               ",
+          "&b#<index> &a<name>",
+          "&a<value> <suffix>",
+          "&6&m               "
       ));
   public static final StringConfigPath SIGN_REMOVED = new StringConfigPath("sign-removed",
       "&aThe sign is removed");
@@ -48,7 +53,7 @@ public final class MessageConfig extends PluginConfig {
       "top-list.footer",
       Collections.singletonList("&6=========== &e<data_list> &6==========="));
   public static final StringListConfigPath TOP_LIST_BODY = new StringListConfigPath("top-list.body",
-      Collections.singletonList("&a&l#<index> &b<name> &f: &e<value>"));
+      Collections.singletonList("&a&l#<index> &b<name> &f: &e<value> <suffix>"));
 
   public MessageConfig(JavaPlugin plugin) {
     super(plugin, "messages.yml");
@@ -75,5 +80,7 @@ public final class MessageConfig extends PluginConfig {
     TOP_LIST_HEADER.setConfig(this);
     TOP_LIST_FOOTER.setConfig(this);
     TOP_LIST_BODY.setConfig(this);
+    ILLEGAL_FROM_TO_NUMBER.setConfig(this);
+    OUT_OF_BOUND.setConfig(this);
   }
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.topin.TopIn;
+import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.config.MessageConfig;
 import me.hsgamer.topin.data.list.DataList;
 import me.hsgamer.topin.data.value.PairDecimal;
@@ -49,7 +50,7 @@ public final class TopSign implements ConfigurationSerializable {
     BlockState blockState = location.getBlock().getState();
     if (blockState instanceof Sign) {
       Sign sign = (Sign) blockState;
-      String[] lines = getSignLines(pairDecimal);
+      String[] lines = getSignLines(pairDecimal, dataList.getDisplaySuffix());
       for (int i = 0; i < 4; i++) {
         sign.setLine(i, lines[i]);
       }
@@ -65,11 +66,14 @@ public final class TopSign implements ConfigurationSerializable {
     return map;
   }
 
-  private String[] getSignLines(PairDecimal pairDecimal) {
+  private String[] getSignLines(PairDecimal pairDecimal, String suffix) {
     List<String> list = MessageConfig.SIGN_LINES.getValue();
+    int startIndex = MainConfig.DISPLAY_TOP_START_INDEX.getValue();
     list.replaceAll(s -> MessageUtils.colorize(s
         .replace("<name>", Bukkit.getOfflinePlayer(pairDecimal.getUniqueId()).getName())
         .replace("<value>", pairDecimal.getValue().toPlainString())
+        .replace("<suffix>", suffix)
+        .replace("<index>", String.valueOf(index + startIndex))
     ));
     String[] lines = new String[4];
     for (int i = 0; i < 4; i++) {

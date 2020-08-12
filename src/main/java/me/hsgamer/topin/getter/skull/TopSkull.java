@@ -76,7 +76,7 @@ public final class TopSkull implements ConfigurationSerializable {
               .log(Level.WARNING, "Error when setting owner for skulls", e);
         }
       }
-      skull.update();
+      skull.update(false, false);
     }
   }
 

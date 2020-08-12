@@ -64,7 +64,7 @@ public final class SkullCommand extends BukkitCommand {
   public List<String> tabComplete(CommandSender sender, String alias, String[] args) {
     List<String> list = new ArrayList<>();
     if (args.length == 1) {
-      list.addAll(TopIn.getInstance().getDataListManager().getDataListNames());
+      list.addAll(TopIn.getInstance().getDataListManager().getSuggestedDataListNames(args[0]));
     }
     return list;
   }

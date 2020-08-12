@@ -1,8 +1,10 @@
 package me.hsgamer.topin.manager;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -84,5 +86,19 @@ public final class DataListManager {
    */
   public void addNew(UUID uuid) {
     dataListMap.values().forEach(dataList -> dataList.add(uuid));
+  }
+
+  /**
+   * Get the suggested data list
+   *
+   * @param start the start of the names
+   * @return the suggested names
+   */
+  public List<String> getSuggestedDataListNames(String start) {
+    List<String> list = new ArrayList<>(getDataListNames());
+    if (start != null && !start.isEmpty()) {
+      list.removeIf(s -> !s.startsWith(start));
+    }
+    return list;
   }
 }

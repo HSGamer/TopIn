@@ -28,6 +28,7 @@ public final class TopSign implements ConfigurationSerializable {
     this.index = index;
   }
 
+  @SuppressWarnings("unused")
   public static TopSign deserialize(Map<String, Object> args) {
     return new TopSign(Location.deserialize(args), (String) args.get("data-list"),
         (int) args.get("index"));

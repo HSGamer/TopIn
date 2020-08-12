@@ -39,6 +39,7 @@ public final class TopSkull implements ConfigurationSerializable {
     this.index = index;
   }
 
+  @SuppressWarnings("unused")
   public static TopSkull deserialize(Map<String, Object> args) {
     return new TopSkull(Location.deserialize(args), (String) args.get("data-list"),
         (int) args.get("index"));

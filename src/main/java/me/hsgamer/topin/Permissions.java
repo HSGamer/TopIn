@@ -6,7 +6,7 @@ import static me.hsgamer.topin.TopIn.getInstance;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-public class Permissions {
+public final class Permissions {
 
   public static final String PREFIX = getInstance().getName().toLowerCase();
 

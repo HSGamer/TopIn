@@ -13,7 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  * The data list manager
  */
-public class DataListManager {
+public final class DataListManager {
 
   private final Map<String, DataList> dataListMap = new HashMap<>();
   private final Map<String, PluginConfig> dataConfigMap = new HashMap<>();

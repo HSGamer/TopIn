@@ -5,7 +5,7 @@ import me.hsgamer.hscore.bukkit.config.path.BooleanConfigPath;
 import me.hsgamer.hscore.bukkit.config.path.IntegerConfigPath;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MainConfig extends PluginConfig {
+public final class MainConfig extends PluginConfig {
 
   public static final IntegerConfigPath SAVE_PERIOD = new IntegerConfigPath("save.period", 600);
   public static final BooleanConfigPath SAVE_ASYNC = new BooleanConfigPath("save.async", false);

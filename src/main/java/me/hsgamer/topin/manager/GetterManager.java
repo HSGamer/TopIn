@@ -12,7 +12,7 @@ import org.bukkit.Bukkit;
 /**
  * The getter manager
  */
-public class GetterManager {
+public final class GetterManager {
 
   private static final String GETTER_PLACEHOLDER = "<getter>";
   private final List<Getter> getterList = new ArrayList<>();

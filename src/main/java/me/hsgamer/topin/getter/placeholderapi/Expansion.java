@@ -11,7 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
-public class Expansion extends PlaceholderExpansion {
+public final class Expansion extends PlaceholderExpansion {
 
   private static final String PLAYER_PREFIX = "player_";
   private static final String VALUE_PREFIX = "value_";

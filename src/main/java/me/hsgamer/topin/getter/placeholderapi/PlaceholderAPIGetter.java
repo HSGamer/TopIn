@@ -3,7 +3,7 @@ package me.hsgamer.topin.getter.placeholderapi;
 import me.hsgamer.topin.getter.Getter;
 import org.bukkit.Bukkit;
 
-public class PlaceholderAPIGetter extends Getter {
+public final class PlaceholderAPIGetter extends Getter {
 
   private Expansion expansion;
 

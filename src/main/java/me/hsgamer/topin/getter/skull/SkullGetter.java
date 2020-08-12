@@ -16,7 +16,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-public class SkullGetter extends Getter {
+public final class SkullGetter extends Getter {
 
   public static final IntegerConfigPath UPDATE_PERIOD = new IntegerConfigPath("update", 20);
   private final SkullCommand skullCommand = new SkullCommand(this);

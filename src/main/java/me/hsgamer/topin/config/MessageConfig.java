@@ -4,7 +4,7 @@ import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.hscore.bukkit.config.path.StringConfigPath;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MessageConfig extends PluginConfig {
+public final class MessageConfig extends PluginConfig {
 
   public static final StringConfigPath PREFIX = new StringConfigPath("prefix", "&f[&aTopIn&f] ");
   public static final StringConfigPath SAVE = new StringConfigPath("save",

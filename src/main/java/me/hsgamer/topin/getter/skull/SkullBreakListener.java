@@ -10,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 
-public class SkullBreakListener implements Listener {
+public final class SkullBreakListener implements Listener {
 
   private final SkullGetter skullGetter;
 

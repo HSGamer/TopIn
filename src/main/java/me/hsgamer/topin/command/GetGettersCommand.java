@@ -9,7 +9,7 @@ import me.hsgamer.topin.config.MessageConfig;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 
-public class GetGettersCommand extends BukkitCommand {
+public final class GetGettersCommand extends BukkitCommand {
 
   public GetGettersCommand() {
     super("getgetters", "Get all registered getters", "/getgetters",

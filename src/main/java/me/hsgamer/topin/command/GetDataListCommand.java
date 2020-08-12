@@ -9,7 +9,7 @@ import me.hsgamer.topin.config.MessageConfig;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 
-public class GetDataListCommand extends BukkitCommand {
+public final class GetDataListCommand extends BukkitCommand {
 
   public GetDataListCommand() {
     super("getdatalist", "Get all data lists", "/getdatalist",

@@ -14,7 +14,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 
-public class SkullCommand extends BukkitCommand {
+public final class SkullCommand extends BukkitCommand {
 
   private final SkullGetter skullGetter;
 

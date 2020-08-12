@@ -9,7 +9,7 @@ import me.hsgamer.topin.config.MessageConfig;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 
-public class ReloadCommand extends BukkitCommand {
+public final class ReloadCommand extends BukkitCommand {
 
   public ReloadCommand() {
     super("reloadplugin", "Reload the plugin", "/reloadplugin",

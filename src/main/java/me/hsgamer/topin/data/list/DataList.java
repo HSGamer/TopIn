@@ -122,4 +122,11 @@ public interface DataList {
    * @return the size
    */
   int getSize();
+
+  /**
+   * Get the suffix of the value
+   *
+   * @return the suffix
+   */
+  String getDisplaySuffix();
 }

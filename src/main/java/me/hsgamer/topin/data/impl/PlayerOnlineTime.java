@@ -30,4 +30,9 @@ public class PlayerOnlineTime extends AutoUpdateSimpleDataList {
   public String getDisplayName() {
     return "Player's Online Time";
   }
+
+  @Override
+  public String getDisplaySuffix() {
+    return "seconds";
+  }
 }

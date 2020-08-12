@@ -30,4 +30,9 @@ public class PlayerLevelData extends AutoUpdateSimpleDataList {
   public String getDisplayName() {
     return "Player's Level";
   }
+
+  @Override
+  public String getDisplaySuffix() {
+    return "level";
+  }
 }

@@ -61,6 +61,27 @@
             <link>https://hsgamer.github.io/HSCore/</link>
           </links>
         </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <id>attach-javadocs</id>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <id>attach-sources</id>
+          </execution>
+        </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.2.1</version>
       </plugin>
     </plugins>
     <resources>

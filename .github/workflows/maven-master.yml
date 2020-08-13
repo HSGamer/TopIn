@@ -22,4 +22,7 @@ jobs:
         uses: actions/upload-artifact@v1.0.0
         with:
           name: "TopIn"
-          path: "**/target/TopIn*.jar"
+          path: |
+            "./target/TopIn.jar"
+            "./target/TopIn-sources.jar"
+            "./target/TopIn-javadocs.jar"

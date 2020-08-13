@@ -7,7 +7,7 @@ import java.util.UUID;
 import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.hscore.bukkit.config.path.StringConfigPath;
 import me.hsgamer.topin.TopIn;
-import me.hsgamer.topin.config.MessageConfig;
+import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.data.value.PairDecimal;
 
 /**
@@ -21,10 +21,10 @@ public abstract class DataList {
       getDefaultSuffix());
 
   public DataList() {
-    MessageConfig messageConfig = TopIn.getInstance().getMessageConfig();
-    displayName.setConfig(messageConfig);
-    suffix.setConfig(messageConfig);
-    messageConfig.saveConfig();
+    MainConfig mainConfig = TopIn.getInstance().getMainConfig();
+    displayName.setConfig(mainConfig);
+    suffix.setConfig(mainConfig);
+    mainConfig.saveConfig();
   }
 
   /**

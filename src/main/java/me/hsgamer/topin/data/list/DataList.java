@@ -1,13 +1,13 @@
 package me.hsgamer.topin.data.list;
 
-import static me.hsgamer.topin.TopIn.getInstance;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.hscore.bukkit.config.path.StringConfigPath;
+import me.hsgamer.topin.TopIn;
+import me.hsgamer.topin.config.MessageConfig;
 import me.hsgamer.topin.data.value.PairDecimal;
 
 /**
@@ -21,9 +21,10 @@ public abstract class DataList {
       getDefaultSuffix());
 
   public DataList() {
-    displayName.setConfig(getInstance().getMessageConfig());
-    suffix.setConfig(getInstance().getMessageConfig());
-    getInstance().getMessageConfig().saveConfig();
+    MessageConfig messageConfig = TopIn.getInstance().getMessageConfig();
+    displayName.setConfig(messageConfig);
+    suffix.setConfig(messageConfig);
+    messageConfig.saveConfig();
   }
 
   /**

@@ -2,6 +2,7 @@ package me.hsgamer.topin.command;
 
 import static me.hsgamer.hscore.bukkit.utils.MessageUtils.sendMessage;
 
+import java.util.Arrays;
 import java.util.Collections;
 import me.hsgamer.topin.Permissions;
 import me.hsgamer.topin.TopIn;
@@ -23,14 +24,19 @@ public final class GetDataListCommand extends BukkitCommand {
       return false;
     }
 
+    boolean shortList =
+        args.length > 0 && Arrays.stream(args).anyMatch(s -> s.equalsIgnoreCase("short"));
+
     sendMessage(sender, "&a&lData List: ");
     TopIn.getInstance().getDataListManager()
         .getDataLists()
         .forEach(dataList -> {
           sendMessage(sender, "  &f- &b" + dataList.getName());
-          sendMessage(sender, "      &eDisplay Name: &f" + dataList.getDisplayName());
-          sendMessage(sender, "      &eSuffix: &f" + dataList.getSuffix());
-          sendMessage(sender, "      &eSize: &f" + dataList.getSize());
+          if (!shortList) {
+            sendMessage(sender, "      &eDisplay Name: &f" + dataList.getDisplayName());
+            sendMessage(sender, "      &eSuffix: &f" + dataList.getSuffix());
+            sendMessage(sender, "      &eSize: &f" + dataList.getSize());
+          }
         });
     return true;
   }

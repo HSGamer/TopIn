@@ -4,3 +4,4 @@ main: me.hsgamer.topin.TopIn
 authors: [HSGamer]
 description: Collect data and work with leaderboard
 softdepend: [PlaceholderAPI]
+api-version: "1.13"

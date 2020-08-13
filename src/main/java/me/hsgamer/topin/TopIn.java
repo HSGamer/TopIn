@@ -1,5 +1,6 @@
 package me.hsgamer.topin;
 
+import java.util.Arrays;
 import me.hsgamer.hscore.bukkit.command.CommandManager;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.topin.command.GetDataListCommand;
@@ -12,6 +13,9 @@ import me.hsgamer.topin.config.MessageConfig;
 import me.hsgamer.topin.data.impl.PlayerExpData;
 import me.hsgamer.topin.data.impl.PlayerLevelData;
 import me.hsgamer.topin.data.impl.PlayerOnlineTime;
+import me.hsgamer.topin.data.impl.PlayerStatisticData;
+import me.hsgamer.topin.data.impl.PlayerStatisticEntityData;
+import me.hsgamer.topin.data.impl.PlayerStatisticMaterialData;
 import me.hsgamer.topin.getter.placeholderapi.PlaceholderAPIGetter;
 import me.hsgamer.topin.getter.sign.SignGetter;
 import me.hsgamer.topin.getter.skull.SkullGetter;
@@ -19,6 +23,9 @@ import me.hsgamer.topin.listener.JoinListener;
 import me.hsgamer.topin.manager.DataListManager;
 import me.hsgamer.topin.manager.GetterManager;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.Statistic;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -118,6 +125,28 @@ public final class TopIn extends JavaPlugin {
     dataListManager.register(new PlayerExpData());
     dataListManager.register(new PlayerLevelData());
     dataListManager.register(new PlayerOnlineTime());
+
+    // STATISTIC Type
+    for (Statistic statistic : Statistic.values()) {
+      switch (statistic.getType()) {
+        case ITEM:
+        case BLOCK:
+          Arrays.stream(Material.values())
+              .parallel()
+              .map(material -> new PlayerStatisticMaterialData(statistic, material))
+              .forEach(dataListManager::register);
+          break;
+        case ENTITY:
+          Arrays.stream(EntityType.values())
+              .parallel()
+              .map(entityType -> new PlayerStatisticEntityData(statistic, entityType))
+              .forEach(dataListManager::register);
+          break;
+        case UNTYPED:
+          dataListManager.register(new PlayerStatisticData(statistic));
+          break;
+      }
+    }
   }
 
   /**

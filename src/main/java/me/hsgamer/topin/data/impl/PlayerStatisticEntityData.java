@@ -27,7 +27,8 @@ public class PlayerStatisticEntityData extends AutoUpdateSimpleDataList {
       public void update() {
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
         if (offlinePlayer.isOnline()) {
-          setValue(BigDecimal.valueOf(offlinePlayer.getPlayer().getStatistic(statistic, entityType)));
+          setValue(
+              BigDecimal.valueOf(offlinePlayer.getPlayer().getStatistic(statistic, entityType)));
         }
       }
     };

@@ -39,6 +39,7 @@ public final class DataListManager {
     dataListMap.computeIfAbsent(dataList.getName(), s -> {
       PluginConfig config = new PluginConfig(plugin, new File(dataDir, s + ".yml"));
       dataConfigMap.put(s, config);
+      dataList.registerConfigPath();
       dataList.loadData(config);
       return dataList;
     });

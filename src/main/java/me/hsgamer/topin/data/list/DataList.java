@@ -15,12 +15,15 @@ import me.hsgamer.topin.data.value.PairDecimal;
  */
 public abstract class DataList {
 
-  private final StringConfigPath displayName = new StringConfigPath("display-name." + getName(),
-      getDefaultDisplayName());
-  private final StringConfigPath suffix = new StringConfigPath("suffix." + getName(),
-      getDefaultSuffix());
+  private StringConfigPath displayName;
+  private StringConfigPath suffix;
 
-  public DataList() {
+  /**
+   * Register necessary config path (display name and suffix)
+   */
+  public void registerConfigPath() {
+    displayName = new StringConfigPath("display-name." + getName(), getDefaultDisplayName());
+    suffix = new StringConfigPath("suffix." + getName(), getDefaultSuffix());
     MainConfig mainConfig = TopIn.getInstance().getMainConfig();
     displayName.setConfig(mainConfig);
     suffix.setConfig(mainConfig);
@@ -158,7 +161,7 @@ public abstract class DataList {
    * @return the display name
    */
   public String getDisplayName() {
-    return displayName.getValue();
+    return displayName != null ? displayName.getValue() : getDefaultDisplayName();
   }
 
   /**
@@ -167,6 +170,6 @@ public abstract class DataList {
    * @return the suffix
    */
   public String getSuffix() {
-    return suffix.getValue();
+    return suffix != null ? suffix.getValue() : getDefaultSuffix();
   }
 }

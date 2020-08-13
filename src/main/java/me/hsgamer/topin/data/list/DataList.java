@@ -31,6 +31,29 @@ public abstract class DataList {
   }
 
   /**
+   * Check if this data list can be registered
+   *
+   * @return whether this data list can be registered
+   */
+  public boolean canRegister() {
+    return true;
+  }
+
+  /**
+   * Called when registering
+   */
+  public void register() {
+    // LOGIC
+  }
+
+  /**
+   * Called when unregistering
+   */
+  public void unregister() {
+    // LOGIC
+  }
+
+  /**
    * Set the value of the unique id in the list
    *
    * @param uuid  the unique

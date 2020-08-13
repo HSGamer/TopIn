@@ -36,14 +36,21 @@ public final class DataListManager {
    * @param dataList the data list
    */
   public void register(DataList dataList) {
-    String name = dataList.getName();
-    if (!dataListMap.containsKey(name)) {
-      PluginConfig config = new PluginConfig(plugin, new File(dataDir, name + ".yml"));
-      dataConfigMap.put(name, config);
-      dataListMap.put(name, dataList);
-      dataList.registerConfigPath();
-      dataList.loadData(config);
+    if (!dataList.canRegister()) {
+      return;
     }
+
+    String name = dataList.getName();
+    if (dataListMap.containsKey(name)) {
+      return;
+    }
+
+    PluginConfig config = new PluginConfig(plugin, new File(dataDir, name + ".yml"));
+    dataConfigMap.put(name, config);
+    dataListMap.put(name, dataList);
+    dataList.registerConfigPath();
+    dataList.register();
+    dataList.loadData(config);
   }
 
   /**
@@ -51,6 +58,13 @@ public final class DataListManager {
    */
   public void saveAll() {
     dataListMap.forEach((name, dataList) -> dataList.saveData(dataConfigMap.get(name)));
+  }
+
+  /**
+   * Unregister all data lists
+   */
+  public void unregisterAll() {
+    dataListMap.values().forEach(DataList::unregister);
   }
 
   /**

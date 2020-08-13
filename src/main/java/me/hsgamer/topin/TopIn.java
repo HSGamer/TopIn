@@ -64,6 +64,7 @@ public final class TopIn extends JavaPlugin {
     stopSaveTask();
     getterManager.unregisterAll();
     dataListManager.saveAll();
+    dataListManager.unregisterAll();
     dataListManager.clearAll();
     HandlerList.unregisterAll(this);
   }

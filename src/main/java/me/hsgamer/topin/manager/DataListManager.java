@@ -62,12 +62,12 @@ public final class DataListManager {
   }
 
   /**
-   * Get the list of the available data lists' name
+   * Get the list of the available data lists
    *
-   * @return the list of name
+   * @return the list of data lists
    */
-  public Collection<String> getDataListNames() {
-    return dataListMap.keySet();
+  public Collection<DataList> getDataLists() {
+    return dataListMap.values();
   }
 
   /**
@@ -94,7 +94,7 @@ public final class DataListManager {
    * @return the suggested names
    */
   public List<String> getSuggestedDataListNames(String start) {
-    List<String> list = new ArrayList<>(getDataListNames());
+    List<String> list = new ArrayList<>(dataListMap.keySet());
     if (start != null && !start.isEmpty()) {
       list.removeIf(s -> !s.startsWith(start));
     }

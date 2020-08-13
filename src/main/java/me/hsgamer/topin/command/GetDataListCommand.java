@@ -25,8 +25,13 @@ public final class GetDataListCommand extends BukkitCommand {
 
     sendMessage(sender, "&a&lData List: ");
     TopIn.getInstance().getDataListManager()
-        .getDataListNames()
-        .forEach(name -> sendMessage(sender, "  &f- &b" + name));
+        .getDataLists()
+        .forEach(dataList -> {
+          sendMessage(sender, "  &f- &b" + dataList.getName());
+          sendMessage(sender, "      &eDisplay Name: &f" + dataList.getDisplayName());
+          sendMessage(sender, "      &eSuffix: &f" + dataList.getSuffix());
+          sendMessage(sender, "      &eSize: &f" + dataList.getSize());
+        });
     return true;
   }
 }

@@ -132,13 +132,11 @@ public final class TopIn extends JavaPlugin {
         case ITEM:
         case BLOCK:
           Arrays.stream(Material.values())
-              .parallel()
               .map(material -> new PlayerStatisticMaterialData(statistic, material))
               .forEach(dataListManager::register);
           break;
         case ENTITY:
           Arrays.stream(EntityType.values())
-              .parallel()
               .map(entityType -> new PlayerStatisticEntityData(statistic, entityType))
               .forEach(dataListManager::register);
           break;

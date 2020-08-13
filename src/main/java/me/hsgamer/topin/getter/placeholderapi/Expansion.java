@@ -17,6 +17,8 @@ public final class Expansion extends PlaceholderExpansion {
   private static final String VALUE_PREFIX = "value_";
   private static final String CURRENT_INDEX = "current_top_";
   private static final String CURRENT_VALUE = "current_value_";
+  private static final String SUFFIX = "suffix_";
+  private static final String DISPLAY_NAME = "display_name_";
 
   @Override
   public @NotNull String getIdentifier() {
@@ -42,6 +44,12 @@ public final class Expansion extends PlaceholderExpansion {
     } else if (params.startsWith(VALUE_PREFIX)) {
       PairDecimal pairDecimal = getTopPair(params.substring(VALUE_PREFIX.length()).trim());
       return pairDecimal != null ? pairDecimal.getValue().toPlainString() : "";
+    } else if (params.startsWith(SUFFIX)) {
+      return getDataList(params.substring(SUFFIX.length()).trim()).map(DataList::getSuffix)
+          .orElse("");
+    } else if (params.startsWith(DISPLAY_NAME)) {
+      return getDataList(params.substring(DISPLAY_NAME.length()).trim())
+          .map(DataList::getDisplayName).orElse("");
     }
 
     if (offlinePlayer == null) {
@@ -50,13 +58,13 @@ public final class Expansion extends PlaceholderExpansion {
 
     if (params.startsWith(CURRENT_INDEX)) {
       return String.valueOf(
-          getDataList(params.substring(CURRENT_INDEX.length()))
+          getDataList(params.substring(CURRENT_INDEX.length()).trim())
               .flatMap(dataList -> dataList.getTopIndex(offlinePlayer.getUniqueId()))
               .map(integer -> integer + MainConfig.DISPLAY_TOP_START_INDEX.getValue())
               .orElse(-1)
       );
     } else if (params.startsWith(CURRENT_VALUE)) {
-      return getDataList(params.substring(CURRENT_VALUE.length()))
+      return getDataList(params.substring(CURRENT_VALUE.length()).trim())
           .flatMap(dataList -> dataList.getPair(offlinePlayer.getUniqueId()))
           .map(decimal -> decimal.getValue().toPlainString())
           .orElse("");

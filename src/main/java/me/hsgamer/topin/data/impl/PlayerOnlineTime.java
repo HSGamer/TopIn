@@ -27,12 +27,17 @@ public class PlayerOnlineTime extends AutoUpdateSimpleDataList {
   }
 
   @Override
-  public String getDisplayName() {
-    return "Player's Online Time";
+  public String getName() {
+    return "player_online_time";
   }
 
   @Override
-  public String getDisplaySuffix() {
+  public String getDefaultDisplayName() {
+    return "Online Time";
+  }
+
+  @Override
+  public String getDefaultSuffix() {
     return "seconds";
   }
 }

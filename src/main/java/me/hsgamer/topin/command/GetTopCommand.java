@@ -81,7 +81,7 @@ public class GetTopCommand extends BukkitCommand {
     }
     list.addAll(MessageConfig.TOP_LIST_FOOTER.getValue());
     list.replaceAll(s -> s
-        .replace("<suffix>", dataList.getDisplaySuffix())
+        .replace("<suffix>", dataList.getSuffix())
         .replace("<data_list>", dataList.getDisplayName()));
     list.forEach(s -> sendMessage(sender, s, false));
 

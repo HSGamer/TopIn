@@ -33,11 +33,10 @@ public final class DataListManager {
   /**
    * Register a data list
    *
-   * @param name     the name of the data list
    * @param dataList the data list
    */
-  public void register(String name, DataList dataList) {
-    dataListMap.computeIfAbsent(name, s -> {
+  public void register(DataList dataList) {
+    dataListMap.computeIfAbsent(dataList.getName(), s -> {
       PluginConfig config = new PluginConfig(plugin, new File(dataDir, s + ".yml"));
       dataConfigMap.put(s, config);
       dataList.loadData(config);

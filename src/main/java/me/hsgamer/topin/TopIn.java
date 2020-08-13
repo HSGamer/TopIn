@@ -115,9 +115,9 @@ public final class TopIn extends JavaPlugin {
    * Register default data list
    */
   private void registerDefaultDataList() {
-    dataListManager.register("player_exp", new PlayerExpData());
-    dataListManager.register("player_level", new PlayerLevelData());
-    dataListManager.register("player_online_time", new PlayerOnlineTime());
+    dataListManager.register(new PlayerExpData());
+    dataListManager.register(new PlayerLevelData());
+    dataListManager.register(new PlayerOnlineTime());
   }
 
   /**

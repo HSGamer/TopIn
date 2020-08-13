@@ -51,7 +51,7 @@ public final class TopSign implements ConfigurationSerializable {
     BlockState blockState = location.getBlock().getState();
     if (blockState instanceof Sign) {
       Sign sign = (Sign) blockState;
-      String[] lines = getSignLines(pairDecimal, dataList.getDisplaySuffix());
+      String[] lines = getSignLines(pairDecimal, dataList.getSuffix());
       for (int i = 0; i < 4; i++) {
         sign.setLine(i, lines[i]);
       }

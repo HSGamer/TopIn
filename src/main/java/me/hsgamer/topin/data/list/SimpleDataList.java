@@ -17,7 +17,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 /**
  * A simple data list with an synchronized ArrayList
  */
-public abstract class SimpleDataList implements DataList {
+public abstract class SimpleDataList extends DataList {
 
   protected final List<PairDecimal> list = Collections.synchronizedList(new ArrayList<>());
   protected final Map<UUID, Integer> indexMap = new HashMap<>();

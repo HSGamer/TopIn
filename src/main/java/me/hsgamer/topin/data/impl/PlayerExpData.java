@@ -27,12 +27,17 @@ public class PlayerExpData extends AutoUpdateSimpleDataList {
   }
 
   @Override
-  public String getDisplayName() {
+  public String getName() {
+    return "player_exp";
+  }
+
+  @Override
+  public String getDefaultDisplayName() {
     return "Total EXP";
   }
 
   @Override
-  public String getDisplaySuffix() {
+  public String getDefaultSuffix() {
     return "exp";
   }
 }

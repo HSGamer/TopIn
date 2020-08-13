@@ -1,16 +1,30 @@
 package me.hsgamer.topin.data.list;
 
+import static me.hsgamer.topin.TopIn.getInstance;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import me.hsgamer.hscore.bukkit.config.PluginConfig;
+import me.hsgamer.hscore.bukkit.config.path.StringConfigPath;
 import me.hsgamer.topin.data.value.PairDecimal;
 
 /**
- * The interface for all data lists
+ * The abstract class for all data lists
  */
-public interface DataList {
+public abstract class DataList {
+
+  private final StringConfigPath displayName = new StringConfigPath("display-name." + getName(),
+      getDefaultDisplayName());
+  private final StringConfigPath suffix = new StringConfigPath("suffix." + getName(),
+      getDefaultSuffix());
+
+  public DataList() {
+    displayName.setConfig(getInstance().getMessageConfig());
+    suffix.setConfig(getInstance().getMessageConfig());
+    getInstance().getMessageConfig().saveConfig();
+  }
 
   /**
    * Set the value of the unique id in the list
@@ -18,14 +32,14 @@ public interface DataList {
    * @param uuid  the unique
    * @param value the value, nullable
    */
-  void set(UUID uuid, BigDecimal value);
+  public abstract void set(UUID uuid, BigDecimal value);
 
   /**
    * Add an unique id to the list
    *
    * @param uuid the unique id
    */
-  default void add(UUID uuid) {
+  public void add(UUID uuid) {
     set(uuid, null);
   }
 
@@ -35,12 +49,12 @@ public interface DataList {
    * @param uuid the unique id
    * @return the pair
    */
-  PairDecimal createPairDecimal(UUID uuid);
+  public abstract PairDecimal createPairDecimal(UUID uuid);
 
   /**
    * Update all values of the list
    */
-  void updateAll();
+  public abstract void updateAll();
 
   /**
    * Get value from the pair
@@ -48,7 +62,7 @@ public interface DataList {
    * @param uuid the unique id
    * @return the value
    */
-  default Optional<BigDecimal> getValue(UUID uuid) {
+  public Optional<BigDecimal> getValue(UUID uuid) {
     return getPair(uuid).map(PairDecimal::getValue);
   }
 
@@ -58,7 +72,7 @@ public interface DataList {
    * @param uuid the unique id
    * @return the pair
    */
-  Optional<PairDecimal> getPair(UUID uuid);
+  public abstract Optional<PairDecimal> getPair(UUID uuid);
 
   /**
    * Get the top list
@@ -67,7 +81,7 @@ public interface DataList {
    * @param to   end of the top (exclusive)
    * @return the top list contains the pairs
    */
-  List<PairDecimal> getTopRange(int from, int to);
+  public abstract List<PairDecimal> getTopRange(int from, int to);
 
   /**
    * Get the top list
@@ -75,7 +89,7 @@ public interface DataList {
    * @param bound end of the top
    * @return the top list contains the pairs
    */
-  default List<PairDecimal> getTop(int bound) {
+  public List<PairDecimal> getTop(int bound) {
     return getTopRange(0, bound);
   }
 
@@ -85,7 +99,7 @@ public interface DataList {
    * @param index the index
    * @return the pair
    */
-  PairDecimal getPair(int index);
+  public abstract PairDecimal getPair(int index);
 
   /**
    * Get the index of the unique id
@@ -93,40 +107,65 @@ public interface DataList {
    * @param uuid the unique id
    * @return the index
    */
-  Optional<Integer> getTopIndex(UUID uuid);
+  public abstract Optional<Integer> getTopIndex(UUID uuid);
 
   /**
    * Load data from configuration file
    *
    * @param config the configuration file
    */
-  void loadData(PluginConfig config);
+  public abstract void loadData(PluginConfig config);
 
   /**
    * Save data to configuration file
    *
    * @param config the configuration file
    */
-  void saveData(PluginConfig config);
+  public abstract void saveData(PluginConfig config);
+
+  /**
+   * Get the technical name of the data list
+   *
+   * @return the display name
+   */
+  public abstract String getName();
+
+  /**
+   * Get the size of the data list
+   *
+   * @return the size
+   */
+  public abstract int getSize();
+
+  /**
+   * Get the default display name of the data list
+   *
+   * @return the display name
+   */
+  public abstract String getDefaultDisplayName();
+
+  /**
+   * Get the default suffix of the value
+   *
+   * @return the suffix
+   */
+  public abstract String getDefaultSuffix();
 
   /**
    * Get the display name of the data list
    *
    * @return the display name
    */
-  String getDisplayName();
-
-  /**
-   * Get the size of the date list
-   *
-   * @return the size
-   */
-  int getSize();
+  public String getDisplayName() {
+    return displayName.getValue();
+  }
 
   /**
    * Get the suffix of the value
    *
    * @return the suffix
    */
-  String getDisplaySuffix();
+  public String getSuffix() {
+    return suffix.getValue();
+  }
 }

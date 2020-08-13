@@ -23,7 +23,8 @@ public final class GetterManager {
    * @param getter the getter
    */
   public void register(Getter getter) {
-    if (getter.handleRegister()) {
+    if (getter.canRegister()) {
+      getter.register();
       getterList.add(getter);
       MessageUtils.sendMessage(Bukkit.getConsoleSender(),
           MessageConfig.GETTER_REGISTERED.getValue().replace(GETTER_PLACEHOLDER, getter.getName()));
@@ -36,7 +37,7 @@ public final class GetterManager {
    * @param getter the getter
    */
   public void unregister(Getter getter) {
-    getter.handleUnregister();
+    getter.unregister();
     getterList.remove(getter);
     MessageUtils.sendMessage(Bukkit.getConsoleSender(),
         MessageConfig.GETTER_UNREGISTERED.getValue().replace(GETTER_PLACEHOLDER, getter.getName()));
@@ -47,7 +48,7 @@ public final class GetterManager {
    */
   public void unregisterAll() {
     getterList.forEach(getter -> {
-      getter.handleUnregister();
+      getter.unregister();
       MessageUtils.sendMessage(Bukkit.getConsoleSender(),
           MessageConfig.GETTER_UNREGISTERED.getValue()
               .replace(GETTER_PLACEHOLDER, getter.getName()));

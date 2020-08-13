@@ -16,7 +16,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-public final class SkullGetter extends Getter {
+public final class SkullGetter implements Getter {
 
   public static final IntegerConfigPath UPDATE_PERIOD = new IntegerConfigPath("update", 20);
   private final SkullCommand skullCommand = new SkullCommand(this);
@@ -26,7 +26,7 @@ public final class SkullGetter extends Getter {
   private BukkitTask updateTask;
 
   @Override
-  public boolean register() {
+  public void register() {
     ConfigurationSerialization.registerClass(TopSkull.class);
     skullConfig = new PluginConfig(getInstance(), "skull.yml");
     skullConfig.getConfig().options().copyDefaults(true);
@@ -43,7 +43,6 @@ public final class SkullGetter extends Getter {
     updateTask = updateRunnable.runTaskTimer(getInstance(), 0, UPDATE_PERIOD.getValue());
     getInstance().getCommandManager().register(skullCommand);
     Bukkit.getPluginManager().registerEvents(listener, getInstance());
-    return true;
   }
 
   @Override

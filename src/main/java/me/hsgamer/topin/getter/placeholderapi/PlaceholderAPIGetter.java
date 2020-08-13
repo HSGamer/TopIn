@@ -3,27 +3,23 @@ package me.hsgamer.topin.getter.placeholderapi;
 import me.hsgamer.topin.getter.Getter;
 import org.bukkit.Bukkit;
 
-public final class PlaceholderAPIGetter extends Getter {
+public final class PlaceholderAPIGetter implements Getter {
 
-  private Expansion expansion;
+  private final Expansion expansion = new Expansion();
 
   @Override
-  public boolean register() {
-    if (!Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-      return false;
-    }
+  public boolean canRegister() {
+    return Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI");
+  }
 
-    expansion = new Expansion();
+  @Override
+  public void register() {
     expansion.register();
-
-    return true;
   }
 
   @Override
   public void unregister() {
-    if (expansion != null) {
-      expansion.unregister();
-    }
+    expansion.unregister();
   }
 
   @Override

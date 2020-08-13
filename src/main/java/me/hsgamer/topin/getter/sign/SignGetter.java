@@ -16,7 +16,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-public final class SignGetter extends Getter {
+public final class SignGetter implements Getter {
 
   public static final IntegerConfigPath UPDATE_PERIOD = new IntegerConfigPath("update", 20);
   private final SignCommand signCommand = new SignCommand(this);
@@ -26,7 +26,7 @@ public final class SignGetter extends Getter {
   private BukkitTask updateTask;
 
   @Override
-  public boolean register() {
+  public void register() {
     ConfigurationSerialization.registerClass(TopSign.class);
     signConfig = new PluginConfig(getInstance(), "sign.yml");
     signConfig.getConfig().options().copyDefaults(true);
@@ -43,7 +43,6 @@ public final class SignGetter extends Getter {
     updateTask = updateRunnable.runTaskTimer(getInstance(), 0, UPDATE_PERIOD.getValue());
     getInstance().getCommandManager().register(signCommand);
     Bukkit.getPluginManager().registerEvents(listener, getInstance());
-    return true;
   }
 
   @Override

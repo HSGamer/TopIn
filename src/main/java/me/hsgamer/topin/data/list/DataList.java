@@ -15,8 +15,8 @@ import me.hsgamer.topin.data.value.PairDecimal;
  */
 public abstract class DataList {
 
-  private StringConfigPath displayName;
-  private StringConfigPath suffix;
+  protected StringConfigPath displayName;
+  protected StringConfigPath suffix;
 
   /**
    * Register necessary config path (display name and suffix)

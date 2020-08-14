@@ -7,8 +7,10 @@ import me.hsgamer.topin.command.GetGettersCommand;
 import me.hsgamer.topin.command.GetTopCommand;
 import me.hsgamer.topin.command.MainCommand;
 import me.hsgamer.topin.command.ReloadCommand;
+import me.hsgamer.topin.config.DisplayNameConfig;
 import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.config.MessageConfig;
+import me.hsgamer.topin.config.SuffixConfig;
 import me.hsgamer.topin.data.impl.PlayerExpData;
 import me.hsgamer.topin.data.impl.PlayerLevelData;
 import me.hsgamer.topin.data.impl.PlayerOnlineTime;
@@ -31,6 +33,8 @@ public final class TopIn extends JavaPlugin {
   private final CommandManager commandManager = new CommandManager(this);
   private final MainConfig mainConfig = new MainConfig(this);
   private final MessageConfig messageConfig = new MessageConfig(this);
+  private final DisplayNameConfig displayNameConfig = new DisplayNameConfig(this);
+  private final SuffixConfig suffixConfig = new SuffixConfig(this);
   private final GetterManager getterManager = new GetterManager();
   private BukkitTask saveTask;
 
@@ -184,5 +188,23 @@ public final class TopIn extends JavaPlugin {
    */
   public GetterManager getGetterManager() {
     return getterManager;
+  }
+
+  /**
+   * Get the display name config
+   *
+   * @return the display name config
+   */
+  public DisplayNameConfig getDisplayNameConfig() {
+    return displayNameConfig;
+  }
+
+  /**
+   * Get the suffix config
+   *
+   * @return the suffix config
+   */
+  public SuffixConfig getSuffixConfig() {
+    return suffixConfig;
   }
 }

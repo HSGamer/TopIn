@@ -7,7 +7,8 @@ import java.util.UUID;
 import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.hscore.bukkit.config.path.StringConfigPath;
 import me.hsgamer.topin.TopIn;
-import me.hsgamer.topin.config.MainConfig;
+import me.hsgamer.topin.config.DisplayNameConfig;
+import me.hsgamer.topin.config.SuffixConfig;
 import me.hsgamer.topin.data.value.PairDecimal;
 
 /**
@@ -22,12 +23,14 @@ public abstract class DataList {
    * Register necessary config path (display name and suffix)
    */
   public void registerConfigPath() {
-    displayName = new StringConfigPath("display-name." + getName(), getDefaultDisplayName());
-    suffix = new StringConfigPath("suffix." + getName(), getDefaultSuffix());
-    MainConfig mainConfig = TopIn.getInstance().getMainConfig();
-    displayName.setConfig(mainConfig);
-    suffix.setConfig(mainConfig);
-    mainConfig.saveConfig();
+    displayName = new StringConfigPath(getName(), getDefaultDisplayName());
+    suffix = new StringConfigPath(getName(), getDefaultSuffix());
+    DisplayNameConfig displayNameConfig = TopIn.getInstance().getDisplayNameConfig();
+    SuffixConfig suffixConfig = TopIn.getInstance().getSuffixConfig();
+    displayName.setConfig(displayNameConfig);
+    suffix.setConfig(suffixConfig);
+    displayNameConfig.saveConfig();
+    suffixConfig.saveConfig();
   }
 
   /**

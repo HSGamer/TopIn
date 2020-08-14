@@ -7,9 +7,9 @@ import me.hsgamer.topin.data.value.PairDecimal;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
-public class PlayerLevelData extends AutoUpdateSimpleDataList {
+public class PlayerLevel extends AutoUpdateSimpleDataList {
 
-  public PlayerLevelData() {
+  public PlayerLevel() {
     super(200);
   }
 

@@ -12,9 +12,10 @@ import me.hsgamer.topin.config.DisplayNameConfig;
 import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.config.MessageConfig;
 import me.hsgamer.topin.config.SuffixConfig;
-import me.hsgamer.topin.data.impl.PlayerExpData;
-import me.hsgamer.topin.data.impl.PlayerLevelData;
+import me.hsgamer.topin.data.impl.PlayerExp;
+import me.hsgamer.topin.data.impl.PlayerLevel;
 import me.hsgamer.topin.data.impl.PlayerOnlineTime;
+import me.hsgamer.topin.data.impl.PlayerTotalDamage;
 import me.hsgamer.topin.getter.placeholderapi.PlaceholderAPIGetter;
 import me.hsgamer.topin.getter.sign.SignGetter;
 import me.hsgamer.topin.getter.skull.SkullGetter;
@@ -121,9 +122,10 @@ public final class TopIn extends JavaPlugin {
    * Register default data list
    */
   private void registerDefaultDataList() {
-    dataListManager.register(new PlayerExpData());
-    dataListManager.register(new PlayerLevelData());
+    dataListManager.register(new PlayerExp());
+    dataListManager.register(new PlayerLevel());
     dataListManager.register(new PlayerOnlineTime());
+    dataListManager.register(new PlayerTotalDamage());
   }
 
   /**

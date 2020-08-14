@@ -54,6 +54,34 @@ public final class DataListManager {
   }
 
   /**
+   * Unregister a data list
+   *
+   * @param name the name of the data list
+   */
+  public void unregister(String name) {
+    if (!dataListMap.containsKey(name)) {
+      return;
+    }
+
+    DataList dataList = dataListMap.remove(name);
+    dataList.saveData(dataConfigMap.remove(name));
+    dataList.unregister();
+  }
+
+  /**
+   * Save a data list
+   *
+   * @param name the name of the data list
+   */
+  public void saveDataList(String name) {
+    if (!dataListMap.containsKey(name)) {
+      return;
+    }
+
+    dataListMap.get(name).saveData(dataConfigMap.get(name));
+  }
+
+  /**
    * Save all data lists to file
    */
   public void saveAll() {

@@ -83,7 +83,7 @@ public final class DataListManager {
    * @return the list of data lists
    */
   public Collection<DataList> getDataLists() {
-    return dataListMap.values();
+    return new ArrayList<>(dataListMap.values());
   }
 
   /**

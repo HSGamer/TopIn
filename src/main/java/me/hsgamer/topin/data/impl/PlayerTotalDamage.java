@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -62,13 +63,13 @@ public class PlayerTotalDamage extends AutoUpdateSimpleDataList implements Liste
     return "";
   }
 
-  @EventHandler
+  @EventHandler(priority = EventPriority.LOWEST)
   public void onDamage(EntityDamageByEntityEvent event) {
     Entity damager = event.getDamager();
     if (damager instanceof Player) {
-      damageCaches.compute(damager.getUniqueId(), (uuid, aDouble) -> {
+      damageCaches.compute(damager.getUniqueId(), (uuid, current) -> {
         double damage = event.getFinalDamage();
-        return aDouble == null ? damage : aDouble + damage;
+        return current == null ? damage : current + damage;
       });
     }
   }

@@ -3,7 +3,6 @@ package me.hsgamer.topin.command;
 import static me.hsgamer.hscore.bukkit.utils.MessageUtils.sendMessage;
 
 import java.util.Arrays;
-import java.util.Collections;
 import me.hsgamer.topin.Permissions;
 import me.hsgamer.topin.TopIn;
 import me.hsgamer.topin.config.MessageConfig;
@@ -14,7 +13,7 @@ public final class GetDataListCommand extends BukkitCommand {
 
   public GetDataListCommand() {
     super("getdatalist", "Get all data lists", "/getdatalist",
-        Collections.singletonList("datalist"));
+        Arrays.asList("datalist", "shortdatalist", "getshortdatalist"));
   }
 
   @Override
@@ -24,8 +23,8 @@ public final class GetDataListCommand extends BukkitCommand {
       return false;
     }
 
-    boolean shortList =
-        args.length > 0 && Arrays.stream(args).anyMatch(s -> s.equalsIgnoreCase("short"));
+    boolean shortList = commandLabel.equalsIgnoreCase("shortdatalist") || commandLabel
+        .equalsIgnoreCase("getshortdatalist");
 
     sendMessage(sender, "&a&lData List: ");
     TopIn.getInstance().getDataListManager()

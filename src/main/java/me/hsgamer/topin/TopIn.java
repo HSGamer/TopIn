@@ -7,6 +7,7 @@ import me.hsgamer.topin.command.GetGettersCommand;
 import me.hsgamer.topin.command.GetTopCommand;
 import me.hsgamer.topin.command.MainCommand;
 import me.hsgamer.topin.command.ReloadCommand;
+import me.hsgamer.topin.command.SearchDataListCommand;
 import me.hsgamer.topin.config.DisplayNameConfig;
 import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.config.MessageConfig;
@@ -145,6 +146,7 @@ public final class TopIn extends JavaPlugin {
     commandManager.register(new GetGettersCommand());
     commandManager.register(new GetDataListCommand());
     commandManager.register(new GetTopCommand());
+    commandManager.register(new SearchDataListCommand());
   }
 
   /**

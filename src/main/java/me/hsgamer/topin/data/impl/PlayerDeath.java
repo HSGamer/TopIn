@@ -58,11 +58,11 @@ public class PlayerDeath extends AutoUpdateSimpleDataList implements Listener {
 
   @Override
   public String getDefaultSuffix() {
-    return "";
+    return "deaths";
   }
 
   @EventHandler(priority = EventPriority.LOWEST)
-  public void onDamage(PlayerDeathEvent event) {
+  public void onDeath(PlayerDeathEvent event) {
     deathCaches.merge(event.getEntity().getUniqueId(), 1, Integer::sum);
   }
 }

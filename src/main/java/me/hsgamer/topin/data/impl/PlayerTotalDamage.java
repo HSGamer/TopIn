@@ -60,7 +60,7 @@ public class PlayerTotalDamage extends AutoUpdateSimpleDataList implements Liste
 
   @Override
   public String getDefaultSuffix() {
-    return "";
+    return "damage";
   }
 
   @EventHandler(priority = EventPriority.LOWEST)

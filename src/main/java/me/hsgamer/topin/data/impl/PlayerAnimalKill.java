@@ -9,13 +9,13 @@ import me.hsgamer.topin.data.list.AutoUpdateSimpleDataList;
 import me.hsgamer.topin.data.value.PairDecimal;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Animals;
-import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 
 public class PlayerAnimalKill extends AutoUpdateSimpleDataList implements Listener {
 
@@ -65,19 +65,14 @@ public class PlayerAnimalKill extends AutoUpdateSimpleDataList implements Listen
   }
 
   @EventHandler(priority = EventPriority.LOWEST)
-  public void onDamage(EntityDamageByEntityEvent event) {
-    if (event.isCancelled()) {
+  public void onDeath(EntityDeathEvent event) {
+    LivingEntity entity = event.getEntity();
+    if (!(entity instanceof Animals)) {
       return;
     }
-
-    Entity entity = event.getEntity();
-    if (!(entity instanceof Animals) || !entity.isDead()) {
-      return;
-    }
-
-    Entity damager = event.getDamager();
-    if (damager instanceof Player) {
-      killCaches.merge(damager.getUniqueId(), 1, Integer::sum);
+    Player killer = entity.getKiller();
+    if (killer != null) {
+      killCaches.merge(killer.getUniqueId(), 1, Integer::sum);
     }
   }
 }

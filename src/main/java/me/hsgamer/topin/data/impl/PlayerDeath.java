@@ -8,19 +8,17 @@ import me.hsgamer.topin.TopIn;
 import me.hsgamer.topin.data.list.AutoUpdateSimpleDataList;
 import me.hsgamer.topin.data.value.PairDecimal;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 
-public class PlayerTotalDamage extends AutoUpdateSimpleDataList implements Listener {
+public class PlayerDeath extends AutoUpdateSimpleDataList implements Listener {
 
-  private final Map<UUID, Double> damageCaches = new ConcurrentHashMap<>();
+  private final Map<UUID, Integer> deathCaches = new ConcurrentHashMap<>();
 
-  public PlayerTotalDamage() {
+  public PlayerDeath() {
     super(40);
   }
 
@@ -41,8 +39,8 @@ public class PlayerTotalDamage extends AutoUpdateSimpleDataList implements Liste
     return new PairDecimal(uuid) {
       @Override
       public void update() {
-        if (damageCaches.containsKey(getUniqueId())) {
-          setValue(getValue().add(BigDecimal.valueOf(damageCaches.remove(getUniqueId()))));
+        if (deathCaches.containsKey(getUniqueId())) {
+          setValue(getValue().add(BigDecimal.valueOf(deathCaches.remove(getUniqueId()))));
         }
       }
     };
@@ -50,12 +48,12 @@ public class PlayerTotalDamage extends AutoUpdateSimpleDataList implements Liste
 
   @Override
   public String getName() {
-    return "player_total_damage";
+    return "player_death";
   }
 
   @Override
   public String getDefaultDisplayName() {
-    return "Total Damage";
+    return "Death";
   }
 
   @Override
@@ -64,10 +62,7 @@ public class PlayerTotalDamage extends AutoUpdateSimpleDataList implements Liste
   }
 
   @EventHandler(priority = EventPriority.LOWEST)
-  public void onDamage(EntityDamageByEntityEvent event) {
-    Entity damager = event.getDamager();
-    if (damager instanceof Player) {
-      damageCaches.merge(damager.getUniqueId(), event.getFinalDamage(), Double::sum);
-    }
+  public void onDamage(PlayerDeathEvent event) {
+    deathCaches.merge(event.getEntity().getUniqueId(), 1, Integer::sum);
   }
 }

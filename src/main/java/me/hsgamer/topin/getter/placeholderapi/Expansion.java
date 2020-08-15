@@ -15,6 +15,7 @@ public final class Expansion extends PlaceholderExpansion {
 
   private static final String PLAYER_PREFIX = "player_";
   private static final String VALUE_PREFIX = "value_";
+  private static final String UUID_PREFIX = "uuid_";
   private static final String CURRENT_INDEX = "current_top_";
   private static final String CURRENT_VALUE = "current_value_";
   private static final String SUFFIX = "suffix_";
@@ -22,7 +23,7 @@ public final class Expansion extends PlaceholderExpansion {
 
   @Override
   public @NotNull String getIdentifier() {
-    return "topin";
+    return getInstance().getName().toLowerCase();
   }
 
   @Override
@@ -44,6 +45,9 @@ public final class Expansion extends PlaceholderExpansion {
     } else if (params.startsWith(VALUE_PREFIX)) {
       PairDecimal pairDecimal = getTopPair(params.substring(VALUE_PREFIX.length()).trim());
       return pairDecimal != null ? pairDecimal.getValue().toPlainString() : "";
+    } else if (params.startsWith(UUID_PREFIX)) {
+      PairDecimal pairDecimal = getTopPair(params.substring(UUID_PREFIX.length()).trim());
+      return pairDecimal != null ? pairDecimal.getUniqueId().toString() : "";
     } else if (params.startsWith(SUFFIX)) {
       return getDataList(params.substring(SUFFIX.length()).trim()).map(DataList::getSuffix)
           .orElse("");

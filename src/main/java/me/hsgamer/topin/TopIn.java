@@ -12,6 +12,7 @@ import me.hsgamer.topin.config.DisplayNameConfig;
 import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.config.MessageConfig;
 import me.hsgamer.topin.config.SuffixConfig;
+import me.hsgamer.topin.data.impl.PlayerDeath;
 import me.hsgamer.topin.data.impl.PlayerExp;
 import me.hsgamer.topin.data.impl.PlayerLevel;
 import me.hsgamer.topin.data.impl.PlayerOnlineTime;
@@ -126,6 +127,7 @@ public final class TopIn extends JavaPlugin {
     dataListManager.register(new PlayerLevel());
     dataListManager.register(new PlayerOnlineTime());
     dataListManager.register(new PlayerTotalDamage());
+    dataListManager.register(new PlayerDeath());
   }
 
   /**

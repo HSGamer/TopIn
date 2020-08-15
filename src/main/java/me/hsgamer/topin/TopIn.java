@@ -12,11 +12,15 @@ import me.hsgamer.topin.config.DisplayNameConfig;
 import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.config.MessageConfig;
 import me.hsgamer.topin.config.SuffixConfig;
+import me.hsgamer.topin.data.impl.PlayerAnimalKill;
 import me.hsgamer.topin.data.impl.PlayerDeath;
+import me.hsgamer.topin.data.impl.PlayerEnemyPlayerKill;
 import me.hsgamer.topin.data.impl.PlayerExp;
 import me.hsgamer.topin.data.impl.PlayerLevel;
+import me.hsgamer.topin.data.impl.PlayerMonsterKill;
 import me.hsgamer.topin.data.impl.PlayerOnlineTime;
 import me.hsgamer.topin.data.impl.PlayerTotalDamage;
+import me.hsgamer.topin.data.impl.PlayerTotalKill;
 import me.hsgamer.topin.getter.placeholderapi.PlaceholderAPIGetter;
 import me.hsgamer.topin.getter.sign.SignGetter;
 import me.hsgamer.topin.getter.skull.SkullGetter;
@@ -128,6 +132,10 @@ public final class TopIn extends JavaPlugin {
     dataListManager.register(new PlayerOnlineTime());
     dataListManager.register(new PlayerTotalDamage());
     dataListManager.register(new PlayerDeath());
+    dataListManager.register(new PlayerTotalKill());
+    dataListManager.register(new PlayerEnemyPlayerKill());
+    dataListManager.register(new PlayerMonsterKill());
+    dataListManager.register(new PlayerAnimalKill());
   }
 
   /**

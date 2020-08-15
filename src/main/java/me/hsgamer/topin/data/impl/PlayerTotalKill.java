@@ -9,6 +9,7 @@ import me.hsgamer.topin.data.list.AutoUpdateSimpleDataList;
 import me.hsgamer.topin.data.value.PairDecimal;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -50,12 +51,12 @@ public class PlayerTotalKill extends AutoUpdateSimpleDataList implements Listene
 
   @Override
   public String getName() {
-    return "player_enemy_player_kills";
+    return "player_total_kills";
   }
 
   @Override
   public String getDefaultDisplayName() {
-    return "Player Kills";
+    return "Total Kills";
   }
 
   @Override
@@ -66,7 +67,7 @@ public class PlayerTotalKill extends AutoUpdateSimpleDataList implements Listene
   @EventHandler(priority = EventPriority.LOWEST)
   public void onDamage(EntityDamageByEntityEvent event) {
     Entity entity = event.getEntity();
-    if (!entity.isDead()) {
+    if (!(entity instanceof LivingEntity) || !entity.isDead()) {
       return;
     }
 

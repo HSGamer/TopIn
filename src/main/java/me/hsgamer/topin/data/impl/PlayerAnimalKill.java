@@ -51,7 +51,7 @@ public class PlayerAnimalKill extends AutoUpdateSimpleDataList implements Listen
 
   @Override
   public String getName() {
-    return "player_animal_kills";
+    return "player_animal_kill";
   }
 
   @Override
@@ -66,6 +66,10 @@ public class PlayerAnimalKill extends AutoUpdateSimpleDataList implements Listen
 
   @EventHandler(priority = EventPriority.LOWEST)
   public void onDamage(EntityDamageByEntityEvent event) {
+    if (event.isCancelled()) {
+      return;
+    }
+
     Entity entity = event.getEntity();
     if (!(entity instanceof Animals) || !entity.isDead()) {
       return;

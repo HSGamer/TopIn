@@ -65,6 +65,10 @@ public class PlayerTotalDamage extends AutoUpdateSimpleDataList implements Liste
 
   @EventHandler(priority = EventPriority.LOWEST)
   public void onDamage(EntityDamageByEntityEvent event) {
+    if (event.isCancelled()) {
+      return;
+    }
+
     Entity damager = event.getDamager();
     if (damager instanceof Player) {
       damageCaches.merge(damager.getUniqueId(), event.getFinalDamage(), Double::sum);

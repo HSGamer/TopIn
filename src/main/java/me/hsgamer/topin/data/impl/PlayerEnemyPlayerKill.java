@@ -50,7 +50,7 @@ public class PlayerEnemyPlayerKill extends AutoUpdateSimpleDataList implements L
 
   @Override
   public String getName() {
-    return "player_enemy_player_kills";
+    return "player_enemy_player_kill";
   }
 
   @Override
@@ -65,6 +65,10 @@ public class PlayerEnemyPlayerKill extends AutoUpdateSimpleDataList implements L
 
   @EventHandler(priority = EventPriority.LOWEST)
   public void onDamage(EntityDamageByEntityEvent event) {
+    if (event.isCancelled()) {
+      return;
+    }
+
     Entity entity = event.getEntity();
     if (!(entity instanceof Player) || !entity.isDead()) {
       return;

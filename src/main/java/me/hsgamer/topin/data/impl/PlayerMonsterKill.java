@@ -51,7 +51,7 @@ public class PlayerMonsterKill extends AutoUpdateSimpleDataList implements Liste
 
   @Override
   public String getName() {
-    return "player_monster_kills";
+    return "player_monster_kill";
   }
 
   @Override
@@ -66,6 +66,10 @@ public class PlayerMonsterKill extends AutoUpdateSimpleDataList implements Liste
 
   @EventHandler(priority = EventPriority.LOWEST)
   public void onDamage(EntityDamageByEntityEvent event) {
+    if (event.isCancelled()) {
+      return;
+    }
+
     Entity entity = event.getEntity();
     if (!(entity instanceof Monster) || !entity.isDead()) {
       return;

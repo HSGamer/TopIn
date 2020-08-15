@@ -8,20 +8,17 @@ import me.hsgamer.topin.TopIn;
 import me.hsgamer.topin.data.list.AutoUpdateSimpleDataList;
 import me.hsgamer.topin.data.value.PairDecimal;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 
-public class PlayerTotalKill extends AutoUpdateSimpleDataList implements Listener {
+public class PlayerPlacedBlock extends AutoUpdateSimpleDataList implements Listener {
 
-  private final Map<UUID, Integer> killCaches = new ConcurrentHashMap<>();
+  private final Map<UUID, Integer> blockCaches = new ConcurrentHashMap<>();
 
-  public PlayerTotalKill() {
+  public PlayerPlacedBlock() {
     super(40);
   }
 
@@ -42,8 +39,8 @@ public class PlayerTotalKill extends AutoUpdateSimpleDataList implements Listene
     return new PairDecimal(uuid) {
       @Override
       public void update() {
-        if (killCaches.containsKey(getUniqueId())) {
-          setValue(getValue().add(BigDecimal.valueOf(killCaches.remove(getUniqueId()))));
+        if (blockCaches.containsKey(getUniqueId())) {
+          setValue(getValue().add(BigDecimal.valueOf(blockCaches.remove(getUniqueId()))));
         }
       }
     };
@@ -51,33 +48,25 @@ public class PlayerTotalKill extends AutoUpdateSimpleDataList implements Listene
 
   @Override
   public String getName() {
-    return "player_total_kill";
+    return "player_placed_block";
   }
 
   @Override
   public String getDefaultDisplayName() {
-    return "Total Kills";
+    return "Placed Blocks";
   }
 
   @Override
   public String getDefaultSuffix() {
-    return "kills";
+    return "blocks";
   }
 
   @EventHandler(priority = EventPriority.LOWEST)
-  public void onDamage(EntityDamageByEntityEvent event) {
+  public void onPlace(BlockPlaceEvent event) {
     if (event.isCancelled()) {
       return;
     }
 
-    Entity entity = event.getEntity();
-    if (!(entity instanceof LivingEntity) || !entity.isDead()) {
-      return;
-    }
-
-    Entity damager = event.getDamager();
-    if (damager instanceof Player) {
-      killCaches.merge(damager.getUniqueId(), 1, Integer::sum);
-    }
+    blockCaches.merge(event.getPlayer().getUniqueId(), 1, Integer::sum);
   }
 }

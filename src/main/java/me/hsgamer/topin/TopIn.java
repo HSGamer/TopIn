@@ -27,6 +27,7 @@ import me.hsgamer.topin.data.impl.PlayerOnlineTime;
 import me.hsgamer.topin.data.impl.PlayerPlacedBlock;
 import me.hsgamer.topin.data.impl.PlayerTotalDamage;
 import me.hsgamer.topin.data.impl.PlayerTotalKill;
+import me.hsgamer.topin.data.impl.VaultMoney;
 import me.hsgamer.topin.getter.placeholderapi.PlaceholderAPIGetter;
 import me.hsgamer.topin.getter.sign.SignGetter;
 import me.hsgamer.topin.getter.skull.SkullGetter;
@@ -158,6 +159,7 @@ public final class TopIn extends JavaPlugin {
     dataListManager.register(new PlayerAnimalKill());
     dataListManager.register(new PlayerPlacedBlock());
     dataListManager.register(new PlayerBrokenBlock());
+    dataListManager.register(new VaultMoney());
   }
 
   /**

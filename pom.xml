@@ -43,8 +43,24 @@
               <createDependencyReducedPom>false</createDependencyReducedPom>
               <relocations>
                 <relocation>
-                  <pattern>me.hsgamer.hscore</pattern>
-                  <shadedPattern>me.hsgamer.topin.core</shadedPattern>
+                  <pattern>me.hsgamer.hscore.bukkit.command</pattern>
+                  <shadedPattern>me.hsgamer.topin.core.command</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>me.hsgamer.hscore.bukkit.config</pattern>
+                  <shadedPattern>me.hsgamer.topin.core.config</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>me.hsgamer.hscore.bukkit.addon</pattern>
+                  <shadedPattern>me.hsgamer.topin.addon</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>me.hsgamer.hscore.bukkit.utils</pattern>
+                  <shadedPattern>me.hsgamer.topin.utils</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>me.hsgamer.hscore.common</pattern>
+                  <shadedPattern>me.hsgamer.topin.utils.common</shadedPattern>
                 </relocation>
               </relocations>
             </configuration>

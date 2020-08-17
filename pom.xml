@@ -41,7 +41,6 @@
             </goals>
             <configuration>
               <createDependencyReducedPom>false</createDependencyReducedPom>
-              <minimizeJar>true</minimizeJar>
               <relocations>
                 <relocation>
                   <pattern>me.hsgamer.hscore</pattern>
@@ -131,6 +130,11 @@
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-bukkit-utils</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>me.HSGamer</groupId>
+      <artifactId>HSCore-bukkit-addon</artifactId>
       <version>1.0</version>
     </dependency>
     <dependency>

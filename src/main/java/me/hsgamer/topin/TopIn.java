@@ -75,15 +75,15 @@ public final class TopIn extends JavaPlugin {
 
   @Override
   public void onEnable() {
-    registerDefaultDataList();
     loadCommands();
     registerListener();
-    registerDefaultGetters();
     addonManager.loadAddons();
     commandManager.syncCommand();
     startNewSaveTask();
 
     Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
+      registerDefaultDataList();
+      registerDefaultGetters();
       addonManager.enableAddons();
       addonManager.callPostEnable();
       commandManager.syncCommand();
@@ -166,11 +166,9 @@ public final class TopIn extends JavaPlugin {
    * Register default getters
    */
   private void registerDefaultGetters() {
-    Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
-      getterManager.register(new PlaceholderAPIGetter());
-      getterManager.register(new SkullGetter());
-      getterManager.register(new SignGetter());
-    });
+    getterManager.register(new PlaceholderAPIGetter());
+    getterManager.register(new SkullGetter());
+    getterManager.register(new SignGetter());
   }
 
   /**

@@ -5,6 +5,7 @@ import me.hsgamer.hscore.bukkit.addon.AddonManager;
 import me.hsgamer.hscore.bukkit.addon.object.Addon;
 import me.hsgamer.hscore.bukkit.command.CommandManager;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
+import me.hsgamer.topin.command.GetAddonsCommand;
 import me.hsgamer.topin.command.GetDataListCommand;
 import me.hsgamer.topin.command.GetGettersCommand;
 import me.hsgamer.topin.command.GetTopCommand;
@@ -180,6 +181,7 @@ public final class TopIn extends JavaPlugin {
     commandManager.register(new GetDataListCommand());
     commandManager.register(new GetTopCommand());
     commandManager.register(new SearchDataListCommand());
+    commandManager.register(new GetAddonsCommand());
   }
 
   /**
@@ -241,5 +243,14 @@ public final class TopIn extends JavaPlugin {
    */
   public SuffixConfig getSuffixConfig() {
     return suffixConfig;
+  }
+
+  /**
+   * Get the addon manager
+   *
+   * @return the addon manager
+   */
+  public AddonManager getAddonManager() {
+    return addonManager;
   }
 }

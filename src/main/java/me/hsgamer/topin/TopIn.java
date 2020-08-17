@@ -34,11 +34,10 @@ import me.hsgamer.topin.getter.skull.SkullGetter;
 import me.hsgamer.topin.listener.JoinListener;
 import me.hsgamer.topin.manager.DataListManager;
 import me.hsgamer.topin.manager.GetterManager;
+import me.hsgamer.topin.manager.SaveTaskManager;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 public final class TopIn extends JavaPlugin {
 
@@ -56,7 +55,7 @@ public final class TopIn extends JavaPlugin {
       return original;
     }
   };
-  private BukkitTask saveTask;
+  private final SaveTaskManager saveTaskManager = new SaveTaskManager(this);
 
   /**
    * Get the instance
@@ -79,7 +78,7 @@ public final class TopIn extends JavaPlugin {
     registerListener();
     addonManager.loadAddons();
     commandManager.syncCommand();
-    startNewSaveTask();
+    saveTaskManager.startNewSaveTask();
 
     Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
       registerDefaultDataList();
@@ -92,47 +91,13 @@ public final class TopIn extends JavaPlugin {
 
   @Override
   public void onDisable() {
-    stopSaveTask();
+    saveTaskManager.stopSaveTask();
     addonManager.disableAddons();
     getterManager.unregisterAll();
     dataListManager.saveAll();
     dataListManager.unregisterAll();
     dataListManager.clearAll();
     HandlerList.unregisterAll(this);
-  }
-
-  /**
-   * Start new save task
-   */
-  public void startNewSaveTask() {
-    stopSaveTask();
-
-    final BukkitRunnable saveRunnable = new BukkitRunnable() {
-      @Override
-      public void run() {
-        dataListManager.saveAll();
-        if (MainConfig.SAVE_SILENT.getValue().equals(Boolean.FALSE)) {
-          MessageUtils.sendMessage(getServer().getConsoleSender(), MessageConfig.SAVE.getValue());
-        }
-      }
-    };
-    int period = MainConfig.SAVE_PERIOD.getValue();
-    if (period >= 0) {
-      if (MainConfig.SAVE_ASYNC.getValue().equals(Boolean.TRUE)) {
-        saveTask = saveRunnable.runTaskTimerAsynchronously(this, 0, period);
-      } else {
-        saveTask = saveRunnable.runTaskTimer(this, 0, period);
-      }
-    }
-  }
-
-  /**
-   * Stop the save task
-   */
-  public void stopSaveTask() {
-    if (saveTask != null && !saveTask.isCancelled()) {
-      saveTask.cancel();
-    }
   }
 
   /**
@@ -252,5 +217,14 @@ public final class TopIn extends JavaPlugin {
    */
   public AddonManager getAddonManager() {
     return addonManager;
+  }
+
+  /**
+   * Get the save task manager
+   *
+   * @return the save task manager
+   */
+  public SaveTaskManager getSaveTaskManager() {
+    return saveTaskManager;
   }
 }

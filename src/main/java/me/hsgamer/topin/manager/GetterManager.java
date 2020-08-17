@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
+import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.config.MessageConfig;
 import me.hsgamer.topin.getter.Getter;
 import org.bukkit.Bukkit;
@@ -23,12 +24,17 @@ public final class GetterManager {
    * @param getter the getter
    */
   public void register(Getter getter) {
-    if (getter.canRegister()) {
-      getter.register();
-      getterList.add(getter);
-      MessageUtils.sendMessage(Bukkit.getConsoleSender(),
-          MessageConfig.GETTER_REGISTERED.getValue().replace(GETTER_PLACEHOLDER, getter.getName()));
+    if (MainConfig.IGNORED_DATA_LIST.getValue().contains(getter.getName())) {
+      return;
     }
+    if (!getter.canRegister()) {
+      return;
+    }
+
+    getter.register();
+    getterList.add(getter);
+    MessageUtils.sendMessage(Bukkit.getConsoleSender(),
+        MessageConfig.GETTER_REGISTERED.getValue().replace(GETTER_PLACEHOLDER, getter.getName()));
   }
 
   /**

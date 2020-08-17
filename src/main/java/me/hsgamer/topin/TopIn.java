@@ -1,5 +1,8 @@
 package me.hsgamer.topin;
 
+import java.util.Map;
+import me.hsgamer.hscore.bukkit.addon.AddonManager;
+import me.hsgamer.hscore.bukkit.addon.object.Addon;
 import me.hsgamer.hscore.bukkit.command.CommandManager;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.topin.command.GetDataListCommand;
@@ -45,6 +48,12 @@ public final class TopIn extends JavaPlugin {
   private final DisplayNameConfig displayNameConfig = new DisplayNameConfig(this);
   private final SuffixConfig suffixConfig = new SuffixConfig(this);
   private final GetterManager getterManager = new GetterManager();
+  private final AddonManager addonManager = new AddonManager(this) {
+    @Override
+    protected Map<String, Addon> sortAndFilter(Map<String, Addon> original) {
+      return original;
+    }
+  };
   private BukkitTask saveTask;
 
   /**
@@ -66,15 +75,23 @@ public final class TopIn extends JavaPlugin {
   public void onEnable() {
     registerDefaultDataList();
     loadCommands();
-    commandManager.syncCommand();
     registerListener();
     registerDefaultGetters();
+    addonManager.loadAddons();
+    commandManager.syncCommand();
     startNewSaveTask();
+
+    Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
+      addonManager.enableAddons();
+      addonManager.callPostEnable();
+      commandManager.syncCommand();
+    });
   }
 
   @Override
   public void onDisable() {
     stopSaveTask();
+    addonManager.disableAddons();
     getterManager.unregisterAll();
     dataListManager.saveAll();
     dataListManager.unregisterAll();

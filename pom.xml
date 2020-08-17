@@ -41,6 +41,7 @@
             </goals>
             <configuration>
               <createDependencyReducedPom>false</createDependencyReducedPom>
+              <minimizeJar>true</minimizeJar>
               <relocations>
                 <relocation>
                   <pattern>me.hsgamer.hscore</pattern>

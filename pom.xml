@@ -62,6 +62,10 @@
                   <pattern>me.hsgamer.hscore.common</pattern>
                   <shadedPattern>me.hsgamer.topin.utils.common</shadedPattern>
                 </relocation>
+                <relocation>
+                  <pattern>org.bstats</pattern>
+                  <shadedPattern>me.hsgamer.topin.bstats</shadedPattern>
+                </relocation>
               </relocations>
             </configuration>
           </execution>
@@ -179,6 +183,12 @@
       <artifactId>VaultAPI</artifactId>
       <version>1.7</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.bstats</groupId>
+      <artifactId>bstats-bukkit-lite</artifactId>
+      <version>1.7</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 

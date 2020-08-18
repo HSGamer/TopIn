@@ -35,6 +35,7 @@ import me.hsgamer.topin.listener.JoinListener;
 import me.hsgamer.topin.manager.DataListManager;
 import me.hsgamer.topin.manager.GetterManager;
 import me.hsgamer.topin.manager.SaveTaskManager;
+import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -87,6 +88,10 @@ public final class TopIn extends JavaPlugin {
       addonManager.callPostEnable();
       commandManager.syncCommand();
     });
+
+    if (MainConfig.METRICS.getValue().equals(Boolean.TRUE)) {
+      new MetricsLite(this, 8584);
+    }
   }
 
   @Override

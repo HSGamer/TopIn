@@ -63,7 +63,7 @@
                   <shadedPattern>me.hsgamer.topin.utils.common</shadedPattern>
                 </relocation>
                 <relocation>
-                  <pattern>org.bstats</pattern>
+                  <pattern>org.bstats.bukkit</pattern>
                   <shadedPattern>me.hsgamer.topin.bstats</shadedPattern>
                 </relocation>
               </relocations>

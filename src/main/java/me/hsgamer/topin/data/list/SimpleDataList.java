@@ -1,8 +1,6 @@
 package me.hsgamer.topin.data.list;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,11 +13,10 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Level;
 import me.hsgamer.hscore.bukkit.utils.BukkitUtils;
+import me.hsgamer.hscore.json.JSONUtils;
 import me.hsgamer.topin.TopIn;
 import me.hsgamer.topin.data.value.PairDecimal;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  * A simple data list with an synchronized ArrayList
@@ -103,14 +100,10 @@ public abstract class SimpleDataList extends DataList {
       return;
     }
 
-    JSONParser jsonParser = new JSONParser();
-    try (FileReader reader = new FileReader(dataFile)) {
-      JSONObject obj = (JSONObject) jsonParser.parse(reader);
-      obj.forEach((key, value) -> set(UUID.fromString(String.valueOf(key)),
+    Object object = JSONUtils.getJSON(dataFile);
+    if (object != null) {
+      ((JSONObject) object).forEach((key, value) -> set(UUID.fromString(String.valueOf(key)),
           new BigDecimal(String.valueOf(value))));
-    } catch (IOException | ParseException e) {
-      TopIn.getInstance().getLogger()
-          .log(Level.SEVERE, e, () -> "Error when loading data for " + getName());
     }
   }
 
@@ -128,9 +121,8 @@ public abstract class SimpleDataList extends DataList {
     for (PairDecimal pair : list) {
       data.put(pair.getUniqueId().toString(), pair.getValue().toString());
     }
-    try (FileWriter writer = new FileWriter(dataFile)) {
-      data.writeJSONString(writer);
-      writer.flush();
+    try {
+      JSONUtils.writeToFile(dataFile, data);
     } catch (IOException e) {
       TopIn.getInstance().getLogger()
           .log(Level.WARNING, e, () -> "Error when saving data for " + getName());
@@ -155,11 +147,8 @@ public abstract class SimpleDataList extends DataList {
 
   protected boolean isDataFileFailedToCreate() {
     if (dataFile == null) {
-      dataFile = new File(getDataDir(), getName() + ".json");
-    }
-    if (!dataFile.exists()) {
       try {
-        dataFile.createNewFile();
+        dataFile = JSONUtils.createFile(getName(), getDataDir());
       } catch (IOException e) {
         TopIn.getInstance().getLogger()
             .log(Level.WARNING, e, () -> "Error when creating data file for " + getName());

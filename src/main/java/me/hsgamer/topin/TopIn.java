@@ -79,10 +79,10 @@ public final class TopIn extends JavaPlugin {
     registerListener();
     addonManager.loadAddons();
     commandManager.syncCommand();
-    saveTaskManager.startNewSaveTask();
 
     Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
       registerDefaultDataList();
+      saveTaskManager.startNewSaveTask();
       registerDefaultGetters();
       addonManager.enableAddons();
       addonManager.callPostEnable();

@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -100,7 +99,7 @@ public abstract class SimpleDataList extends DataList {
   public void loadData() {
     BukkitUtils.getAllUniqueIds().forEach(this::add);
 
-    if (isDataFileFailedToCreate()) {
+    if (isDataFileFailedToCreate() || dataFile.length() == 0) {
       return;
     }
 
@@ -161,7 +160,6 @@ public abstract class SimpleDataList extends DataList {
     if (!dataFile.exists()) {
       try {
         dataFile.createNewFile();
-        Files.write(dataFile.toPath(), Collections.singletonList("{}"));
       } catch (IOException e) {
         TopIn.getInstance().getLogger()
             .log(Level.WARNING, e, () -> "Error when creating data file for " + getName());

@@ -170,7 +170,7 @@
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-common</artifactId>
-      <version>1.0</version>
+      <version>1.1</version>
     </dependency>
     <dependency>
       <groupId>me.clip</groupId>

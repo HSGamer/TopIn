@@ -43,7 +43,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class TopIn extends JavaPlugin {
 
   private static TopIn instance;
-  private final DataListManager dataListManager = new DataListManager(this);
+  private final DataListManager dataListManager = new DataListManager();
   private final CommandManager commandManager = new CommandManager(this);
   private final MainConfig mainConfig = new MainConfig(this);
   private final MessageConfig messageConfig = new MessageConfig(this);
@@ -103,6 +103,7 @@ public final class TopIn extends JavaPlugin {
     dataListManager.unregisterAll();
     dataListManager.clearAll();
     HandlerList.unregisterAll(this);
+    instance = null;
   }
 
   /**

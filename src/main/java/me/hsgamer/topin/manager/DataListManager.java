@@ -1,6 +1,5 @@
 package me.hsgamer.topin.manager;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,9 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.topin.data.list.DataList;
-import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * The data list manager
@@ -18,17 +15,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class DataListManager {
 
   private final Map<String, DataList> dataListMap = new HashMap<>();
-  private final Map<String, PluginConfig> dataConfigMap = new HashMap<>();
-  private final JavaPlugin plugin;
-  private final File dataDir;
-
-  public DataListManager(JavaPlugin plugin) {
-    this.plugin = plugin;
-    this.dataDir = new File(plugin.getDataFolder(), "data");
-    if (!dataDir.exists()) {
-      dataDir.mkdirs();
-    }
-  }
 
   /**
    * Register a data list
@@ -44,13 +30,10 @@ public final class DataListManager {
     if (dataListMap.containsKey(name)) {
       return;
     }
-
-    PluginConfig config = new PluginConfig(plugin, new File(dataDir, name + ".yml"));
-    dataConfigMap.put(name, config);
     dataListMap.put(name, dataList);
+    dataList.loadData();
     dataList.registerConfigPath();
     dataList.register();
-    dataList.loadData(config);
   }
 
   /**
@@ -64,7 +47,7 @@ public final class DataListManager {
     }
 
     DataList dataList = dataListMap.remove(name);
-    dataList.saveData(dataConfigMap.remove(name));
+    dataList.saveData();
     dataList.unregister();
   }
 
@@ -78,14 +61,14 @@ public final class DataListManager {
       return;
     }
 
-    dataListMap.get(name).saveData(dataConfigMap.get(name));
+    dataListMap.get(name).saveData();
   }
 
   /**
    * Save all data lists to file
    */
   public void saveAll() {
-    dataListMap.forEach((name, dataList) -> dataList.saveData(dataConfigMap.get(name)));
+    dataListMap.forEach((name, dataList) -> dataList.saveData());
   }
 
   /**
@@ -119,7 +102,6 @@ public final class DataListManager {
    */
   public void clearAll() {
     dataListMap.clear();
-    dataConfigMap.clear();
   }
 
   /**

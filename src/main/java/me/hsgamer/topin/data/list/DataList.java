@@ -1,10 +1,10 @@
 package me.hsgamer.topin.data.list;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.hscore.bukkit.config.path.StringConfigPath;
 import me.hsgamer.topin.TopIn;
 import me.hsgamer.topin.config.DisplayNameConfig;
@@ -16,8 +16,24 @@ import me.hsgamer.topin.data.value.PairDecimal;
  */
 public abstract class DataList {
 
+  private static File dataDir;
   protected StringConfigPath displayName;
   protected StringConfigPath suffix;
+
+  /**
+   * Get the data directory
+   *
+   * @return the data directory
+   */
+  public static File getDataDir() {
+    if (dataDir == null) {
+      dataDir = new File(TopIn.getInstance().getDataFolder(), "data");
+      if (!dataDir.exists()) {
+        dataDir.mkdirs();
+      }
+    }
+    return dataDir;
+  }
 
   /**
    * Register necessary config path (display name and suffix)
@@ -141,17 +157,13 @@ public abstract class DataList {
 
   /**
    * Load data from configuration file
-   *
-   * @param config the configuration file
    */
-  public abstract void loadData(PluginConfig config);
+  public abstract void loadData();
 
   /**
    * Save data to configuration file
-   *
-   * @param config the configuration file
    */
-  public abstract void saveData(PluginConfig config);
+  public abstract void saveData();
 
   /**
    * Get the technical name of the data list

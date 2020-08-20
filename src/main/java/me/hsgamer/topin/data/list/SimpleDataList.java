@@ -1,6 +1,11 @@
 package me.hsgamer.topin.data.list;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,10 +14,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import me.hsgamer.hscore.bukkit.config.PluginConfig;
+import java.util.logging.Level;
 import me.hsgamer.hscore.bukkit.utils.BukkitUtils;
+import me.hsgamer.topin.TopIn;
 import me.hsgamer.topin.data.value.PairDecimal;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * A simple data list with an synchronized ArrayList
@@ -21,6 +29,7 @@ public abstract class SimpleDataList extends DataList {
 
   protected final List<PairDecimal> list = Collections.synchronizedList(new ArrayList<>());
   protected final Map<UUID, Integer> indexMap = new HashMap<>();
+  protected File dataFile;
 
   /**
    * {@inheritDoc}
@@ -86,24 +95,47 @@ public abstract class SimpleDataList extends DataList {
   /**
    * {@inheritDoc}
    */
+  @SuppressWarnings("unchecked")
   @Override
-  public void loadData(PluginConfig config) {
+  public void loadData() {
     BukkitUtils.getAllUniqueIds().forEach(this::add);
-    FileConfiguration configuration = config.getConfig();
-    configuration.getValues(false)
-        .forEach((k, v) -> set(UUID.fromString(k), new BigDecimal(String.valueOf(v))));
+
+    if (isDataFileFailedToCreate()) {
+      return;
+    }
+
+    JSONParser jsonParser = new JSONParser();
+    try (FileReader reader = new FileReader(dataFile)) {
+      JSONObject obj = (JSONObject) jsonParser.parse(reader);
+      obj.forEach((key, value) -> set(UUID.fromString(String.valueOf(key)),
+          new BigDecimal(String.valueOf(value))));
+    } catch (IOException | ParseException e) {
+      TopIn.getInstance().getLogger()
+          .log(Level.SEVERE, e, () -> "Error when loading data for " + getName());
+    }
   }
 
   /**
    * {@inheritDoc}
    */
+  @SuppressWarnings("unchecked")
   @Override
-  public void saveData(PluginConfig config) {
-    FileConfiguration configuration = config.getConfig();
-    for (PairDecimal pair : list) {
-      configuration.set(pair.getUniqueId().toString(), pair.getValue().toString());
+  public void saveData() {
+    if (isDataFileFailedToCreate()) {
+      return;
     }
-    config.saveConfig();
+
+    JSONObject data = new JSONObject();
+    for (PairDecimal pair : list) {
+      data.put(pair.getUniqueId().toString(), pair.getValue().toString());
+    }
+    try (FileWriter writer = new FileWriter(dataFile)) {
+      data.writeJSONString(writer);
+      writer.flush();
+    } catch (IOException e) {
+      TopIn.getInstance().getLogger()
+          .log(Level.WARNING, e, () -> "Error when saving data for " + getName());
+    }
   }
 
   /**
@@ -120,5 +152,22 @@ public abstract class SimpleDataList extends DataList {
   @Override
   public Optional<Integer> getTopIndex(UUID uuid) {
     return Optional.ofNullable(indexMap.get(uuid));
+  }
+
+  protected boolean isDataFileFailedToCreate() {
+    if (dataFile == null) {
+      dataFile = new File(getDataDir(), getName() + ".json");
+    }
+    if (!dataFile.exists()) {
+      try {
+        dataFile.createNewFile();
+        Files.write(dataFile.toPath(), Collections.singletonList("{}"));
+      } catch (IOException e) {
+        TopIn.getInstance().getLogger()
+            .log(Level.WARNING, e, () -> "Error when creating data file for " + getName());
+        return true;
+      }
+    }
+    return false;
   }
 }

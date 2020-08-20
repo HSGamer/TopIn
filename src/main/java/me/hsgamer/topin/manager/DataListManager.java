@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.data.list.DataList;
 
 /**
@@ -22,6 +23,10 @@ public final class DataListManager {
    * @param dataList the data list
    */
   public void register(DataList dataList) {
+    if (MainConfig.IGNORED_DATA_LIST.getValue().contains(dataList.getName())) {
+      return;
+    }
+
     if (!dataList.canRegister()) {
       return;
     }
@@ -31,9 +36,9 @@ public final class DataListManager {
       return;
     }
     dataListMap.put(name, dataList);
-    dataList.loadData();
     dataList.registerConfigPath();
     dataList.register();
+    dataList.loadData();
   }
 
   /**

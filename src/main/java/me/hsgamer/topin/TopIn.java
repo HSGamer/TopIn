@@ -45,22 +45,25 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class TopIn extends JavaPlugin {
 
   private static TopIn instance;
-  private final DataListManager dataListManager = new DataListManager();
+  private static File dataDir;
+
   private final CommandManager commandManager = new CommandManager(this);
   private final MainConfig mainConfig = new MainConfig(this);
   private final MessageConfig messageConfig = new MessageConfig(this);
   private final DisplayNameConfig displayNameConfig = new DisplayNameConfig(this);
   private final SuffixConfig suffixConfig = new SuffixConfig(this);
+
+  private final StorageCreator storageCreator = new StorageCreator();
+  private final DataListManager dataListManager = new DataListManager();
   private final GetterManager getterManager = new GetterManager();
+  private final SaveTaskManager saveTaskManager = new SaveTaskManager(this);
+
   private final AddonManager addonManager = new AddonManager(this) {
     @Override
     protected Map<String, Addon> sortAndFilter(Map<String, Addon> original) {
       return original;
     }
   };
-  private final SaveTaskManager saveTaskManager = new SaveTaskManager(this);
-  private final StorageCreator storageCreator = new StorageCreator();
-  private static File dataDir;
 
   /**
    * Get the data directory

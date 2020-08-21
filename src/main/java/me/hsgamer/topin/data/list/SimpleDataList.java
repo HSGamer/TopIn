@@ -1,7 +1,5 @@
 package me.hsgamer.topin.data.list;
 
-import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,12 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.logging.Level;
 import me.hsgamer.hscore.bukkit.utils.BukkitUtils;
-import me.hsgamer.hscore.json.JSONUtils;
 import me.hsgamer.topin.TopIn;
 import me.hsgamer.topin.data.value.PairDecimal;
-import org.json.simple.JSONObject;
+import me.hsgamer.topin.storage.Storage;
 
 /**
  * A simple data list with an synchronized ArrayList
@@ -25,7 +21,7 @@ public abstract class SimpleDataList extends DataList {
 
   protected final List<PairDecimal> list = Collections.synchronizedList(new ArrayList<>());
   protected final Map<UUID, Integer> indexMap = new HashMap<>();
-  protected File dataFile;
+  protected Storage storage;
 
   /**
    * {@inheritDoc}
@@ -91,42 +87,24 @@ public abstract class SimpleDataList extends DataList {
   /**
    * {@inheritDoc}
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void loadData() {
     BukkitUtils.getAllUniqueIds().forEach(this::add);
-
-    if (isDataFileFailedToCreate() || dataFile.length() == 0) {
-      return;
-    }
-
-    Object object = JSONUtils.getJSON(dataFile);
-    if (object != null) {
-      ((JSONObject) object).forEach((key, value) -> set(UUID.fromString(String.valueOf(key)),
-          new BigDecimal(String.valueOf(value))));
-    }
+    loadStorage();
+    storage.load().forEach(this::set);
   }
 
   /**
    * {@inheritDoc}
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void saveData() {
-    if (isDataFileFailedToCreate()) {
-      return;
-    }
-
-    JSONObject data = new JSONObject();
+    loadStorage();
+    Map<UUID, BigDecimal> map = new HashMap<>();
     for (PairDecimal pair : list) {
-      data.put(pair.getUniqueId().toString(), pair.getValue().toString());
+      map.put(pair.getUniqueId(), pair.getValue());
     }
-    try {
-      JSONUtils.writeToFile(dataFile, data);
-    } catch (IOException e) {
-      TopIn.getInstance().getLogger()
-          .log(Level.WARNING, e, () -> "Error when saving data for " + getName());
-    }
+    storage.save(map);
   }
 
   /**
@@ -145,16 +123,12 @@ public abstract class SimpleDataList extends DataList {
     return Optional.ofNullable(indexMap.get(uuid));
   }
 
-  protected boolean isDataFileFailedToCreate() {
-    if (dataFile == null) {
-      try {
-        dataFile = JSONUtils.createFile(getName(), getDataDir());
-      } catch (IOException e) {
-        TopIn.getInstance().getLogger()
-            .log(Level.WARNING, e, () -> "Error when creating data file for " + getName());
-        return true;
-      }
+  /**
+   * Load the storage
+   */
+  private void loadStorage() {
+    if (storage == null) {
+      storage = TopIn.getInstance().getStorageCreator().createStorage(getName());
     }
-    return false;
   }
 }

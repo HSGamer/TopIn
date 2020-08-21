@@ -1,5 +1,6 @@
 package me.hsgamer.topin;
 
+import java.io.File;
 import java.util.Map;
 import me.hsgamer.hscore.bukkit.addon.AddonManager;
 import me.hsgamer.hscore.bukkit.addon.object.Addon;
@@ -35,6 +36,7 @@ import me.hsgamer.topin.listener.JoinListener;
 import me.hsgamer.topin.manager.DataListManager;
 import me.hsgamer.topin.manager.GetterManager;
 import me.hsgamer.topin.manager.SaveTaskManager;
+import me.hsgamer.topin.storage.StorageCreator;
 import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
@@ -57,6 +59,23 @@ public final class TopIn extends JavaPlugin {
     }
   };
   private final SaveTaskManager saveTaskManager = new SaveTaskManager(this);
+  private final StorageCreator storageCreator = new StorageCreator();
+  private static File dataDir;
+
+  /**
+   * Get the data directory
+   *
+   * @return the data directory
+   */
+  public static File getDataDir() {
+    if (dataDir == null) {
+      dataDir = new File(TopIn.getInstance().getDataFolder(), "data");
+      if (!dataDir.exists()) {
+        dataDir.mkdirs();
+      }
+    }
+    return dataDir;
+  }
 
   /**
    * Get the instance
@@ -71,6 +90,7 @@ public final class TopIn extends JavaPlugin {
   public void onLoad() {
     instance = this;
     MessageUtils.setPrefix(MessageConfig.PREFIX::getValue);
+    storageCreator.loadType();
   }
 
   @Override
@@ -232,5 +252,14 @@ public final class TopIn extends JavaPlugin {
    */
   public SaveTaskManager getSaveTaskManager() {
     return saveTaskManager;
+  }
+
+  /**
+   * Get the storage creator
+   *
+   * @return the storage creator
+   */
+  public StorageCreator getStorageCreator() {
+    return storageCreator;
   }
 }

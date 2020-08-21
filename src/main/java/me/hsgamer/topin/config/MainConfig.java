@@ -4,6 +4,7 @@ import java.util.Collections;
 import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.hscore.bukkit.config.path.BooleanConfigPath;
 import me.hsgamer.hscore.bukkit.config.path.IntegerConfigPath;
+import me.hsgamer.hscore.bukkit.config.path.StringConfigPath;
 import me.hsgamer.topin.config.path.StringListConfigPath;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,6 +18,8 @@ public final class MainConfig extends PluginConfig {
       "display-top-start-index", 1);
   public static final StringListConfigPath IGNORED_DATA_LIST = new StringListConfigPath(
       "ignored-data-list", Collections.emptyList());
+  public static final StringConfigPath STORAGE_TYPE = new StringConfigPath(
+      "storage-type", "YAML");
 
   public MainConfig(JavaPlugin plugin) {
     super(plugin, "config.yml");
@@ -32,5 +35,6 @@ public final class MainConfig extends PluginConfig {
     SAVE_SILENT.setConfig(this);
     DISPLAY_TOP_START_INDEX.setConfig(this);
     IGNORED_DATA_LIST.setConfig(this);
+    STORAGE_TYPE.setConfig(this);
   }
 }

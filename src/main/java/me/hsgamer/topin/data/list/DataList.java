@@ -1,6 +1,5 @@
 package me.hsgamer.topin.data.list;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -16,24 +15,8 @@ import me.hsgamer.topin.data.value.PairDecimal;
  */
 public abstract class DataList {
 
-  private static File dataDir;
   protected StringConfigPath displayName;
   protected StringConfigPath suffix;
-
-  /**
-   * Get the data directory
-   *
-   * @return the data directory
-   */
-  public static File getDataDir() {
-    if (dataDir == null) {
-      dataDir = new File(TopIn.getInstance().getDataFolder(), "data");
-      if (!dataDir.exists()) {
-        dataDir.mkdirs();
-      }
-    }
-    return dataDir;
-  }
 
   /**
    * Register necessary config path (display name and suffix)

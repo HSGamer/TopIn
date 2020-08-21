@@ -19,7 +19,7 @@ public final class MainConfig extends PluginConfig {
   public static final StringListConfigPath IGNORED_DATA_LIST = new StringListConfigPath(
       "ignored-data-list", Collections.emptyList());
   public static final StringConfigPath STORAGE_TYPE = new StringConfigPath(
-      "storage-type", "YAML");
+      "storage-type", "JSON");
 
   public MainConfig(JavaPlugin plugin) {
     super(plugin, "config.yml");

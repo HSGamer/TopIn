@@ -154,9 +154,8 @@ public final class TopIn extends JavaPlugin {
     dataListManager.register(new VaultMoney());
 
     if (MainConfig.ENABLE_PAPI_DATA_LIST.getValue().equals(Boolean.TRUE)) {
-      for (String placeholder : MainConfig.ENABLED_PAPI_PLACEHOLDERS.getValue()) {
-        dataListManager.register(new PlaceholderApiData(placeholder.trim()));
-      }
+      MainConfig.PAPI_DATA_LIST.getValue().forEach((name, placeholder) ->
+          dataListManager.register(new PlaceholderApiData(name, placeholder.trim())));
     }
   }
 

@@ -1,11 +1,15 @@
 package me.hsgamer.topin.config;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import me.hsgamer.hscore.bukkit.config.ConfigPath;
 import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.hscore.bukkit.config.path.BooleanConfigPath;
 import me.hsgamer.hscore.bukkit.config.path.IntegerConfigPath;
 import me.hsgamer.hscore.bukkit.config.path.StringConfigPath;
 import me.hsgamer.topin.config.path.StringListConfigPath;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MainConfig extends PluginConfig {
@@ -22,8 +26,17 @@ public final class MainConfig extends PluginConfig {
       "storage-type", "JSON");
   public static final BooleanConfigPath ENABLE_PAPI_DATA_LIST = new BooleanConfigPath(
       "enable-papi-data-list", false);
-  public static final StringListConfigPath ENABLED_PAPI_PLACEHOLDERS = new StringListConfigPath(
-      "enabled-papi-placeholders", Collections.emptyList());
+  public static final ConfigPath<Map<String, String>> PAPI_DATA_LIST = new ConfigPath<>(
+      "papi-data-list", Collections.emptyMap(),
+      o -> {
+        Map<String, String> map = new HashMap<>();
+        if (o instanceof ConfigurationSection) {
+          ((ConfigurationSection) o).getValues(false).forEach((k, v) -> {
+            map.put(k, String.valueOf(v));
+          });
+        }
+        return map;
+      });
 
   public MainConfig(JavaPlugin plugin) {
     super(plugin, "config.yml");
@@ -41,6 +54,6 @@ public final class MainConfig extends PluginConfig {
     IGNORED_DATA_LIST.setConfig(this);
     STORAGE_TYPE.setConfig(this);
     ENABLE_PAPI_DATA_LIST.setConfig(this);
-    ENABLED_PAPI_PLACEHOLDERS.setConfig(this);
+    PAPI_DATA_LIST.setConfig(this);
   }
 }

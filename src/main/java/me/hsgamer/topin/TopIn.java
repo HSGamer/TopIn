@@ -93,20 +93,20 @@ public final class TopIn extends JavaPlugin {
   public void onLoad() {
     instance = this;
     MessageUtils.setPrefix(MessageConfig.PREFIX::getValue);
-    storageCreator.loadType();
   }
 
   @Override
   public void onEnable() {
     loadCommands();
     registerListener();
+    registerDefaultGetters();
     addonManager.loadAddons();
+    storageCreator.loadType();
     commandManager.syncCommand();
 
     Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
       registerDefaultDataList();
       saveTaskManager.startNewSaveTask();
-      registerDefaultGetters();
       addonManager.enableAddons();
       addonManager.callPostEnable();
       commandManager.syncCommand();

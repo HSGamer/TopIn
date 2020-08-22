@@ -1,22 +1,42 @@
 package me.hsgamer.topin.storage;
 
+import java.util.Map;
+import java.util.function.Function;
+import me.hsgamer.hscore.map.CaseInsensitiveStringMap;
 import me.hsgamer.topin.config.MainConfig;
+import me.hsgamer.topin.storage.type.JsonStorage;
+import me.hsgamer.topin.storage.type.YamlStorage;
 
 /**
  * The storage creator
  */
 public class StorageCreator {
-  private StorageType storageType;
+
+  private static final Map<String, Function<String, Storage>> createStorageMap = new CaseInsensitiveStringMap<>();
+
+  static {
+    registerStorageCreator("yaml", YamlStorage::new);
+    registerStorageCreator("json", JsonStorage::new);
+  }
+
+  private Function<String, Storage> createStorageFunction;
+
+  /**
+   * Register the "create storage" function
+   *
+   * @param name           the name of the function
+   * @param createFunction the "create storage" function
+   */
+  public static void registerStorageCreator(String name, Function<String, Storage> createFunction) {
+    createStorageMap.put(name, createFunction);
+  }
 
   /**
    * Load the default storage type
    */
   public void loadType() {
-    try {
-      storageType = StorageType.valueOf(MainConfig.STORAGE_TYPE.getValue().trim().toUpperCase());
-    } catch (Exception e) {
-      storageType = StorageType.JSON;
-    }
+    createStorageFunction = createStorageMap
+        .getOrDefault(MainConfig.STORAGE_TYPE.getValue().trim(), JsonStorage::new);
   }
 
   /**
@@ -26,9 +46,9 @@ public class StorageCreator {
    * @return the storage
    */
   public Storage createStorage(String name) {
-    if (storageType == null) {
+    if (createStorageFunction == null) {
       loadType();
     }
-    return storageType.createStorage(name);
+    return createStorageFunction.apply(name);
   }
 }

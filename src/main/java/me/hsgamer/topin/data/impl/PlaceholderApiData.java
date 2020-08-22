@@ -31,8 +31,8 @@ public class PlaceholderApiData extends AutoUpdateSimpleDataList {
         try {
           setValue(
               new BigDecimal(
-                  PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(getUniqueId()),
-                      "%" + placeholder + "%")
+                  PlaceholderAPI
+                      .setPlaceholders(Bukkit.getOfflinePlayer(getUniqueId()), placeholder)
               )
           );
         } catch (Exception e) {

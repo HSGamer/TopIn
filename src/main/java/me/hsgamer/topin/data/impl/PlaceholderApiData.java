@@ -10,9 +10,11 @@ import org.bukkit.Bukkit;
 public class PlaceholderApiData extends AutoUpdateSimpleDataList {
 
   private final String placeholder;
+  private final String name;
 
-  public PlaceholderApiData(String placeholder) {
+  public PlaceholderApiData(String name, String placeholder) {
     super(20);
+    this.name = name;
     this.placeholder = placeholder;
   }
 
@@ -42,12 +44,12 @@ public class PlaceholderApiData extends AutoUpdateSimpleDataList {
 
   @Override
   public String getName() {
-    return "placeholderapi_" + placeholder;
+    return "placeholderapi_" + name;
   }
 
   @Override
   public String getDefaultDisplayName() {
-    return placeholder + "'s Top";
+    return name + "'s Top";
   }
 
   @Override

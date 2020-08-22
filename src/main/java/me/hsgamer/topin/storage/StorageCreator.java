@@ -1,6 +1,7 @@
 package me.hsgamer.topin.storage;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import me.hsgamer.hscore.map.CaseInsensitiveStringMap;
 import me.hsgamer.topin.config.MainConfig;
@@ -35,8 +36,8 @@ public class StorageCreator {
    * Load the default storage type
    */
   public void loadType() {
-    createStorageFunction = createStorageMap
-        .getOrDefault(MainConfig.STORAGE_TYPE.getValue().trim(), JsonStorage::new);
+    createStorageFunction = Optional.ofNullable(createStorageMap
+        .get(MainConfig.STORAGE_TYPE.getValue().trim())).orElse(JsonStorage::new);
   }
 
   /**

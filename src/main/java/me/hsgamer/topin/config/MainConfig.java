@@ -20,6 +20,10 @@ public final class MainConfig extends PluginConfig {
       "ignored-data-list", Collections.emptyList());
   public static final StringConfigPath STORAGE_TYPE = new StringConfigPath(
       "storage-type", "JSON");
+  public static final BooleanConfigPath ENABLE_PAPI_DATA_LIST = new BooleanConfigPath(
+      "enable-papi-data-list", false);
+  public static final StringListConfigPath ENABLED_PAPI_PLACEHOLDERS = new StringListConfigPath(
+      "enabled-papi-placeholders", Collections.emptyList());
 
   public MainConfig(JavaPlugin plugin) {
     super(plugin, "config.yml");
@@ -36,5 +40,7 @@ public final class MainConfig extends PluginConfig {
     DISPLAY_TOP_START_INDEX.setConfig(this);
     IGNORED_DATA_LIST.setConfig(this);
     STORAGE_TYPE.setConfig(this);
+    ENABLE_PAPI_DATA_LIST.setConfig(this);
+    ENABLED_PAPI_PLACEHOLDERS.setConfig(this);
   }
 }

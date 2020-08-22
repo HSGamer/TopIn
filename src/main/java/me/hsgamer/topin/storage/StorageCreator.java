@@ -20,7 +20,9 @@ public class StorageCreator {
     registerStorageCreator("json", JsonStorage::new);
   }
 
-  private Function<String, Storage> createStorageFunction;
+  private StorageCreator() {
+    // EMPTY
+  }
 
   /**
    * Register the "create storage" function
@@ -33,23 +35,13 @@ public class StorageCreator {
   }
 
   /**
-   * Load the default storage type
-   */
-  public void loadType() {
-    createStorageFunction = Optional.ofNullable(createStorageMap
-        .get(MainConfig.STORAGE_TYPE.getValue().trim())).orElse(JsonStorage::new);
-  }
-
-  /**
    * Create a storage
    *
    * @param name the name of the storage
    * @return the storage
    */
-  public Storage createStorage(String name) {
-    if (createStorageFunction == null) {
-      loadType();
-    }
-    return createStorageFunction.apply(name);
+  public static Storage createStorage(String name) {
+    return Optional.ofNullable(createStorageMap
+        .get(MainConfig.STORAGE_TYPE.getValue().trim())).orElse(JsonStorage::new).apply(name);
   }
 }

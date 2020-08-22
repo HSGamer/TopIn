@@ -10,9 +10,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import me.hsgamer.hscore.bukkit.utils.BukkitUtils;
-import me.hsgamer.topin.TopIn;
 import me.hsgamer.topin.data.value.PairDecimal;
 import me.hsgamer.topin.storage.Storage;
+import me.hsgamer.topin.storage.StorageCreator;
 
 /**
  * A simple data list with an synchronized ArrayList
@@ -128,7 +128,7 @@ public abstract class SimpleDataList extends DataList {
    */
   private void loadStorage() {
     if (storage == null) {
-      storage = TopIn.getInstance().getStorageCreator().createStorage(getName());
+      storage = StorageCreator.createStorage(getName());
     }
   }
 }

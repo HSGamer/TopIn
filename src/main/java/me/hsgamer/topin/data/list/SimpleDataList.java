@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.hscore.bukkit.utils.BukkitUtils;
+import me.hsgamer.topin.TopIn;
 import me.hsgamer.topin.data.value.PairDecimal;
-import org.bukkit.configuration.file.FileConfiguration;
+import me.hsgamer.topin.storage.Storage;
 
 /**
  * A simple data list with an synchronized ArrayList
@@ -21,6 +21,7 @@ public abstract class SimpleDataList extends DataList {
 
   protected final List<PairDecimal> list = Collections.synchronizedList(new ArrayList<>());
   protected final Map<UUID, Integer> indexMap = new HashMap<>();
+  protected Storage storage;
 
   /**
    * {@inheritDoc}
@@ -87,23 +88,23 @@ public abstract class SimpleDataList extends DataList {
    * {@inheritDoc}
    */
   @Override
-  public void loadData(PluginConfig config) {
+  public void loadData() {
     BukkitUtils.getAllUniqueIds().forEach(this::add);
-    FileConfiguration configuration = config.getConfig();
-    configuration.getValues(false)
-        .forEach((k, v) -> set(UUID.fromString(k), new BigDecimal(String.valueOf(v))));
+    loadStorage();
+    storage.load().forEach(this::set);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void saveData(PluginConfig config) {
-    FileConfiguration configuration = config.getConfig();
+  public void saveData() {
+    loadStorage();
+    Map<UUID, BigDecimal> map = new HashMap<>();
     for (PairDecimal pair : list) {
-      configuration.set(pair.getUniqueId().toString(), pair.getValue().toString());
+      map.put(pair.getUniqueId(), pair.getValue());
     }
-    config.saveConfig();
+    storage.save(map);
   }
 
   /**
@@ -120,5 +121,14 @@ public abstract class SimpleDataList extends DataList {
   @Override
   public Optional<Integer> getTopIndex(UUID uuid) {
     return Optional.ofNullable(indexMap.get(uuid));
+  }
+
+  /**
+   * Load the storage
+   */
+  private void loadStorage() {
+    if (storage == null) {
+      storage = TopIn.getInstance().getStorageCreator().createStorage(getName());
+    }
   }
 }

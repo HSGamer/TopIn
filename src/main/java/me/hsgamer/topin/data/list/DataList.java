@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import me.hsgamer.hscore.bukkit.config.PluginConfig;
 import me.hsgamer.hscore.bukkit.config.path.StringConfigPath;
 import me.hsgamer.topin.TopIn;
-import me.hsgamer.topin.config.MainConfig;
+import me.hsgamer.topin.config.DisplayNameConfig;
+import me.hsgamer.topin.config.SuffixConfig;
 import me.hsgamer.topin.data.value.PairDecimal;
 
 /**
@@ -15,16 +15,44 @@ import me.hsgamer.topin.data.value.PairDecimal;
  */
 public abstract class DataList {
 
-  private final StringConfigPath displayName = new StringConfigPath("display-name." + getName(),
-      getDefaultDisplayName());
-  private final StringConfigPath suffix = new StringConfigPath("suffix." + getName(),
-      getDefaultSuffix());
+  protected StringConfigPath displayName;
+  protected StringConfigPath suffix;
 
-  public DataList() {
-    MainConfig mainConfig = TopIn.getInstance().getMainConfig();
-    displayName.setConfig(mainConfig);
-    suffix.setConfig(mainConfig);
-    mainConfig.saveConfig();
+  /**
+   * Register necessary config path (display name and suffix)
+   */
+  public void registerConfigPath() {
+    displayName = new StringConfigPath(getName(), getDefaultDisplayName());
+    suffix = new StringConfigPath(getName(), getDefaultSuffix());
+    DisplayNameConfig displayNameConfig = TopIn.getInstance().getDisplayNameConfig();
+    SuffixConfig suffixConfig = TopIn.getInstance().getSuffixConfig();
+    displayName.setConfig(displayNameConfig);
+    suffix.setConfig(suffixConfig);
+    displayNameConfig.saveConfig();
+    suffixConfig.saveConfig();
+  }
+
+  /**
+   * Check if this data list can be registered
+   *
+   * @return whether this data list can be registered
+   */
+  public boolean canRegister() {
+    return true;
+  }
+
+  /**
+   * Called when registering
+   */
+  public void register() {
+    // LOGIC
+  }
+
+  /**
+   * Called when unregistering
+   */
+  public void unregister() {
+    // LOGIC
   }
 
   /**
@@ -112,17 +140,13 @@ public abstract class DataList {
 
   /**
    * Load data from configuration file
-   *
-   * @param config the configuration file
    */
-  public abstract void loadData(PluginConfig config);
+  public abstract void loadData();
 
   /**
    * Save data to configuration file
-   *
-   * @param config the configuration file
    */
-  public abstract void saveData(PluginConfig config);
+  public abstract void saveData();
 
   /**
    * Get the technical name of the data list
@@ -158,7 +182,7 @@ public abstract class DataList {
    * @return the display name
    */
   public String getDisplayName() {
-    return displayName.getValue();
+    return displayName != null ? displayName.getValue() : getDefaultDisplayName();
   }
 
   /**
@@ -167,6 +191,6 @@ public abstract class DataList {
    * @return the suffix
    */
   public String getSuffix() {
-    return suffix.getValue();
+    return suffix != null ? suffix.getValue() : getDefaultSuffix();
   }
 }

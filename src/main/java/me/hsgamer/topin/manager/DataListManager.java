@@ -1,6 +1,5 @@
 package me.hsgamer.topin.manager;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,9 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import me.hsgamer.hscore.bukkit.config.PluginConfig;
+import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.data.list.DataList;
-import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * The data list manager
@@ -18,17 +16,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class DataListManager {
 
   private final Map<String, DataList> dataListMap = new HashMap<>();
-  private final Map<String, PluginConfig> dataConfigMap = new HashMap<>();
-  private final JavaPlugin plugin;
-  private final File dataDir;
-
-  public DataListManager(JavaPlugin plugin) {
-    this.plugin = plugin;
-    this.dataDir = new File(plugin.getDataFolder(), "data");
-    if (!dataDir.exists()) {
-      dataDir.mkdirs();
-    }
-  }
 
   /**
    * Register a data list
@@ -36,19 +23,64 @@ public final class DataListManager {
    * @param dataList the data list
    */
   public void register(DataList dataList) {
-    dataListMap.computeIfAbsent(dataList.getName(), s -> {
-      PluginConfig config = new PluginConfig(plugin, new File(dataDir, s + ".yml"));
-      dataConfigMap.put(s, config);
-      dataList.loadData(config);
-      return dataList;
-    });
+    if (MainConfig.IGNORED_DATA_LIST.getValue().contains(dataList.getName())) {
+      return;
+    }
+
+    if (!dataList.canRegister()) {
+      return;
+    }
+
+    String name = dataList.getName();
+    if (dataListMap.containsKey(name)) {
+      return;
+    }
+    dataListMap.put(name, dataList);
+    dataList.registerConfigPath();
+    dataList.register();
+    dataList.loadData();
+  }
+
+  /**
+   * Unregister a data list
+   *
+   * @param name the name of the data list
+   */
+  public void unregister(String name) {
+    if (!dataListMap.containsKey(name)) {
+      return;
+    }
+
+    DataList dataList = dataListMap.remove(name);
+    dataList.saveData();
+    dataList.unregister();
+  }
+
+  /**
+   * Save a data list
+   *
+   * @param name the name of the data list
+   */
+  public void saveDataList(String name) {
+    if (!dataListMap.containsKey(name)) {
+      return;
+    }
+
+    dataListMap.get(name).saveData();
   }
 
   /**
    * Save all data lists to file
    */
   public void saveAll() {
-    dataListMap.forEach((name, dataList) -> dataList.saveData(dataConfigMap.get(name)));
+    dataListMap.forEach((name, dataList) -> dataList.saveData());
+  }
+
+  /**
+   * Unregister all data lists
+   */
+  public void unregisterAll() {
+    dataListMap.values().forEach(DataList::unregister);
   }
 
   /**
@@ -67,7 +99,7 @@ public final class DataListManager {
    * @return the list of data lists
    */
   public Collection<DataList> getDataLists() {
-    return dataListMap.values();
+    return new ArrayList<>(dataListMap.values());
   }
 
   /**
@@ -75,7 +107,6 @@ public final class DataListManager {
    */
   public void clearAll() {
     dataListMap.clear();
-    dataConfigMap.clear();
   }
 
   /**

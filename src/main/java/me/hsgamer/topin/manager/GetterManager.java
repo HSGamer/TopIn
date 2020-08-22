@@ -23,12 +23,14 @@ public final class GetterManager {
    * @param getter the getter
    */
   public void register(Getter getter) {
-    if (getter.canRegister()) {
-      getter.register();
-      getterList.add(getter);
-      MessageUtils.sendMessage(Bukkit.getConsoleSender(),
-          MessageConfig.GETTER_REGISTERED.getValue().replace(GETTER_PLACEHOLDER, getter.getName()));
+    if (!getter.canRegister()) {
+      return;
     }
+
+    getter.register();
+    getterList.add(getter);
+    MessageUtils.sendMessage(Bukkit.getConsoleSender(),
+        MessageConfig.GETTER_REGISTERED.getValue().replace(GETTER_PLACEHOLDER, getter.getName()));
   }
 
   /**

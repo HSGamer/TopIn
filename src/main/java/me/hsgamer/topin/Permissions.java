@@ -28,6 +28,8 @@ public final class Permissions {
       PermissionDefault.OP);
   public static final Permission TOP = createPermission(PREFIX + ".top", null,
       PermissionDefault.OP);
+  public static final Permission ADDONS = createPermission(PREFIX + ".addons", null,
+      PermissionDefault.OP);
 
   private Permissions() {
 

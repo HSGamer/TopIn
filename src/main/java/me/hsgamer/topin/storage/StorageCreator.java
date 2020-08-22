@@ -35,6 +35,15 @@ public class StorageCreator {
   }
 
   /**
+   * Unregister the "create storage" function
+   *
+   * @param name the name of the function
+   */
+  public static void unregisterStorageCreator(String name) {
+    createStorageMap.remove(name);
+  }
+
+  /**
    * Create a storage
    *
    * @param name the name of the storage

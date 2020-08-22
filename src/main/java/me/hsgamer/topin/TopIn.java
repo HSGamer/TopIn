@@ -17,6 +17,7 @@ import me.hsgamer.topin.config.DisplayNameConfig;
 import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.config.MessageConfig;
 import me.hsgamer.topin.config.SuffixConfig;
+import me.hsgamer.topin.data.impl.PlaceholderApiData;
 import me.hsgamer.topin.data.impl.PlayerAnimalKill;
 import me.hsgamer.topin.data.impl.PlayerBrokenBlock;
 import me.hsgamer.topin.data.impl.PlayerDeath;
@@ -151,6 +152,12 @@ public final class TopIn extends JavaPlugin {
     dataListManager.register(new PlayerPlacedBlock());
     dataListManager.register(new PlayerBrokenBlock());
     dataListManager.register(new VaultMoney());
+
+    if (MainConfig.ENABLE_PAPI_DATA_LIST.getValue().equals(Boolean.TRUE)) {
+      for (String placeholder : MainConfig.ENABLED_PAPI_PLACEHOLDERS.getValue()) {
+        dataListManager.register(new PlaceholderApiData(placeholder.trim()));
+      }
+    }
   }
 
   /**

@@ -71,6 +71,14 @@
                   <shadedPattern>me.hsgamer.topin.utils.map</shadedPattern>
                 </relocation>
                 <relocation>
+                  <pattern>me.hsgamer.hscore.bukkit.updater</pattern>
+                  <shadedPattern>me.hsgamer.topin.utils.updater</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>me.hsgamer.hscore.web</pattern>
+                  <shadedPattern>me.hsgamer.topin.utils.web</shadedPattern>
+                </relocation>
+                <relocation>
                   <pattern>org.bstats.bukkit</pattern>
                   <shadedPattern>me.hsgamer.topin.bstats</shadedPattern>
                 </relocation>
@@ -173,6 +181,11 @@
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-bukkit-addon</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>me.HSGamer</groupId>
+      <artifactId>HSCore-bukkit-updater</artifactId>
       <version>1.1</version>
     </dependency>
     <dependency>

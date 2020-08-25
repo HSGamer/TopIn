@@ -82,6 +82,10 @@
                   <pattern>org.bstats.bukkit</pattern>
                   <shadedPattern>me.hsgamer.topin.bstats</shadedPattern>
                 </relocation>
+                <relocation>
+                  <pattern>io.papermc.lib</pattern>
+                  <shadedPattern>me.hsgamer.topin.paperlib</shadedPattern>
+                </relocation>
               </relocations>
             </configuration>
           </execution>
@@ -153,6 +157,10 @@
     <repository>
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
+    </repository>
+    <repository>
+      <id>papermc</id>
+      <url>https://papermc.io/repo/repository/maven-public/</url>
     </repository>
   </repositories>
 
@@ -231,6 +239,12 @@
       <groupId>org.bstats</groupId>
       <artifactId>bstats-bukkit-lite</artifactId>
       <version>1.7</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.papermc</groupId>
+      <artifactId>paperlib</artifactId>
+      <version>1.0.5</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

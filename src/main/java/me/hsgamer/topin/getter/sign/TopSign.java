@@ -1,5 +1,6 @@
 package me.hsgamer.topin.getter.sign;
 
+import io.papermc.lib.PaperLib;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,35 +29,37 @@ public final class TopSign implements ConfigurationSerializable {
     this.index = index;
   }
 
-  @SuppressWarnings("unused")
   public static TopSign deserialize(Map<String, Object> args) {
     return new TopSign(Location.deserialize(args), (String) args.get("data-list"),
         (int) args.get("index"));
   }
 
   public void update() {
-    if (!location.getChunk().isLoaded()) {
-      return;
-    }
-    Optional<DataList> optionalDataList = TopIn.getInstance().getDataListManager()
-        .getDataList(dataListName);
-    if (!optionalDataList.isPresent()) {
-      return;
-    }
-    DataList dataList = optionalDataList.get();
-    if (index < 0 || index >= dataList.getSize()) {
-      return;
-    }
-    PairDecimal pairDecimal = dataList.getPair(index);
-    BlockState blockState = location.getBlock().getState();
-    if (blockState instanceof Sign) {
-      Sign sign = (Sign) blockState;
-      String[] lines = getSignLines(pairDecimal, dataList.getSuffix());
-      for (int i = 0; i < 4; i++) {
-        sign.setLine(i, lines[i]);
+    PaperLib.getChunkAtAsync(location, false).thenAccept(chunk -> {
+      if (chunk == null) {
+        return;
       }
-      sign.update(false, false);
-    }
+
+      Optional<DataList> optionalDataList = TopIn.getInstance().getDataListManager()
+          .getDataList(dataListName);
+      if (!optionalDataList.isPresent()) {
+        return;
+      }
+      DataList dataList = optionalDataList.get();
+      if (index < 0 || index >= dataList.getSize()) {
+        return;
+      }
+      PairDecimal pairDecimal = dataList.getPair(index);
+      BlockState blockState = location.getBlock().getState();
+      if (blockState instanceof Sign) {
+        Sign sign = (Sign) blockState;
+        String[] lines = getSignLines(pairDecimal, dataList.getSuffix());
+        for (int i = 0; i < 4; i++) {
+          sign.setLine(i, lines[i]);
+        }
+        sign.update(false, false);
+      }
+    });
   }
 
   @Override

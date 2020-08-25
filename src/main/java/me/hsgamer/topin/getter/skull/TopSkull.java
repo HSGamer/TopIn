@@ -1,5 +1,6 @@
 package me.hsgamer.topin.getter.skull;
 
+import io.papermc.lib.PaperLib;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -39,45 +40,51 @@ public final class TopSkull implements ConfigurationSerializable {
     this.index = index;
   }
 
-  @SuppressWarnings("unused")
   public static TopSkull deserialize(Map<String, Object> args) {
     return new TopSkull(Location.deserialize(args), (String) args.get("data-list"),
         (int) args.get("index"));
   }
 
   public void update() {
-    if (!location.getChunk().isLoaded()) {
-      return;
-    }
-    Optional<DataList> optionalDataList = TopIn.getInstance().getDataListManager()
-        .getDataList(dataListName);
-    if (!optionalDataList.isPresent()) {
-      return;
-    }
-    DataList dataList = optionalDataList.get();
-    if (index < 0 || index >= dataList.getSize()) {
-      return;
-    }
-    OfflinePlayer topPlayer = Bukkit.getOfflinePlayer(dataList.getPair(index).getUniqueId());
-    BlockState blockState = location.getBlock().getState();
-    if (blockState instanceof Skull) {
-      Skull skull = (Skull) blockState;
-      if (setOwningPlayerMethod != null) {
-        try {
-          setOwningPlayerMethod.invoke(skull, topPlayer);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-          TopIn.getInstance().getLogger()
-              .log(Level.WARNING, "Error when setting owner for skulls", e);
-        }
-      } else {
-        try {
-          setOwnerMethod.invoke(skull, topPlayer.getName());
-        } catch (IllegalAccessException | InvocationTargetException e) {
-          TopIn.getInstance().getLogger()
-              .log(Level.WARNING, "Error when setting owner for skulls", e);
-        }
+    PaperLib.getChunkAtAsync(location, false).thenAccept(chunk -> {
+      if (chunk == null) {
+        return;
       }
-      skull.update(false, false);
+
+      Optional<DataList> optionalDataList = TopIn.getInstance().getDataListManager()
+          .getDataList(dataListName);
+      if (!optionalDataList.isPresent()) {
+        return;
+      }
+      DataList dataList = optionalDataList.get();
+      if (index < 0 || index >= dataList.getSize()) {
+        return;
+      }
+      OfflinePlayer topPlayer = Bukkit.getOfflinePlayer(dataList.getPair(index).getUniqueId());
+      BlockState blockState = location.getBlock().getState();
+      if (blockState instanceof Skull) {
+        Skull skull = (Skull) blockState;
+        setOwner(skull, topPlayer);
+        skull.update(false, false);
+      }
+    });
+  }
+
+  private void setOwner(Skull skull, OfflinePlayer owner) {
+    if (setOwningPlayerMethod != null) {
+      try {
+        setOwningPlayerMethod.invoke(skull, owner);
+      } catch (IllegalAccessException | InvocationTargetException e) {
+        TopIn.getInstance().getLogger()
+            .log(Level.WARNING, "Error when setting owner for skulls", e);
+      }
+    } else {
+      try {
+        setOwnerMethod.invoke(skull, owner.getName());
+      } catch (IllegalAccessException | InvocationTargetException e) {
+        TopIn.getInstance().getLogger()
+            .log(Level.WARNING, "Error when setting owner for skulls", e);
+      }
     }
   }
 

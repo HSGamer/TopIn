@@ -79,6 +79,7 @@ public final class TopSign implements ConfigurationSerializable {
         .replace("<value>", dataList.formatValue(pairDecimal.getValue()))
         .replace("<suffix>", dataList.getSuffix())
         .replace("<index>", String.valueOf(index + startIndex))
+        .replace("<data_list>", dataList.getDisplayName())
     ));
     String[] lines = new String[4];
     for (int i = 0; i < 4; i++) {

@@ -15,6 +15,7 @@ import me.hsgamer.topin.command.MainCommand;
 import me.hsgamer.topin.command.ReloadCommand;
 import me.hsgamer.topin.command.SearchDataListCommand;
 import me.hsgamer.topin.config.DisplayNameConfig;
+import me.hsgamer.topin.config.FormatConfig;
 import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.config.MessageConfig;
 import me.hsgamer.topin.config.SuffixConfig;
@@ -53,6 +54,7 @@ public final class TopIn extends JavaPlugin {
   private final MessageConfig messageConfig = new MessageConfig(this);
   private final DisplayNameConfig displayNameConfig = new DisplayNameConfig(this);
   private final SuffixConfig suffixConfig = new SuffixConfig(this);
+  private final FormatConfig formatConfig = new FormatConfig(this);
 
   private final DataListManager dataListManager = new DataListManager();
   private final GetterManager getterManager = new GetterManager();
@@ -258,6 +260,15 @@ public final class TopIn extends JavaPlugin {
    */
   public SuffixConfig getSuffixConfig() {
     return suffixConfig;
+  }
+
+  /**
+   * Get the format config
+   *
+   * @return the format config
+   */
+  public FormatConfig getFormatConfig() {
+    return formatConfig;
   }
 
   /**

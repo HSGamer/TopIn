@@ -56,4 +56,9 @@ public class VaultMoney extends AutoUpdateSimpleDataList {
   public String getDefaultSuffix() {
     return "$";
   }
+
+  @Override
+  public String getDefaultFormat() {
+    return "#.#";
+  }
 }

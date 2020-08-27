@@ -61,6 +61,11 @@ public class PlayerBrokenBlock extends AutoUpdateSimpleDataList implements Liste
     return "blocks";
   }
 
+  @Override
+  public String getDefaultFormat() {
+    return "#";
+  }
+
   @EventHandler(priority = EventPriority.LOWEST)
   public void onBreak(BlockBreakEvent event) {
     if (event.isCancelled()) {

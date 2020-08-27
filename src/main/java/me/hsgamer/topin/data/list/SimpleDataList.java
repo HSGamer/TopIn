@@ -1,6 +1,7 @@
 package me.hsgamer.topin.data.list;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -121,6 +122,14 @@ public abstract class SimpleDataList extends DataList {
   @Override
   public Optional<Integer> getTopIndex(UUID uuid) {
     return Optional.ofNullable(indexMap.get(uuid));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String formatValue(BigDecimal value) {
+    return new DecimalFormat(getFormat()).format(value);
   }
 
   /**

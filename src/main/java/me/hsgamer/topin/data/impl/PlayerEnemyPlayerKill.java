@@ -62,6 +62,11 @@ public class PlayerEnemyPlayerKill extends AutoUpdateSimpleDataList implements L
     return "kills";
   }
 
+  @Override
+  public String getDefaultFormat() {
+    return "#";
+  }
+
   @EventHandler(priority = EventPriority.LOWEST)
   public void onDeath(PlayerDeathEvent event) {
     Player killer = event.getEntity().getKiller();

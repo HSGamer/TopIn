@@ -54,7 +54,7 @@ public final class TopSign implements ConfigurationSerializable {
       BlockState blockState = location.getBlock().getState();
       if (blockState instanceof Sign) {
         Sign sign = (Sign) blockState;
-        String[] lines = getSignLines(pairDecimal, dataList.getSuffix());
+        String[] lines = getSignLines(pairDecimal, dataList);
         for (int i = 0; i < 4; i++) {
           sign.setLine(i, lines[i]);
         }
@@ -71,13 +71,13 @@ public final class TopSign implements ConfigurationSerializable {
     return map;
   }
 
-  private String[] getSignLines(PairDecimal pairDecimal, String suffix) {
+  private String[] getSignLines(PairDecimal pairDecimal, DataList dataList) {
     List<String> list = MessageConfig.SIGN_LINES.getValue();
     int startIndex = MainConfig.DISPLAY_TOP_START_INDEX.getValue();
     list.replaceAll(s -> MessageUtils.colorize(s
         .replace("<name>", Bukkit.getOfflinePlayer(pairDecimal.getUniqueId()).getName())
-        .replace("<value>", pairDecimal.getValue().toPlainString())
-        .replace("<suffix>", suffix)
+        .replace("<value>", dataList.formatValue(pairDecimal.getValue()))
+        .replace("<suffix>", dataList.getSuffix())
         .replace("<index>", String.valueOf(index + startIndex))
     ));
     String[] lines = new String[4];

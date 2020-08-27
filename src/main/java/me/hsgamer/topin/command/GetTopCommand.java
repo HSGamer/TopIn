@@ -74,7 +74,7 @@ public class GetTopCommand extends BukkitCommand {
       for (String s : body) {
         list.add(s
             .replace("<name>", Bukkit.getOfflinePlayer(pairDecimal.getUniqueId()).getName())
-            .replace("<value>", pairDecimal.getValue().toPlainString())
+            .replace("<value>", dataList.formatValue(pairDecimal.getValue()))
             .replace("<index>", String.valueOf(displayIndex++))
         );
       }

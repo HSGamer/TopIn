@@ -28,6 +28,7 @@ public final class ReloadCommand extends BukkitCommand {
     getInstance().getMessageConfig().reloadConfig();
     getInstance().getDisplayNameConfig().reloadConfig();
     getInstance().getSuffixConfig().reloadConfig();
+    getInstance().getFormatConfig().reloadConfig();
     getInstance().getAddonManager().callReload();
     getInstance().getCommandManager().syncCommand();
     getInstance().getSaveTaskManager().startNewSaveTask();

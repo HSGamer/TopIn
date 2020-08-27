@@ -34,6 +34,7 @@ public final class GetDataListCommand extends BukkitCommand {
           if (!shortList) {
             sendMessage(sender, "      &eDisplay Name: &f" + dataList.getDisplayName());
             sendMessage(sender, "      &eSuffix: &f" + dataList.getSuffix());
+            sendMessage(sender, "      &eFormat: &f" + dataList.getFormat());
             sendMessage(sender, "      &eSize: &f" + dataList.getSize());
           }
         });

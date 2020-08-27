@@ -14,12 +14,12 @@ import org.jetbrains.annotations.NotNull;
 public final class Expansion extends PlaceholderExpansion {
 
   private static final String PLAYER = "player_";
+  private static final String RAW_VALUE = "raw_value_";
   private static final String VALUE = "value_";
-  private static final String FORMATTED_VALUE = "formatted_value_";
   private static final String UUID = "uuid_";
   private static final String CURRENT_INDEX = "current_top_";
+  private static final String CURRENT_RAW_VALUE = "current_raw_value_";
   private static final String CURRENT_VALUE = "current_value_";
-  private static final String CURRENT_FORMATTED_VALUE = "current_formatted_value_";
   private static final String SUFFIX = "suffix_";
   private static final String DISPLAY_NAME = "display_name_";
 
@@ -44,8 +44,8 @@ public final class Expansion extends PlaceholderExpansion {
       PairDecimal pairDecimal = getTopPair(params.substring(PLAYER.length()).trim());
       return pairDecimal != null ? Bukkit.getOfflinePlayer(pairDecimal.getUniqueId()).getName()
           : "";
-    } else if (params.startsWith(VALUE)) {
-      PairDecimal pairDecimal = getTopPair(params.substring(VALUE.length()).trim());
+    } else if (params.startsWith(RAW_VALUE)) {
+      PairDecimal pairDecimal = getTopPair(params.substring(RAW_VALUE.length()).trim());
       return pairDecimal != null ? pairDecimal.getValue().toPlainString() : "";
     } else if (params.startsWith(UUID)) {
       PairDecimal pairDecimal = getTopPair(params.substring(UUID.length()).trim());
@@ -56,8 +56,8 @@ public final class Expansion extends PlaceholderExpansion {
     } else if (params.startsWith(DISPLAY_NAME)) {
       return getDataList(params.substring(DISPLAY_NAME.length()).trim())
           .map(DataList::getDisplayName).orElse("");
-    } else if (params.startsWith(FORMATTED_VALUE)) {
-      return formatPairValue(params.substring(FORMATTED_VALUE.length()).trim());
+    } else if (params.startsWith(VALUE)) {
+      return formatPairValue(params.substring(VALUE.length()).trim());
     }
 
     if (offlinePlayer == null) {
@@ -71,14 +71,14 @@ public final class Expansion extends PlaceholderExpansion {
               .map(integer -> integer + MainConfig.DISPLAY_TOP_START_INDEX.getValue())
               .orElse(-1)
       );
-    } else if (params.startsWith(CURRENT_VALUE)) {
-      return getDataList(params.substring(CURRENT_VALUE.length()).trim())
+    } else if (params.startsWith(CURRENT_RAW_VALUE)) {
+      return getDataList(params.substring(CURRENT_RAW_VALUE.length()).trim())
           .flatMap(dataList -> dataList.getPair(offlinePlayer.getUniqueId()))
           .map(decimal -> decimal.getValue().toPlainString())
           .orElse("");
-    } else if (params.startsWith(CURRENT_FORMATTED_VALUE)) {
+    } else if (params.startsWith(CURRENT_VALUE)) {
       Optional<DataList> optionalDataList = getDataList(
-          params.substring(CURRENT_FORMATTED_VALUE.length()).trim());
+          params.substring(CURRENT_VALUE.length()).trim());
       if (optionalDataList.isPresent()) {
         DataList dataList = optionalDataList.get();
         return dataList.getPair(offlinePlayer.getUniqueId())

@@ -40,4 +40,9 @@ public class PlayerExp extends AutoUpdateSimpleDataList {
   public String getDefaultSuffix() {
     return "exp";
   }
+
+  @Override
+  public String getDefaultFormat() {
+    return "#";
+  }
 }

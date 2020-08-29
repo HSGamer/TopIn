@@ -40,4 +40,9 @@ public class PlayerLevel extends AutoUpdateSimpleDataList {
   public String getDefaultSuffix() {
     return "level";
   }
+
+  @Override
+  public String getDefaultFormat() {
+    return "#";
+  }
 }

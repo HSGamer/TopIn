@@ -40,4 +40,9 @@ public class PlayerOnlineTime extends AutoUpdateSimpleDataList {
   public String getDefaultSuffix() {
     return "seconds";
   }
+
+  @Override
+  public String getDefaultFormat() {
+    return "#";
+  }
 }

@@ -7,6 +7,7 @@ import java.util.UUID;
 import me.hsgamer.hscore.bukkit.config.path.StringConfigPath;
 import me.hsgamer.topin.TopIn;
 import me.hsgamer.topin.config.DisplayNameConfig;
+import me.hsgamer.topin.config.FormatConfig;
 import me.hsgamer.topin.config.SuffixConfig;
 import me.hsgamer.topin.data.value.PairDecimal;
 
@@ -17,19 +18,24 @@ public abstract class DataList {
 
   protected StringConfigPath displayName;
   protected StringConfigPath suffix;
+  protected StringConfigPath format;
 
   /**
-   * Register necessary config path (display name and suffix)
+   * Register necessary config path
    */
   public void registerConfigPath() {
     displayName = new StringConfigPath(getName(), getDefaultDisplayName());
     suffix = new StringConfigPath(getName(), getDefaultSuffix());
+    format = new StringConfigPath(getName(), getDefaultFormat());
     DisplayNameConfig displayNameConfig = TopIn.getInstance().getDisplayNameConfig();
     SuffixConfig suffixConfig = TopIn.getInstance().getSuffixConfig();
+    FormatConfig formatConfig = TopIn.getInstance().getFormatConfig();
     displayName.setConfig(displayNameConfig);
     suffix.setConfig(suffixConfig);
+    format.setConfig(formatConfig);
     displayNameConfig.saveConfig();
     suffixConfig.saveConfig();
+    formatConfig.saveConfig();
   }
 
   /**
@@ -177,6 +183,22 @@ public abstract class DataList {
   public abstract String getDefaultSuffix();
 
   /**
+   * Get the default format of the value
+   *
+   * @return the suffix
+   */
+  public abstract String getDefaultFormat();
+
+  /**
+   * Get the suffix of the value
+   *
+   * @return the suffix
+   */
+  public String getFormat() {
+    return format != null ? format.getValue() : getDefaultFormat();
+  }
+
+  /**
    * Get the display name of the data list
    *
    * @return the display name
@@ -193,4 +215,12 @@ public abstract class DataList {
   public String getSuffix() {
     return suffix != null ? suffix.getValue() : getDefaultSuffix();
   }
+
+  /**
+   * Format the value
+   *
+   * @param value the value
+   * @return the formatted value
+   */
+  public abstract String formatValue(BigDecimal value);
 }

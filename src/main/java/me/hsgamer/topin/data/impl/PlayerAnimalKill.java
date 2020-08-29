@@ -64,6 +64,11 @@ public class PlayerAnimalKill extends AutoUpdateSimpleDataList implements Listen
     return "kills";
   }
 
+  @Override
+  public String getDefaultFormat() {
+    return "#";
+  }
+
   @EventHandler(priority = EventPriority.LOWEST)
   public void onDeath(EntityDeathEvent event) {
     LivingEntity entity = event.getEntity();

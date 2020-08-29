@@ -61,6 +61,11 @@ public class PlayerPlacedBlock extends AutoUpdateSimpleDataList implements Liste
     return "blocks";
   }
 
+  @Override
+  public String getDefaultFormat() {
+    return "#";
+  }
+
   @EventHandler(priority = EventPriority.LOWEST)
   public void onPlace(BlockPlaceEvent event) {
     if (event.isCancelled()) {

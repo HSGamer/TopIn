@@ -61,6 +61,11 @@ public class PlayerDeath extends AutoUpdateSimpleDataList implements Listener {
     return "deaths";
   }
 
+  @Override
+  public String getDefaultFormat() {
+    return "#";
+  }
+
   @EventHandler(priority = EventPriority.LOWEST)
   public void onDeath(PlayerDeathEvent event) {
     deathCaches.merge(event.getEntity().getUniqueId(), 1, Integer::sum);

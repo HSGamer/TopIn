@@ -63,6 +63,11 @@ public class PlayerTotalDamage extends AutoUpdateSimpleDataList implements Liste
     return "damage";
   }
 
+  @Override
+  public String getDefaultFormat() {
+    return "#.#";
+  }
+
   @EventHandler(priority = EventPriority.LOWEST)
   public void onDamage(EntityDamageByEntityEvent event) {
     if (event.isCancelled()) {

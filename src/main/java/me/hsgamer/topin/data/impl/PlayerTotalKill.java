@@ -62,6 +62,11 @@ public class PlayerTotalKill extends AutoUpdateSimpleDataList implements Listene
     return "kills";
   }
 
+  @Override
+  public String getDefaultFormat() {
+    return "#";
+  }
+
   @EventHandler(priority = EventPriority.LOWEST)
   public void onDeath(EntityDeathEvent event) {
     Player killer = event.getEntity().getKiller();

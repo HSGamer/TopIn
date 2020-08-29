@@ -15,6 +15,7 @@ import me.hsgamer.topin.command.MainCommand;
 import me.hsgamer.topin.command.ReloadCommand;
 import me.hsgamer.topin.command.SearchDataListCommand;
 import me.hsgamer.topin.config.DisplayNameConfig;
+import me.hsgamer.topin.config.FormatConfig;
 import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.config.MessageConfig;
 import me.hsgamer.topin.config.SuffixConfig;
@@ -26,6 +27,8 @@ import me.hsgamer.topin.data.impl.PlayerEnemyPlayerKill;
 import me.hsgamer.topin.data.impl.PlayerExp;
 import me.hsgamer.topin.data.impl.PlayerLevel;
 import me.hsgamer.topin.data.impl.PlayerMonsterKill;
+import me.hsgamer.topin.data.impl.PlayerOnlineHours;
+import me.hsgamer.topin.data.impl.PlayerOnlineMinutes;
 import me.hsgamer.topin.data.impl.PlayerOnlineTime;
 import me.hsgamer.topin.data.impl.PlayerPlacedBlock;
 import me.hsgamer.topin.data.impl.PlayerTotalDamage;
@@ -53,6 +56,7 @@ public final class TopIn extends JavaPlugin {
   private final MessageConfig messageConfig = new MessageConfig(this);
   private final DisplayNameConfig displayNameConfig = new DisplayNameConfig(this);
   private final SuffixConfig suffixConfig = new SuffixConfig(this);
+  private final FormatConfig formatConfig = new FormatConfig(this);
 
   private final DataListManager dataListManager = new DataListManager();
   private final GetterManager getterManager = new GetterManager();
@@ -160,7 +164,6 @@ public final class TopIn extends JavaPlugin {
   private void registerDefaultDataList() {
     dataListManager.register(new PlayerExp());
     dataListManager.register(new PlayerLevel());
-    dataListManager.register(new PlayerOnlineTime());
     dataListManager.register(new PlayerTotalDamage());
     dataListManager.register(new PlayerDeath());
     dataListManager.register(new PlayerTotalKill());
@@ -170,6 +173,11 @@ public final class TopIn extends JavaPlugin {
     dataListManager.register(new PlayerPlacedBlock());
     dataListManager.register(new PlayerBrokenBlock());
     dataListManager.register(new VaultMoney());
+
+    PlayerOnlineTime playerOnlineTime = new PlayerOnlineTime();
+    dataListManager.register(playerOnlineTime);
+    dataListManager.register(new PlayerOnlineMinutes(playerOnlineTime));
+    dataListManager.register(new PlayerOnlineHours(playerOnlineTime));
 
     if (MainConfig.ENABLE_PAPI_DATA_LIST.getValue().equals(Boolean.TRUE)) {
       MainConfig.PAPI_DATA_LIST.getValue().forEach((name, placeholder) ->
@@ -258,6 +266,15 @@ public final class TopIn extends JavaPlugin {
    */
   public SuffixConfig getSuffixConfig() {
     return suffixConfig;
+  }
+
+  /**
+   * Get the format config
+   *
+   * @return the format config
+   */
+  public FormatConfig getFormatConfig() {
+    return formatConfig;
   }
 
   /**

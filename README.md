@@ -1,4 +1,4 @@
-# TopIn ![Spiget Version](https://img.shields.io/spiget/version/83017?color=orange&label=version) [![Build Status](https://ci.codemc.io/job/TopIn-MC/job/TopIn/badge/icon)](https://ci.codemc.io/job/TopIn-MC/job/TopIn/) [![Javadocs](https://img.shields.io/badge/javadocs-link-green)](https://topin-mc.github.io/TopIn/)
+# TopIn ![Spiget Version](https://img.shields.io/spiget/version/83017?color=orange&label=version) [![Build Status](https://ci.codemc.io/job/TopIn-MC/job/TopIn/badge/icon)](https://ci.codemc.io/job/TopIn-MC/job/TopIn/) [![Discord](https://img.shields.io/discord/660795353037144064)](https://discord.gg/9m4GdFD) [![Javadocs](https://img.shields.io/badge/javadocs-link-green)](https://topin-mc.github.io/TopIn/)
 Work with data and leaderboard
 ## Feature
 * Lightweight

@@ -31,11 +31,13 @@ public abstract class SimpleDataList extends DataList {
   public void set(UUID uuid, BigDecimal value) {
     PairDecimal pairDecimal = getPair(uuid).orElseGet(() -> {
       PairDecimal newPair = createPairDecimal(uuid);
-      list.add(newPair);
+      if (newPair != null) {
+        list.add(newPair);
+      }
       return newPair;
     });
 
-    if (value != null) {
+    if (pairDecimal != null && value != null) {
       pairDecimal.setValue(value);
     }
   }

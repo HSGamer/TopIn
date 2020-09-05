@@ -37,7 +37,11 @@ public class VaultMoney extends AutoUpdateSimpleDataList {
     return new PairDecimal(uuid) {
       @Override
       public void update() {
-        setValue(BigDecimal.valueOf(economy.getBalance(Bukkit.getOfflinePlayer(getUniqueId()))));
+        try {
+          setValue(BigDecimal.valueOf(economy.getBalance(Bukkit.getOfflinePlayer(getUniqueId()))));
+        } catch (Exception e) {
+          // IGNORED
+        }
       }
     };
   }

@@ -50,7 +50,7 @@ public final class SaveTaskManager {
    * Stop the save task
    */
   public void stopSaveTask() {
-    if (saveTask != null && !saveTask.isCancelled()) {
+    if (saveTask != null) {
       saveTask.cancel();
     }
   }

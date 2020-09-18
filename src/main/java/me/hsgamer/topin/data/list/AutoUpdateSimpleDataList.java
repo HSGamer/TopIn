@@ -1,7 +1,8 @@
 package me.hsgamer.topin.data.list;
 
 import me.hsgamer.topin.TopIn;
-import org.bukkit.scheduler.BukkitRunnable;
+import me.hsgamer.topin.config.MainConfig;
+import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 
 /**
@@ -39,12 +40,10 @@ public abstract class AutoUpdateSimpleDataList extends SimpleDataList {
    */
   @Override
   public void register() {
-    task = new BukkitRunnable() {
-      @Override
-      public void run() {
-        updateAll();
-      }
-    }.runTaskTimer(TopIn.getInstance(), delay, period);
+    task = MainConfig.UPDATE_ASYNC.getValue()
+        ? Bukkit.getScheduler()
+        .runTaskTimerAsynchronously(TopIn.getInstance(), this::updateAll, delay, period)
+        : Bukkit.getScheduler().runTaskTimer(TopIn.getInstance(), this::updateAll, delay, period);
   }
 
   /**

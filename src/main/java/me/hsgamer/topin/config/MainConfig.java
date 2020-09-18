@@ -18,6 +18,7 @@ public final class MainConfig extends PluginConfig {
   public static final IntegerConfigPath SAVE_PERIOD = new IntegerConfigPath("save.period", 600);
   public static final BooleanConfigPath SAVE_ASYNC = new BooleanConfigPath("save.async", false);
   public static final BooleanConfigPath SAVE_SILENT = new BooleanConfigPath("save.silent", false);
+  public static final BooleanConfigPath UPDATE_ASYNC = new BooleanConfigPath("update.async", false);
   public static final IntegerConfigPath DISPLAY_TOP_START_INDEX = new IntegerConfigPath(
       "display-top-start-index", 1);
   public static final StringListConfigPath IGNORED_DATA_LIST = new StringListConfigPath(
@@ -50,6 +51,7 @@ public final class MainConfig extends PluginConfig {
     SAVE_PERIOD.setConfig(this);
     SAVE_ASYNC.setConfig(this);
     SAVE_SILENT.setConfig(this);
+    UPDATE_ASYNC.setConfig(this);
     DISPLAY_TOP_START_INDEX.setConfig(this);
     IGNORED_DATA_LIST.setConfig(this);
     STORAGE_TYPE.setConfig(this);

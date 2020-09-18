@@ -40,7 +40,7 @@ public abstract class AutoUpdateSimpleDataList extends SimpleDataList {
    */
   @Override
   public void register() {
-    task = MainConfig.UPDATE_ASYNC.getValue()
+    task = MainConfig.UPDATE_ASYNC.getValue().equals(Boolean.TRUE)
         ? Bukkit.getScheduler()
         .runTaskTimerAsynchronously(TopIn.getInstance(), this::updateAll, delay, period)
         : Bukkit.getScheduler().runTaskTimer(TopIn.getInstance(), this::updateAll, delay, period);

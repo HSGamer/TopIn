@@ -6,7 +6,7 @@
 
   <groupId>me.HSGamer</groupId>
   <artifactId>TopIn</artifactId>
-  <version>1.4</version>
+  <version>1.5</version>
   <packaging>jar</packaging>
 
   <name>TopIn</name>
@@ -182,27 +182,27 @@
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-bukkit-command</artifactId>
-      <version>1.4</version>
+      <version>1.5</version>
     </dependency>
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-bukkit-config</artifactId>
-      <version>1.4</version>
+      <version>1.5</version>
     </dependency>
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-bukkit-utils</artifactId>
-      <version>1.4</version>
+      <version>1.5</version>
     </dependency>
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-bukkit-addon</artifactId>
-      <version>1.4</version>
+      <version>1.5</version>
     </dependency>
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-bukkit-updater</artifactId>
-      <version>1.4</version>
+      <version>1.5</version>
       <exclusions>
         <exclusion>
           <groupId>com.googlecode.json-simple</groupId>
@@ -213,12 +213,12 @@
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-common</artifactId>
-      <version>1.4</version>
+      <version>1.5</version>
     </dependency>
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-json</artifactId>
-      <version>1.4</version>
+      <version>1.5</version>
       <exclusions>
         <exclusion>
           <groupId>com.googlecode.json-simple</groupId>
@@ -229,7 +229,7 @@
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-collections</artifactId>
-      <version>1.4</version>
+      <version>1.5</version>
     </dependency>
     <dependency>
       <groupId>me.clip</groupId>

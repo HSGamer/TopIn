@@ -5,25 +5,25 @@ import org.bukkit.Bukkit;
 
 public final class PlaceholderAPIGetter implements Getter {
 
-  private final Expansion expansion = new Expansion();
+    private final Expansion expansion = new Expansion();
 
-  @Override
-  public boolean canRegister() {
-    return Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI");
-  }
+    @Override
+    public boolean canRegister() {
+        return Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI");
+    }
 
-  @Override
-  public void register() {
-    expansion.register();
-  }
+    @Override
+    public void register() {
+        expansion.register();
+    }
 
-  @Override
-  public void unregister() {
-    expansion.unregister();
-  }
+    @Override
+    public void unregister() {
+        expansion.unregister();
+    }
 
-  @Override
-  public String getName() {
-    return "PlaceholderAPI";
-  }
+    @Override
+    public String getName() {
+        return "PlaceholderAPI";
+    }
 }

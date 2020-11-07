@@ -1,68 +1,69 @@
 package me.hsgamer.topin.data.impl;
 
-import java.math.BigDecimal;
-import java.util.UUID;
 import me.hsgamer.topin.data.list.AutoUpdateSimpleDataList;
 import me.hsgamer.topin.data.value.PairDecimal;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
+import java.math.BigDecimal;
+import java.util.UUID;
+
 public class VaultMoney extends AutoUpdateSimpleDataList {
 
-  private Economy economy;
+    private Economy economy;
 
-  public VaultMoney() {
-    super(40);
-  }
-
-  @Override
-  public boolean canRegister() {
-    if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
-      return false;
+    public VaultMoney() {
+        super(40);
     }
 
-    RegisteredServiceProvider<Economy> rspE = Bukkit.getServicesManager()
-        .getRegistration(Economy.class);
-    if (rspE == null) {
-      return false;
-    }
-
-    economy = rspE.getProvider();
-    return true;
-  }
-
-  @Override
-  public PairDecimal createPairDecimal(UUID uuid) {
-    return new PairDecimal(uuid) {
-      @Override
-      public void update() {
-        try {
-          setValue(BigDecimal.valueOf(economy.getBalance(Bukkit.getOfflinePlayer(getUniqueId()))));
-        } catch (Exception e) {
-          // IGNORED
+    @Override
+    public boolean canRegister() {
+        if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
+            return false;
         }
-      }
-    };
-  }
 
-  @Override
-  public String getName() {
-    return "vault_money";
-  }
+        RegisteredServiceProvider<Economy> rspE = Bukkit.getServicesManager()
+                .getRegistration(Economy.class);
+        if (rspE == null) {
+            return false;
+        }
 
-  @Override
-  public String getDefaultDisplayName() {
-    return "Money";
-  }
+        economy = rspE.getProvider();
+        return true;
+    }
 
-  @Override
-  public String getDefaultSuffix() {
-    return "$";
-  }
+    @Override
+    public PairDecimal createPairDecimal(UUID uuid) {
+        return new PairDecimal(uuid) {
+            @Override
+            public void update() {
+                try {
+                    setValue(BigDecimal.valueOf(economy.getBalance(Bukkit.getOfflinePlayer(getUniqueId()))));
+                } catch (Exception e) {
+                    // IGNORED
+                }
+            }
+        };
+    }
 
-  @Override
-  public String getDefaultFormat() {
-    return "#.#";
-  }
+    @Override
+    public String getName() {
+        return "vault_money";
+    }
+
+    @Override
+    public String getDefaultDisplayName() {
+        return "Money";
+    }
+
+    @Override
+    public String getDefaultSuffix() {
+        return "$";
+    }
+
+    @Override
+    public String getDefaultFormat() {
+        return "#.#";
+    }
 }

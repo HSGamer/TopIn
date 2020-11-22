@@ -13,10 +13,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.simpleyaml.configuration.serialization.ConfigurationSerializable;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public final class TopSign implements ConfigurationSerializable {
 
@@ -75,7 +72,7 @@ public final class TopSign implements ConfigurationSerializable {
     private String[] getSignLines(PairDecimal pairDecimal, DataList dataList) {
         List<String> list = MessageConfig.SIGN_LINES.getValue();
         int startIndex = MainConfig.DISPLAY_TOP_START_INDEX.getValue();
-        list.replaceAll(s -> MessageUtils.colorize(s
+        Objects.requireNonNull(list).replaceAll(s -> MessageUtils.colorize(s
                 .replace("<name>", Bukkit.getOfflinePlayer(pairDecimal.getUniqueId()).getName())
                 .replace("<value>", dataList.formatValue(pairDecimal.getValue()))
                 .replace("<suffix>", dataList.getSuffix())

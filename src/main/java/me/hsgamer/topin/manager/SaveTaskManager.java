@@ -8,6 +8,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.util.Objects;
+
 /**
  * Manage the saving task
  */
@@ -30,14 +32,14 @@ public final class SaveTaskManager {
             @Override
             public void run() {
                 instance.getDataListManager().saveAll();
-                if (MainConfig.SAVE_SILENT.getValue().equals(Boolean.FALSE)) {
-                    MessageUtils.sendMessage(Bukkit.getConsoleSender(), MessageConfig.SAVE.getValue());
+                if (Objects.requireNonNull(MainConfig.SAVE_SILENT.getValue()).equals(Boolean.FALSE)) {
+                    MessageUtils.sendMessage(Bukkit.getConsoleSender(), Objects.requireNonNull(MessageConfig.SAVE.getValue()));
                 }
             }
         };
         int period = MainConfig.SAVE_PERIOD.getValue();
         if (period >= 0) {
-            if (MainConfig.SAVE_ASYNC.getValue().equals(Boolean.TRUE)) {
+            if (Objects.requireNonNull(MainConfig.SAVE_ASYNC.getValue()).equals(Boolean.TRUE)) {
                 saveTask = saveRunnable.runTaskTimerAsynchronously(instance, 0, period);
             } else {
                 saveTask = saveRunnable.runTaskTimer(instance, 0, period);

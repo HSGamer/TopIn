@@ -24,6 +24,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.Objects;
 
 public final class TopIn extends JavaPlugin {
 
@@ -164,7 +165,7 @@ public final class TopIn extends JavaPlugin {
         dataListManager.register(new PlayerOnlineHours(playerOnlineTime));
 
         if (Boolean.TRUE.equals(MainConfig.ENABLE_PAPI_DATA_LIST.getValue())) {
-            MainConfig.PAPI_DATA_LIST.getValue().forEach((name, placeholder) ->
+            Objects.requireNonNull(MainConfig.PAPI_DATA_LIST.getValue()).forEach((name, placeholder) ->
                     dataListManager.register(new PlaceholderApiData(name, placeholder.trim())));
         }
     }

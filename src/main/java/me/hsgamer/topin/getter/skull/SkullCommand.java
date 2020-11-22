@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static me.hsgamer.hscore.bukkit.utils.MessageUtils.sendMessage;
 
@@ -28,11 +29,11 @@ public final class SkullCommand extends BukkitCommand {
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
         if (!(sender instanceof Player)) {
-            sendMessage(sender, MessageConfig.PLAYER_ONLY.getValue());
+            sendMessage(sender, Objects.requireNonNull(MessageConfig.PLAYER_ONLY.getValue()));
             return false;
         }
         if (!sender.hasPermission(Permissions.SKULL)) {
-            sendMessage(sender, MessageConfig.NO_PERMISSION.getValue());
+            sendMessage(sender, Objects.requireNonNull(MessageConfig.NO_PERMISSION.getValue()));
             return false;
         }
         if (args.length < 2) {
@@ -40,24 +41,24 @@ public final class SkullCommand extends BukkitCommand {
             return false;
         }
         if (!TopIn.getInstance().getDataListManager().getDataList(args[0]).isPresent()) {
-            sendMessage(sender, MessageConfig.DATA_LIST_NOT_FOUND.getValue());
+            sendMessage(sender, Objects.requireNonNull(MessageConfig.DATA_LIST_NOT_FOUND.getValue()));
             return false;
         }
         int index;
         try {
             index = Integer.parseInt(args[1]);
         } catch (NumberFormatException e) {
-            sendMessage(sender, MessageConfig.NUMBER_REQUIRED.getValue());
+            sendMessage(sender, Objects.requireNonNull(MessageConfig.NUMBER_REQUIRED.getValue()));
             return false;
         }
         Block block = ((Player) sender).getTargetBlock(null, 5);
         if (block == null || !(block.getState() instanceof Skull)) {
-            sendMessage(sender, MessageConfig.SKULL_REQUIRED.getValue());
+            sendMessage(sender, Objects.requireNonNull(MessageConfig.SKULL_REQUIRED.getValue()));
             return false;
         }
 
         skullGetter.addSkull(new TopSkull(block.getLocation(), args[0], index));
-        sendMessage(sender, MessageConfig.SUCCESS.getValue());
+        sendMessage(sender, Objects.requireNonNull(MessageConfig.SUCCESS.getValue()));
         return true;
     }
 

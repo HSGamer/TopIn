@@ -18,7 +18,7 @@ public final class DataListManager {
      * @param dataList the data list
      */
     public void register(DataList dataList) {
-        if (MainConfig.IGNORED_DATA_LIST.getValue().contains(dataList.getName())) {
+        if (Objects.requireNonNull(MainConfig.IGNORED_DATA_LIST.getValue()).contains(dataList.getName())) {
             return;
         }
 

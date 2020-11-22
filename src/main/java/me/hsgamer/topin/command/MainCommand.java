@@ -11,6 +11,7 @@ import org.bukkit.command.defaults.BukkitCommand;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static me.hsgamer.hscore.bukkit.utils.MessageUtils.sendMessage;
 import static me.hsgamer.topin.TopIn.getInstance;
@@ -24,7 +25,7 @@ public final class MainCommand extends BukkitCommand {
     @Override
     public boolean execute(CommandSender commandSender, String s, String[] strings) {
         if (!commandSender.hasPermission(Permissions.HELP)) {
-            sendMessage(commandSender, MessageConfig.NO_PERMISSION.getValue());
+            sendMessage(commandSender, Objects.requireNonNull(MessageConfig.NO_PERMISSION.getValue()));
             return false;
         }
 

@@ -10,10 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static me.hsgamer.hscore.bukkit.utils.MessageUtils.sendMessage;
 
@@ -27,7 +24,7 @@ public class GetTopCommand extends BukkitCommand {
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
         if (!sender.hasPermission(Permissions.TOP)) {
-            sendMessage(sender, MessageConfig.NO_PERMISSION.getValue());
+            sendMessage(sender, Objects.requireNonNull(MessageConfig.NO_PERMISSION.getValue()));
             return false;
         }
         if (args.length < 1) {
@@ -36,7 +33,7 @@ public class GetTopCommand extends BukkitCommand {
         }
         Optional<DataList> optional = TopIn.getInstance().getDataListManager().getDataList(args[0]);
         if (!optional.isPresent()) {
-            sendMessage(sender, MessageConfig.DATA_LIST_NOT_FOUND.getValue());
+            sendMessage(sender, Objects.requireNonNull(MessageConfig.DATA_LIST_NOT_FOUND.getValue()));
             return false;
         }
         DataList dataList = optional.get();
@@ -47,7 +44,7 @@ public class GetTopCommand extends BukkitCommand {
             try {
                 toIndex = Integer.parseInt(args[1]);
             } catch (NumberFormatException e) {
-                sendMessage(sender, MessageConfig.NUMBER_REQUIRED.getValue());
+                sendMessage(sender, Objects.requireNonNull(MessageConfig.NUMBER_REQUIRED.getValue()));
                 return false;
             }
         } else if (args.length > 2) {
@@ -55,24 +52,24 @@ public class GetTopCommand extends BukkitCommand {
                 fromIndex = Integer.parseInt(args[1]);
                 toIndex = Integer.parseInt(args[2]);
             } catch (NumberFormatException e) {
-                sendMessage(sender, MessageConfig.NUMBER_REQUIRED.getValue());
+                sendMessage(sender, Objects.requireNonNull(MessageConfig.NUMBER_REQUIRED.getValue()));
                 return false;
             }
         }
         if (fromIndex >= toIndex) {
-            sendMessage(sender, MessageConfig.ILLEGAL_FROM_TO_NUMBER.getValue());
+            sendMessage(sender, Objects.requireNonNull(MessageConfig.ILLEGAL_FROM_TO_NUMBER.getValue()));
             return false;
         }
         if (fromIndex >= dataList.getSize()) {
-            sendMessage(sender, MessageConfig.OUT_OF_BOUND.getValue());
+            sendMessage(sender, Objects.requireNonNull(MessageConfig.OUT_OF_BOUND.getValue()));
             return false;
         }
 
         int displayIndex = MainConfig.DISPLAY_TOP_START_INDEX.getValue() + fromIndex;
-        List<String> list = new ArrayList<>(MessageConfig.TOP_LIST_HEADER.getValue());
+        List<String> list = new ArrayList<>(Objects.requireNonNull(MessageConfig.TOP_LIST_HEADER.getValue()));
         List<String> body = MessageConfig.TOP_LIST_BODY.getValue();
         for (PairDecimal pairDecimal : dataList.getTopRange(fromIndex, toIndex)) {
-            for (String s : body) {
+            for (String s : Objects.requireNonNull(body)) {
                 list.add(s
                         .replace("<name>", Bukkit.getOfflinePlayer(pairDecimal.getUniqueId()).getName())
                         .replace("<value>", dataList.formatValue(pairDecimal.getValue()))
@@ -80,7 +77,7 @@ public class GetTopCommand extends BukkitCommand {
                 );
             }
         }
-        list.addAll(MessageConfig.TOP_LIST_FOOTER.getValue());
+        list.addAll(Objects.requireNonNull(MessageConfig.TOP_LIST_FOOTER.getValue()));
         list.replaceAll(s -> s
                 .replace("<suffix>", dataList.getSuffix())
                 .replace("<data_list>", dataList.getDisplayName()));

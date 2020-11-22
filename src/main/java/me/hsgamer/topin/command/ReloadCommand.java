@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 
 import java.util.Collections;
+import java.util.Objects;
 
 import static me.hsgamer.topin.TopIn.getInstance;
 
@@ -20,7 +21,7 @@ public final class ReloadCommand extends BukkitCommand {
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
         if (!sender.hasPermission(Permissions.RELOAD)) {
-            MessageUtils.sendMessage(sender, MessageConfig.NO_PERMISSION.getValue());
+            MessageUtils.sendMessage(sender, Objects.requireNonNull(MessageConfig.NO_PERMISSION.getValue()));
             return false;
         }
 
@@ -33,7 +34,7 @@ public final class ReloadCommand extends BukkitCommand {
         getInstance().getAddonManager().callReload();
         getInstance().getCommandManager().syncCommand();
         getInstance().getSaveTaskManager().startNewSaveTask();
-        MessageUtils.sendMessage(sender, MessageConfig.SUCCESS.getValue());
+        MessageUtils.sendMessage(sender, Objects.requireNonNull(MessageConfig.SUCCESS.getValue()));
         return true;
     }
 }

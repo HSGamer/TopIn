@@ -9,7 +9,7 @@ import java.util.UUID;
  */
 public abstract class Storage {
 
-    protected String name;
+    protected final String name;
 
     /**
      * A new storage

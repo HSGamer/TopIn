@@ -6,6 +6,7 @@ import me.hsgamer.topin.storage.type.JsonStorage;
 import me.hsgamer.topin.storage.type.YamlStorage;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -51,7 +52,7 @@ public class StorageCreator {
      */
     public static Storage createStorage(String name) {
         return createStorageMap
-                .getOrDefault(MainConfig.STORAGE_TYPE.getValue().trim(), JsonStorage::new)
+                .getOrDefault(Objects.requireNonNull(MainConfig.STORAGE_TYPE.getValue()).trim(), JsonStorage::new)
                 .apply(name);
     }
 }

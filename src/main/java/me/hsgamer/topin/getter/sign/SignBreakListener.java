@@ -13,6 +13,8 @@ import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
+import java.util.Objects;
+
 public final class SignBreakListener implements Listener {
 
     private final SignGetter signGetter;
@@ -32,7 +34,7 @@ public final class SignBreakListener implements Listener {
                 return;
             }
             signGetter.removeSign(location);
-            MessageUtils.sendMessage(player, MessageConfig.SIGN_REMOVED.getValue());
+            MessageUtils.sendMessage(player, Objects.requireNonNull(MessageConfig.SIGN_REMOVED.getValue()));
         }
     }
 

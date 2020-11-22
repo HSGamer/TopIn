@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import static me.hsgamer.hscore.bukkit.utils.MessageUtils.sendMessage;
 
@@ -20,7 +21,7 @@ public final class GetDataListCommand extends BukkitCommand {
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
         if (!sender.hasPermission(Permissions.DATALIST)) {
-            sendMessage(sender, MessageConfig.NO_PERMISSION.getValue());
+            sendMessage(sender, Objects.requireNonNull(MessageConfig.NO_PERMISSION.getValue()));
             return false;
         }
 

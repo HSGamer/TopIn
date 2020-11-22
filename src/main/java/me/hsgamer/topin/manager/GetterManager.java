@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -31,7 +32,7 @@ public final class GetterManager {
         getter.register();
         getterList.add(getter);
         MessageUtils.sendMessage(Bukkit.getConsoleSender(),
-                MessageConfig.GETTER_REGISTERED.getValue().replace(GETTER_PLACEHOLDER, getter.getName()));
+                Objects.requireNonNull(MessageConfig.GETTER_REGISTERED.getValue()).replace(GETTER_PLACEHOLDER, getter.getName()));
     }
 
     /**
@@ -43,7 +44,7 @@ public final class GetterManager {
         getter.unregister();
         getterList.remove(getter);
         MessageUtils.sendMessage(Bukkit.getConsoleSender(),
-                MessageConfig.GETTER_UNREGISTERED.getValue().replace(GETTER_PLACEHOLDER, getter.getName()));
+                Objects.requireNonNull(MessageConfig.GETTER_UNREGISTERED.getValue()).replace(GETTER_PLACEHOLDER, getter.getName()));
     }
 
     /**
@@ -53,7 +54,7 @@ public final class GetterManager {
         getterList.forEach(getter -> {
             getter.unregister();
             MessageUtils.sendMessage(Bukkit.getConsoleSender(),
-                    MessageConfig.GETTER_UNREGISTERED.getValue()
+                    Objects.requireNonNull(MessageConfig.GETTER_UNREGISTERED.getValue())
                             .replace(GETTER_PLACEHOLDER, getter.getName()));
         });
         getterList.clear();

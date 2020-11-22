@@ -11,6 +11,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
+import java.util.Objects;
+
 public final class SkullBreakListener implements Listener {
 
     private final SkullGetter skullGetter;
@@ -29,7 +31,7 @@ public final class SkullBreakListener implements Listener {
                 return;
             }
             skullGetter.removeSkull(location);
-            MessageUtils.sendMessage(player, MessageConfig.SKULL_REMOVED.getValue());
+            MessageUtils.sendMessage(player, Objects.requireNonNull(MessageConfig.SKULL_REMOVED.getValue()));
         }
     }
 

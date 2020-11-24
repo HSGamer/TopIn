@@ -1,86 +1,47 @@
 package me.hsgamer.topin.config;
 
-import java.util.Arrays;
-import java.util.Collections;
 import me.hsgamer.hscore.bukkit.config.PluginConfig;
-import me.hsgamer.hscore.bukkit.config.path.StringConfigPath;
+import me.hsgamer.hscore.config.PathLoader;
+import me.hsgamer.hscore.config.path.StringConfigPath;
 import me.hsgamer.topin.config.path.StringListConfigPath;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
+
 public final class MessageConfig extends PluginConfig {
 
-  public static final StringConfigPath PREFIX = new StringConfigPath("prefix", "&f[&aTopIn&f] ");
-  public static final StringConfigPath SAVE = new StringConfigPath("save",
-      "&eThe database has been saved");
-  public static final StringConfigPath SUCCESS = new StringConfigPath("success", "&aSuccess");
-  public static final StringConfigPath NO_PERMISSION = new StringConfigPath("no-permission",
-      "&cYou don't have permission to do this");
-  public static final StringConfigPath PLAYER_ONLY = new StringConfigPath("player-only",
-      "&cYou should be a player to do this");
-  public static final StringConfigPath GETTER_REGISTERED = new StringConfigPath("getter-registered",
-      "&aThe getter '<getter>' is successfully registered");
-  public static final StringConfigPath GETTER_UNREGISTERED = new StringConfigPath(
-      "getter-unregistered",
-      "&aThe getter '<getter>' is successfully unregistered");
-  public static final StringConfigPath NUMBER_REQUIRED = new StringConfigPath("number-required",
-      "&cNumber is required");
-  public static final StringConfigPath ILLEGAL_FROM_TO_NUMBER = new StringConfigPath(
-      "illegal-from-to-number",
-      "&cThe 'to' number must be higher than the 'from' number");
-  public static final StringConfigPath OUT_OF_BOUND = new StringConfigPath("out-of-bound",
-      "&cA number is out-of-bound");
-  public static final StringConfigPath SKULL_REMOVED = new StringConfigPath("skull-removed",
-      "&aThe skull is removed");
-  public static final StringConfigPath SKULL_REQUIRED = new StringConfigPath("skull-required",
-      "&cA skull is required");
-  public static final StringConfigPath DATA_LIST_NOT_FOUND = new StringConfigPath(
-      "data-list-not-found", "&cThe data list is not found");
-  public static final StringListConfigPath SIGN_LINES = new StringListConfigPath("sign-lines",
-      Arrays.asList(
-          "&6&m               ",
-          "&b#<index> &a<name>",
-          "&a<value> <suffix>",
-          "&6&m               "
-      ));
-  public static final StringConfigPath SIGN_REMOVED = new StringConfigPath("sign-removed",
-      "&aThe sign is removed");
-  public static final StringConfigPath SIGN_REQUIRED = new StringConfigPath("sign-required",
-      "&cA sign is required");
-  public static final StringListConfigPath TOP_LIST_HEADER = new StringListConfigPath(
-      "top-list.header",
-      Collections.singletonList("&6=========== &e<data_list> &6==========="));
-  public static final StringListConfigPath TOP_LIST_FOOTER = new StringListConfigPath(
-      "top-list.footer",
-      Collections.singletonList("&6=========== &e<data_list> &6==========="));
-  public static final StringListConfigPath TOP_LIST_BODY = new StringListConfigPath("top-list.body",
-      Collections.singletonList("&a&l#<index> &b<name> &f: &e<value> <suffix>"));
+    public static final StringConfigPath PREFIX = new StringConfigPath("prefix", "&f[&aTopIn&f] ");
+    public static final StringConfigPath SAVE = new StringConfigPath("save", "&eThe database has been saved");
+    public static final StringConfigPath SUCCESS = new StringConfigPath("success", "&aSuccess");
+    public static final StringConfigPath NO_PERMISSION = new StringConfigPath("no-permission", "&cYou don't have permission to do this");
+    public static final StringConfigPath PLAYER_ONLY = new StringConfigPath("player-only", "&cYou should be a player to do this");
+    public static final StringConfigPath GETTER_REGISTERED = new StringConfigPath("getter-registered", "&aThe getter '<getter>' is successfully registered");
+    public static final StringConfigPath GETTER_UNREGISTERED = new StringConfigPath("getter-unregistered", "&aThe getter '<getter>' is successfully unregistered");
+    public static final StringConfigPath NUMBER_REQUIRED = new StringConfigPath("number-required", "&cNumber is required");
+    public static final StringConfigPath ILLEGAL_FROM_TO_NUMBER = new StringConfigPath("illegal-from-to-number", "&cThe 'to' number must be higher than the 'from' number");
+    public static final StringConfigPath OUT_OF_BOUND = new StringConfigPath("out-of-bound", "&cA number is out-of-bound");
+    public static final StringConfigPath SKULL_REMOVED = new StringConfigPath("skull-removed", "&aThe skull is removed");
+    public static final StringConfigPath SKULL_REQUIRED = new StringConfigPath("skull-required", "&cA skull is required");
+    public static final StringConfigPath DATA_LIST_NOT_FOUND = new StringConfigPath("data-list-not-found", "&cThe data list is not found");
+    public static final StringListConfigPath SIGN_LINES = new StringListConfigPath("sign-lines",
+            Arrays.asList(
+                    "&6&m               ",
+                    "&b#<index> &a<name>",
+                    "&a<value> <suffix>",
+                    "&6&m               "
+            ));
+    public static final StringConfigPath SIGN_REMOVED = new StringConfigPath("sign-removed", "&aThe sign is removed");
+    public static final StringConfigPath SIGN_REQUIRED = new StringConfigPath("sign-required", "&cA sign is required");
+    public static final StringListConfigPath TOP_LIST_HEADER = new StringListConfigPath("top-list.header", Collections.singletonList("&6=========== &e<data_list> &6==========="));
+    public static final StringListConfigPath TOP_LIST_FOOTER = new StringListConfigPath("top-list.footer", Collections.singletonList("&6=========== &e<data_list> &6==========="));
+    public static final StringListConfigPath TOP_LIST_BODY = new StringListConfigPath("top-list.body", Collections.singletonList("&a&l#<index> &b<name> &f: &e<value> <suffix>"));
 
-  public MessageConfig(JavaPlugin plugin) {
-    super(plugin, "messages.yml");
-    getConfig().options().copyDefaults(true);
-    setDefaultPath();
-    saveConfig();
-  }
-
-  private void setDefaultPath() {
-    PREFIX.setConfig(this);
-    SAVE.setConfig(this);
-    SUCCESS.setConfig(this);
-    NO_PERMISSION.setConfig(this);
-    PLAYER_ONLY.setConfig(this);
-    GETTER_REGISTERED.setConfig(this);
-    GETTER_UNREGISTERED.setConfig(this);
-    NUMBER_REQUIRED.setConfig(this);
-    SKULL_REMOVED.setConfig(this);
-    SKULL_REQUIRED.setConfig(this);
-    DATA_LIST_NOT_FOUND.setConfig(this);
-    SIGN_LINES.setConfig(this);
-    SIGN_REMOVED.setConfig(this);
-    SIGN_REQUIRED.setConfig(this);
-    TOP_LIST_HEADER.setConfig(this);
-    TOP_LIST_FOOTER.setConfig(this);
-    TOP_LIST_BODY.setConfig(this);
-    ILLEGAL_FROM_TO_NUMBER.setConfig(this);
-    OUT_OF_BOUND.setConfig(this);
-  }
+    public MessageConfig(JavaPlugin plugin) {
+        super(new File(plugin.getDataFolder(), "messages.yml"));
+        getConfig().options().copyDefaults(true);
+        PathLoader.loadPath(this);
+        saveConfig();
+    }
 }

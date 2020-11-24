@@ -5,29 +5,29 @@ package me.hsgamer.topin.getter;
  */
 public interface Getter {
 
-  /**
-   * Check if this getter can be registered
-   *
-   * @return whether this getter can be registered
-   */
-  default boolean canRegister() {
-    return true;
-  }
+    /**
+     * Check if this getter can be registered
+     *
+     * @return whether this getter can be registered
+     */
+    default boolean canRegister() {
+        return true;
+    }
 
-  /**
-   * Called when registering
-   */
-  void register();
+    /**
+     * Called when registering
+     */
+    void register();
 
-  /**
-   * Called when unregistering
-   */
-  void unregister();
+    /**
+     * Called when unregistering
+     */
+    void unregister();
 
-  /**
-   * Get the name of the getter
-   *
-   * @return the name
-   */
-  String getName();
+    /**
+     * Get the name of the getter
+     *
+     * @return the name
+     */
+    String getName();
 }

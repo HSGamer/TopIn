@@ -11,35 +11,37 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
+import java.util.Objects;
+
 public final class SkullBreakListener implements Listener {
 
-  private final SkullGetter skullGetter;
+    private final SkullGetter skullGetter;
 
-  public SkullBreakListener(SkullGetter getter) {
-    this.skullGetter = getter;
-  }
-
-  @EventHandler
-  public void onBreak(BlockBreakEvent event) {
-    Location location = event.getBlock().getLocation();
-    Player player = event.getPlayer();
-    if (skullGetter.containsSkull(location)) {
-      if (!player.hasPermission(Permissions.SKULL_BREAK) || !player.isSneaking()) {
-        event.setCancelled(true);
-        return;
-      }
-      skullGetter.removeSkull(location);
-      MessageUtils.sendMessage(player, MessageConfig.SKULL_REMOVED.getValue());
+    public SkullBreakListener(SkullGetter getter) {
+        this.skullGetter = getter;
     }
-  }
 
-  @EventHandler
-  public void onBlockExplode(BlockExplodeEvent event) {
-    event.blockList().removeIf(block -> skullGetter.containsSkull(block.getLocation()));
-  }
+    @EventHandler
+    public void onBreak(BlockBreakEvent event) {
+        Location location = event.getBlock().getLocation();
+        Player player = event.getPlayer();
+        if (skullGetter.containsSkull(location)) {
+            if (!player.hasPermission(Permissions.SKULL_BREAK) || !player.isSneaking()) {
+                event.setCancelled(true);
+                return;
+            }
+            skullGetter.removeSkull(location);
+            MessageUtils.sendMessage(player, Objects.requireNonNull(MessageConfig.SKULL_REMOVED.getValue()));
+        }
+    }
 
-  @EventHandler
-  public void onEntityExplode(EntityExplodeEvent event) {
-    event.blockList().removeIf(block -> skullGetter.containsSkull(block.getLocation()));
-  }
+    @EventHandler
+    public void onBlockExplode(BlockExplodeEvent event) {
+        event.blockList().removeIf(block -> skullGetter.containsSkull(block.getLocation()));
+    }
+
+    @EventHandler
+    public void onEntityExplode(EntityExplodeEvent event) {
+        event.blockList().removeIf(block -> skullGetter.containsSkull(block.getLocation()));
+    }
 }

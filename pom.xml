@@ -6,7 +6,7 @@
 
   <groupId>me.HSGamer</groupId>
   <artifactId>TopIn</artifactId>
-  <version>1.5</version>
+  <version>2.0</version>
   <packaging>jar</packaging>
 
   <name>TopIn</name>
@@ -51,40 +51,8 @@
               </filters>
               <relocations>
                 <relocation>
-                  <pattern>me.hsgamer.hscore.bukkit.command</pattern>
-                  <shadedPattern>me.hsgamer.topin.core.command</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>me.hsgamer.hscore.bukkit.config</pattern>
-                  <shadedPattern>me.hsgamer.topin.core.config</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>me.hsgamer.hscore.bukkit.addon</pattern>
-                  <shadedPattern>me.hsgamer.topin.addon</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>me.hsgamer.hscore.bukkit.utils</pattern>
-                  <shadedPattern>me.hsgamer.topin.utils</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>me.hsgamer.hscore.common</pattern>
-                  <shadedPattern>me.hsgamer.topin.utils.common</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>me.hsgamer.hscore.json</pattern>
-                  <shadedPattern>me.hsgamer.topin.utils.json</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>me.hsgamer.hscore.map</pattern>
-                  <shadedPattern>me.hsgamer.topin.utils.map</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>me.hsgamer.hscore.bukkit.updater</pattern>
-                  <shadedPattern>me.hsgamer.topin.utils.updater</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>me.hsgamer.hscore.web</pattern>
-                  <shadedPattern>me.hsgamer.topin.utils.web</shadedPattern>
+                  <pattern>me.hsgamer.hscore</pattern>
+                  <shadedPattern>me.hsgamer.topin.core</shadedPattern>
                 </relocation>
                 <relocation>
                   <pattern>org.bstats.bukkit</pattern>
@@ -182,27 +150,32 @@
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-bukkit-command</artifactId>
-      <version>1.5</version>
+      <version>2.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-bukkit-config</artifactId>
-      <version>1.5</version>
+      <version>2.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>me.HSGamer</groupId>
+      <artifactId>HSCore-config-path</artifactId>
+      <version>2.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-bukkit-utils</artifactId>
-      <version>1.5</version>
+      <version>2.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-bukkit-addon</artifactId>
-      <version>1.5</version>
+      <version>2.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>me.HSGamer</groupId>
-      <artifactId>HSCore-bukkit-updater</artifactId>
-      <version>1.5</version>
+      <artifactId>HSCore-checker-spigotmc</artifactId>
+      <version>2.0-SNAPSHOT</version>
       <exclusions>
         <exclusion>
           <groupId>com.googlecode.json-simple</groupId>
@@ -213,12 +186,12 @@
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-common</artifactId>
-      <version>1.5</version>
+      <version>2.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-json</artifactId>
-      <version>1.5</version>
+      <version>2.0-SNAPSHOT</version>
       <exclusions>
         <exclusion>
           <groupId>com.googlecode.json-simple</groupId>
@@ -229,7 +202,7 @@
     <dependency>
       <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-collections</artifactId>
-      <version>1.5</version>
+      <version>2.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>me.clip</groupId>

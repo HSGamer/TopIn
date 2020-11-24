@@ -127,8 +127,8 @@
       <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
     </repository>
     <repository>
-      <id>codemc-releases</id>
-      <url>https://repo.codemc.io/repository/maven-releases/</url>
+      <id>codemc-public</id>
+      <url>https://repo.codemc.io/repository/maven-public/</url>
     </repository>
     <repository>
       <id>jitpack.io</id>

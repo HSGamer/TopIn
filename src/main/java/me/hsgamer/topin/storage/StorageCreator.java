@@ -1,6 +1,6 @@
 package me.hsgamer.topin.storage;
 
-import me.hsgamer.hscore.map.CaseInsensitiveStringMap;
+import me.hsgamer.hscore.map.CaseInsensitiveStringHashMap;
 import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.storage.type.JsonStorage;
 import me.hsgamer.topin.storage.type.YamlStorage;
@@ -14,7 +14,7 @@ import java.util.function.Function;
  */
 public class StorageCreator {
 
-    private static final Map<String, Function<String, Storage>> createStorageMap = new CaseInsensitiveStringMap<>();
+    private static final Map<String, Function<String, Storage>> createStorageMap = new CaseInsensitiveStringHashMap<>();
 
     static {
         registerStorageCreator("yaml", YamlStorage::new);

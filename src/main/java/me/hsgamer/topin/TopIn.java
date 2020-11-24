@@ -42,7 +42,7 @@ public final class TopIn extends JavaPlugin {
     private final GetterManager getterManager = new GetterManager();
     private final SaveTaskManager saveTaskManager = new SaveTaskManager(this);
 
-    private final PluginAddonManager addonManager = new PluginAddonManager(this) {
+    private final AddonManager addonManager = new PluginAddonManager(this) {
         @Override
         public @NotNull String getAddonConfigFileName() {
             return "addon.yml";

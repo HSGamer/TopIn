@@ -1,5 +1,6 @@
 package me.hsgamer.topin.command;
 
+import me.hsgamer.hscore.bukkit.command.CommandManager;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.topin.Permissions;
 import me.hsgamer.topin.config.MessageConfig;
@@ -32,7 +33,7 @@ public final class ReloadCommand extends BukkitCommand {
         getInstance().getSuffixConfig().reloadConfig();
         getInstance().getFormatConfig().reloadConfig();
         getInstance().getAddonManager().callReload();
-        getInstance().getCommandManager().syncCommand();
+        CommandManager.syncCommand();
         getInstance().getSaveTaskManager().startNewSaveTask();
         MessageUtils.sendMessage(sender, Objects.requireNonNull(MessageConfig.SUCCESS.getValue()));
         return true;

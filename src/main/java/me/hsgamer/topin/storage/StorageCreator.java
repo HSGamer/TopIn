@@ -1,6 +1,6 @@
 package me.hsgamer.topin.storage;
 
-import me.hsgamer.hscore.map.CaseInsensitiveStringHashMap;
+import me.hsgamer.hscore.collections.map.CaseInsensitiveStringHashMap;
 import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.storage.type.JsonStorage;
 import me.hsgamer.topin.storage.type.YamlStorage;

@@ -1,9 +1,10 @@
 package me.hsgamer.topin.storage.type;
 
+import com.eclipsesource.json.JsonObject;
+import com.eclipsesource.json.JsonValue;
 import me.hsgamer.hscore.json.JSONUtils;
 import me.hsgamer.topin.TopIn;
 import me.hsgamer.topin.storage.Storage;
-import org.json.simple.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +29,6 @@ public class JsonStorage extends Storage {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("unchecked")
     @Override
     public Map<UUID, BigDecimal> load() {
         if (isDataFileFailedToCreate() || dataFile.length() == 0) {
@@ -36,10 +36,9 @@ public class JsonStorage extends Storage {
         }
 
         Map<UUID, BigDecimal> map = new HashMap<>();
-        Object object = JSONUtils.getJSON(dataFile);
-        if (object != null) {
-            ((JSONObject) object).forEach((key, value) -> map.put(UUID.fromString(String.valueOf(key)),
-                    new BigDecimal(String.valueOf(value))));
+        JsonValue object = JSONUtils.getJSON(dataFile);
+        if (object != null && object.isObject()) {
+            object.asObject().forEach(member -> map.put(UUID.fromString(member.getName()), new BigDecimal(String.valueOf(member.getValue().asString()))));
         }
         return map;
     }
@@ -47,15 +46,14 @@ public class JsonStorage extends Storage {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("unchecked")
     @Override
     public void save(Map<UUID, BigDecimal> map) {
         if (isDataFileFailedToCreate()) {
             return;
         }
 
-        JSONObject data = new JSONObject();
-        map.forEach((uuid, bigDecimal) -> data.put(uuid.toString(), bigDecimal.toString()));
+        JsonObject data = new JsonObject();
+        map.forEach((uuid, bigDecimal) -> data.add(uuid.toString(), bigDecimal.toString()));
         try {
             JSONUtils.writeToFile(dataFile, data);
         } catch (IOException e) {
@@ -64,7 +62,7 @@ public class JsonStorage extends Storage {
         }
     }
 
-    protected boolean isDataFileFailedToCreate() {
+    private boolean isDataFileFailedToCreate() {
         if (dataFile == null) {
             try {
                 dataFile = JSONUtils.createFile(name, TopIn.getDataDir());

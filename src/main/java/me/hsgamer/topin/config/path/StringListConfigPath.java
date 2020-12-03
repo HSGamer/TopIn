@@ -1,6 +1,6 @@
 package me.hsgamer.topin.config.path;
 
-import me.hsgamer.hscore.common.CommonUtils;
+import me.hsgamer.hscore.common.CollectionUtils;
 import me.hsgamer.hscore.config.AdvancedConfigPath;
 import me.hsgamer.hscore.config.Config;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +27,7 @@ public class StringListConfigPath extends AdvancedConfigPath<Object, List<String
 
     @Override
     public @Nullable List<String> convert(@NotNull Object rawValue) {
-        return CommonUtils.createStringListFromObject(rawValue, false);
+        return CollectionUtils.createStringListFromObject(rawValue, false);
     }
 
     @Override

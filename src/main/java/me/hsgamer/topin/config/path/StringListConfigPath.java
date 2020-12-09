@@ -15,6 +15,6 @@ public class StringListConfigPath extends BaseConfigPath<List<String>> {
      * @param def           the default value if it's not found
      */
     public StringListConfigPath(@NotNull String path, @Nullable List<String> def) {
-        super(path, def, o -> CollectionUtils.createStringListFromObject(0, false));
+        super(path, def, o -> CollectionUtils.createStringListFromObject(o, false));
     }
 }

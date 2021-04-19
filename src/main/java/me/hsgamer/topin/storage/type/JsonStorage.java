@@ -57,8 +57,7 @@ public class JsonStorage extends Storage {
         try {
             JSONUtils.writeToFile(dataFile, data);
         } catch (IOException e) {
-            TopIn.getInstance().getLogger()
-                    .log(Level.WARNING, e, () -> "Error when saving data for " + name);
+            TopIn.getInstance().getLogger().log(Level.WARNING, e, () -> "Error when saving data for " + name);
         }
     }
 
@@ -67,8 +66,7 @@ public class JsonStorage extends Storage {
             try {
                 dataFile = JSONUtils.createFile(name, TopIn.getDataDir());
             } catch (IOException e) {
-                TopIn.getInstance().getLogger()
-                        .log(Level.WARNING, e, () -> "Error when creating data file for " + name);
+                TopIn.getInstance().getLogger().log(Level.WARNING, e, () -> "Error when creating data file for " + name);
                 return true;
             }
         }

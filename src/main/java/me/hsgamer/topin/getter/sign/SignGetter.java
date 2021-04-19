@@ -1,6 +1,6 @@
 package me.hsgamer.topin.getter.sign;
 
-import me.hsgamer.hscore.bukkit.config.PluginConfig;
+import me.hsgamer.hscore.bukkit.config.BukkitConfig;
 import me.hsgamer.hscore.config.path.IntegerConfigPath;
 import me.hsgamer.topin.getter.Getter;
 import org.bukkit.Bukkit;
@@ -8,13 +8,11 @@ import org.bukkit.Location;
 import org.bukkit.event.HandlerList;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-import org.simpleyaml.configuration.file.FileConfiguration;
-import org.simpleyaml.configuration.serialization.ConfigurationSerialization;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static me.hsgamer.topin.TopIn.getInstance;
 
@@ -24,16 +22,14 @@ public final class SignGetter implements Getter {
     private final SignCommand signCommand = new SignCommand(this);
     private final List<TopSign> topSignList = new ArrayList<>();
     private final SignBreakListener listener = new SignBreakListener(this);
-    private PluginConfig signConfig;
+    private BukkitConfig signConfig;
     private BukkitTask updateTask;
 
     @Override
     public void register() {
-        ConfigurationSerialization.registerClass(TopSign.class);
-        signConfig = new PluginConfig(new File(getInstance().getDataFolder(), "sign.yml"));
-        signConfig.getConfig().options().copyDefaults(true);
+        signConfig = new BukkitConfig(getInstance(), "sign.yml");
         UPDATE_PERIOD.setConfig(signConfig);
-        signConfig.saveConfig();
+        signConfig.save();
         loadSign();
 
         final BukkitRunnable updateRunnable = new BukkitRunnable() {
@@ -52,22 +48,21 @@ public final class SignGetter implements Getter {
         HandlerList.unregisterAll(listener);
         updateTask.cancel();
         saveSign();
-        ConfigurationSerialization.unregisterClass(TopSign.class);
         getInstance().getCommandManager().unregister(signCommand);
     }
 
-    @SuppressWarnings("unchecked")
     private void loadSign() {
-        FileConfiguration config = signConfig.getConfig();
-        if (config.isSet("data")) {
-            topSignList.addAll((Collection<? extends TopSign>) config.getList("data"));
+        if (signConfig.contains("data")) {
+            // noinspection unchecked
+            topSignList.addAll(
+                    ((List<Map<String, Object>>) signConfig.getNormalized("data")).stream().map(TopSign::deserialize).collect(Collectors.toList())
+            );
         }
     }
 
     private void saveSign() {
-        FileConfiguration config = signConfig.getConfig();
-        config.set("data", topSignList);
-        signConfig.saveConfig();
+        signConfig.set("data", topSignList.stream().map(TopSign::serialize).collect(Collectors.toList()));
+        signConfig.save();
     }
 
     public void addSign(TopSign topSign) {

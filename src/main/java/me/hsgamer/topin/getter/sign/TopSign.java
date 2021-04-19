@@ -11,11 +11,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
-import org.simpleyaml.configuration.serialization.ConfigurationSerializable;
 
 import java.util.*;
 
-public final class TopSign implements ConfigurationSerializable {
+public final class TopSign {
 
     private final Location location;
     private final String dataListName;
@@ -28,8 +27,7 @@ public final class TopSign implements ConfigurationSerializable {
     }
 
     public static TopSign deserialize(Map<String, Object> args) {
-        return new TopSign(Location.deserialize(args), (String) args.get("data-list"),
-                (int) args.get("index"));
+        return new TopSign(Location.deserialize(args), (String) args.get("data-list"), (int) args.get("index"));
     }
 
     public void update() {
@@ -61,7 +59,6 @@ public final class TopSign implements ConfigurationSerializable {
         });
     }
 
-    @Override
     public Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<>(location.serialize());
         map.put("data-list", dataListName);

@@ -31,7 +31,7 @@ public abstract class AutoUpdateSimpleDataList extends SimpleDataList {
      *
      * @param period the delay for each update call
      */
-    public AutoUpdateSimpleDataList(int period) {
+    protected AutoUpdateSimpleDataList(int period) {
         this(period, period);
     }
 

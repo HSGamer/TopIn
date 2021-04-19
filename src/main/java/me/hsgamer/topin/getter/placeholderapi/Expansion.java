@@ -43,8 +43,7 @@ public final class Expansion extends PlaceholderExpansion {
     public String onRequest(OfflinePlayer offlinePlayer, @NotNull String params) {
         if (params.startsWith(PLAYER)) {
             PairDecimal pairDecimal = getTopPair(params.substring(PLAYER.length()).trim());
-            return pairDecimal != null ? Bukkit.getOfflinePlayer(pairDecimal.getUniqueId()).getName()
-                    : "";
+            return pairDecimal != null ? Bukkit.getOfflinePlayer(pairDecimal.getUniqueId()).getName() : "";
         } else if (params.startsWith(RAW_VALUE)) {
             PairDecimal pairDecimal = getTopPair(params.substring(RAW_VALUE.length()).trim());
             return pairDecimal != null ? pairDecimal.getValue().toPlainString() : "";
@@ -52,11 +51,9 @@ public final class Expansion extends PlaceholderExpansion {
             PairDecimal pairDecimal = getTopPair(params.substring(UUID.length()).trim());
             return pairDecimal != null ? pairDecimal.getUniqueId().toString() : "";
         } else if (params.startsWith(SUFFIX)) {
-            return getDataList(params.substring(SUFFIX.length()).trim()).map(DataList::getSuffix)
-                    .orElse("");
+            return getDataList(params.substring(SUFFIX.length()).trim()).map(DataList::getSuffix).orElse("");
         } else if (params.startsWith(DISPLAY_NAME)) {
-            return getDataList(params.substring(DISPLAY_NAME.length()).trim())
-                    .map(DataList::getDisplayName).orElse("");
+            return getDataList(params.substring(DISPLAY_NAME.length()).trim()).map(DataList::getDisplayName).orElse("");
         } else if (params.startsWith(VALUE)) {
             return formatPairValue(params.substring(VALUE.length()).trim());
         }

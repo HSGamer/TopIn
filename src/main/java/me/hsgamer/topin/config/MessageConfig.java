@@ -1,16 +1,15 @@
 package me.hsgamer.topin.config;
 
-import me.hsgamer.hscore.bukkit.config.PluginConfig;
-import me.hsgamer.hscore.config.PathLoader;
+import me.hsgamer.hscore.bukkit.config.BukkitConfig;
+import me.hsgamer.hscore.config.PathableConfig;
 import me.hsgamer.hscore.config.path.StringConfigPath;
 import me.hsgamer.topin.config.path.StringListConfigPath;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 
-public final class MessageConfig extends PluginConfig {
+public final class MessageConfig extends PathableConfig {
 
     public static final StringConfigPath PREFIX = new StringConfigPath("prefix", "&f[&aTopIn&f] ");
     public static final StringConfigPath SAVE = new StringConfigPath("save", "&eThe database has been saved");
@@ -39,9 +38,6 @@ public final class MessageConfig extends PluginConfig {
     public static final StringListConfigPath TOP_LIST_BODY = new StringListConfigPath("top-list.body", Collections.singletonList("&a&l#<index> &b<name> &f: &e<value> <suffix>"));
 
     public MessageConfig(JavaPlugin plugin) {
-        super(new File(plugin.getDataFolder(), "messages.yml"));
-        getConfig().options().copyDefaults(true);
-        PathLoader.loadPath(this);
-        saveConfig();
+        super(new BukkitConfig(plugin, "messages.yml"));
     }
 }

@@ -8,7 +8,6 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Skull;
-import org.simpleyaml.configuration.serialization.ConfigurationSerializable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -17,7 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Level;
 
-public final class TopSkull implements ConfigurationSerializable {
+public final class TopSkull {
 
     private static Method setOwningPlayerMethod;
     private static Method setOwnerMethod;
@@ -90,7 +89,6 @@ public final class TopSkull implements ConfigurationSerializable {
         }
     }
 
-    @Override
     public Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<>(location.serialize());
         map.put("data-list", dataListName);

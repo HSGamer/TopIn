@@ -1,9 +1,8 @@
 package me.hsgamer.topin.storage.type;
 
-import me.hsgamer.hscore.bukkit.config.PluginConfig;
+import me.hsgamer.hscore.bukkit.config.BukkitConfig;
 import me.hsgamer.topin.TopIn;
 import me.hsgamer.topin.storage.Storage;
-import org.simpleyaml.configuration.file.FileConfiguration;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -16,11 +15,11 @@ import java.util.UUID;
  */
 public class YamlStorage extends Storage {
 
-    private final PluginConfig config;
+    private final BukkitConfig config;
 
     public YamlStorage(String name) {
         super(name);
-        config = new PluginConfig(new File(TopIn.getDataDir(), name + ".yml"));
+        config = new BukkitConfig(new File(TopIn.getDataDir(), name + ".yml"));
     }
 
     /**
@@ -29,9 +28,7 @@ public class YamlStorage extends Storage {
     @Override
     public Map<UUID, BigDecimal> load() {
         Map<UUID, BigDecimal> map = new HashMap<>();
-        FileConfiguration configuration = config.getConfig();
-        configuration.getValues(false)
-                .forEach((k, v) -> map.put(UUID.fromString(k), new BigDecimal(String.valueOf(v))));
+        config.getNormalizedValues(false).forEach((k, v) -> map.put(UUID.fromString(k), new BigDecimal(String.valueOf(v))));
         return map;
     }
 
@@ -40,9 +37,7 @@ public class YamlStorage extends Storage {
      */
     @Override
     public void save(Map<UUID, BigDecimal> map) {
-        FileConfiguration configuration = config.getConfig();
-        map.forEach((uuid, bigDecimal) -> configuration.set(uuid.toString(), bigDecimal.toString()));
-        config.saveConfig();
+        map.forEach((uuid, bigDecimal) -> config.set(uuid.toString(), bigDecimal.toString()));
+        config.save();
     }
-
 }

@@ -34,9 +34,9 @@ public abstract class DataList {
         displayName.setConfig(displayNameConfig);
         suffix.setConfig(suffixConfig);
         format.setConfig(formatConfig);
-        displayNameConfig.saveConfig();
-        suffixConfig.saveConfig();
-        formatConfig.saveConfig();
+        displayNameConfig.save();
+        suffixConfig.save();
+        formatConfig.save();
     }
 
     /**
@@ -127,6 +127,15 @@ public abstract class DataList {
      */
     public List<PairDecimal> getTop(int bound) {
         return getTopRange(0, bound);
+    }
+
+    /**
+     * Get the whole top list
+     *
+     * @return the top list contains the pairs
+     */
+    public List<PairDecimal> getTop() {
+        return getTop(getSize());
     }
 
     /**

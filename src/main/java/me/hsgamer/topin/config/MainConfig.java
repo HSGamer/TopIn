@@ -1,8 +1,8 @@
 package me.hsgamer.topin.config;
 
-import me.hsgamer.hscore.bukkit.config.PluginConfig;
+import me.hsgamer.hscore.bukkit.config.BukkitConfig;
 import me.hsgamer.hscore.config.ConfigPath;
-import me.hsgamer.hscore.config.PathLoader;
+import me.hsgamer.hscore.config.PathableConfig;
 import me.hsgamer.hscore.config.SerializableMapConfigPath;
 import me.hsgamer.hscore.config.path.BooleanConfigPath;
 import me.hsgamer.hscore.config.path.IntegerConfigPath;
@@ -11,12 +11,11 @@ import me.hsgamer.topin.config.path.StringListConfigPath;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class MainConfig extends PluginConfig {
+public final class MainConfig extends PathableConfig {
 
     public static final BooleanConfigPath METRICS = new BooleanConfigPath("metrics", true);
     public static final IntegerConfigPath SAVE_PERIOD = new IntegerConfigPath("save.period", 600);
@@ -43,9 +42,6 @@ public final class MainConfig extends PluginConfig {
     };
 
     public MainConfig(JavaPlugin plugin) {
-        super(new File(plugin.getDataFolder(), "config.yml"));
-        getConfig().options().copyDefaults(true);
-        PathLoader.loadPath(this);
-        saveConfig();
+        super(new BukkitConfig(plugin, "config.yml"));
     }
 }

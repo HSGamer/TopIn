@@ -26,7 +26,6 @@ public final class MainConfig extends PluginConfig {
     public static final IntegerConfigPath DISPLAY_TOP_START_INDEX = new IntegerConfigPath("display-top-start-index", 1);
     public static final StringListConfigPath IGNORED_DATA_LIST = new StringListConfigPath("ignored-data-list", Collections.emptyList());
     public static final StringConfigPath STORAGE_TYPE = new StringConfigPath("storage-type", "JSON");
-    public static final BooleanConfigPath ENABLE_PAPI_DATA_LIST = new BooleanConfigPath("enable-papi-data-list", false);
     public static final ConfigPath<Map<String, String>> PAPI_DATA_LIST = new SerializableMapConfigPath<Map<String, String>>(
             "papi-data-list", Collections.emptyMap()
     ) {

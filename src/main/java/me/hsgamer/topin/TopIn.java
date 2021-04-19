@@ -1,15 +1,11 @@
 package me.hsgamer.topin;
 
-import me.hsgamer.hscore.addon.AddonManager;
-import me.hsgamer.hscore.bukkit.addon.PluginAddonManager;
 import me.hsgamer.hscore.bukkit.command.CommandManager;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.hscore.checker.spigotmc.SimpleVersionChecker;
-import me.hsgamer.hscore.config.ConfigProvider;
-import me.hsgamer.simplebukkityaml.configuration.file.YamlConfiguration;
 import me.hsgamer.topin.command.*;
 import me.hsgamer.topin.config.*;
-import me.hsgamer.topin.data.impl.*;
+import me.hsgamer.topin.data.impl.PlaceholderApiData;
 import me.hsgamer.topin.getter.placeholderapi.PlaceholderAPIGetter;
 import me.hsgamer.topin.getter.sign.SignGetter;
 import me.hsgamer.topin.getter.skull.SkullGetter;
@@ -21,7 +17,6 @@ import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.Objects;
@@ -41,18 +36,6 @@ public final class TopIn extends JavaPlugin {
     private final DataListManager dataListManager = new DataListManager();
     private final GetterManager getterManager = new GetterManager();
     private final SaveTaskManager saveTaskManager = new SaveTaskManager(this);
-
-    private final AddonManager addonManager = new PluginAddonManager(this) {
-        @Override
-        public @NotNull String getAddonConfigFileName() {
-            return "addon.yml";
-        }
-
-        @Override
-        protected @NotNull ConfigProvider<?> getConfigProvider() {
-            return YamlConfiguration::loadConfiguration;
-        }
-    };
 
     /**
      * Get the data directory
@@ -106,14 +89,11 @@ public final class TopIn extends JavaPlugin {
         loadCommands();
         registerListener();
         registerDefaultGetters();
-        addonManager.loadAddons();
         CommandManager.syncCommand();
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
             registerDefaultDataList();
             saveTaskManager.startNewSaveTask();
-            addonManager.enableAddons();
-            addonManager.callPostEnable();
             CommandManager.syncCommand();
         });
 
@@ -126,7 +106,6 @@ public final class TopIn extends JavaPlugin {
     public void onDisable() {
         saveTaskManager.stopSaveTask();
         dataListManager.saveAll();
-        addonManager.disableAddons();
         getterManager.unregisterAll();
         dataListManager.unregisterAll();
         dataListManager.clearAll();
@@ -147,27 +126,7 @@ public final class TopIn extends JavaPlugin {
      * Register default data list
      */
     private void registerDefaultDataList() {
-        dataListManager.register(new PlayerExp());
-        dataListManager.register(new PlayerLevel());
-        dataListManager.register(new PlayerTotalDamage());
-        dataListManager.register(new PlayerDeath());
-        dataListManager.register(new PlayerTotalKill());
-        dataListManager.register(new PlayerEnemyPlayerKill());
-        dataListManager.register(new PlayerMonsterKill());
-        dataListManager.register(new PlayerAnimalKill());
-        dataListManager.register(new PlayerPlacedBlock());
-        dataListManager.register(new PlayerBrokenBlock());
-        dataListManager.register(new VaultMoney());
-
-        PlayerOnlineTime playerOnlineTime = new PlayerOnlineTime();
-        dataListManager.register(playerOnlineTime);
-        dataListManager.register(new PlayerOnlineMinutes(playerOnlineTime));
-        dataListManager.register(new PlayerOnlineHours(playerOnlineTime));
-
-        if (Boolean.TRUE.equals(MainConfig.ENABLE_PAPI_DATA_LIST.getValue())) {
-            Objects.requireNonNull(MainConfig.PAPI_DATA_LIST.getValue()).forEach((name, placeholder) ->
-                    dataListManager.register(new PlaceholderApiData(name, placeholder.trim())));
-        }
+        Objects.requireNonNull(MainConfig.PAPI_DATA_LIST.getValue()).forEach((name, placeholder) -> dataListManager.register(new PlaceholderApiData(name, placeholder.trim())));
     }
 
     /**
@@ -189,7 +148,6 @@ public final class TopIn extends JavaPlugin {
         commandManager.register(new GetDataListCommand());
         commandManager.register(new GetTopCommand());
         commandManager.register(new SearchDataListCommand());
-        commandManager.register(new GetAddonsCommand());
     }
 
     /**
@@ -260,15 +218,6 @@ public final class TopIn extends JavaPlugin {
      */
     public FormatConfig getFormatConfig() {
         return formatConfig;
-    }
-
-    /**
-     * Get the addon manager
-     *
-     * @return the addon manager
-     */
-    public AddonManager getAddonManager() {
-        return addonManager;
     }
 
     /**

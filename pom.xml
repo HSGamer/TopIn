@@ -173,11 +173,6 @@
     </dependency>
     <dependency>
       <groupId>me.HSGamer</groupId>
-      <artifactId>HSCore-bukkit-addon</artifactId>
-      <version>2.4</version>
-    </dependency>
-    <dependency>
-      <groupId>me.HSGamer</groupId>
       <artifactId>HSCore-checker-spigotmc</artifactId>
       <version>2.4</version>
       <exclusions>

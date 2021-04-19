@@ -33,7 +33,7 @@ public final class SaveTaskManager {
             public void run() {
                 instance.getDataListManager().saveAll();
                 if (Objects.requireNonNull(MainConfig.SAVE_SILENT.getValue()).equals(Boolean.FALSE)) {
-                    MessageUtils.sendMessage(Bukkit.getConsoleSender(), Objects.requireNonNull(MessageConfig.SAVE.getValue()));
+                    MessageUtils.sendMessage(Bukkit.getConsoleSender(), Objects.requireNonNull(MessageConfig.SAVE_MESSAGE.getValue()));
                 }
             }
         };

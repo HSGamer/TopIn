@@ -1,6 +1,5 @@
 package me.hsgamer.topin.manager;
 
-import me.hsgamer.topin.config.MainConfig;
 import me.hsgamer.topin.data.list.DataList;
 
 import java.util.*;
@@ -18,10 +17,6 @@ public final class DataListManager {
      * @param dataList the data list
      */
     public void register(DataList dataList) {
-        if (Objects.requireNonNull(MainConfig.IGNORED_DATA_LIST.getValue()).contains(dataList.getName())) {
-            return;
-        }
-
         if (!dataList.canRegister()) {
             return;
         }

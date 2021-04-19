@@ -20,7 +20,7 @@ public abstract class AutoUpdateSimpleDataList extends SimpleDataList {
      * @param delay  the delay before the first update call
      * @param period the delay for each update call
      */
-    public AutoUpdateSimpleDataList(int delay, int period) {
+    protected AutoUpdateSimpleDataList(int delay, int period) {
         super();
         this.delay = Math.max(delay, 0);
         this.period = Math.max(period, 0);

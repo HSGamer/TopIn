@@ -16,7 +16,7 @@ public abstract class Storage {
      *
      * @param name the name of the storage
      */
-    public Storage(String name) {
+    protected Storage(String name) {
         this.name = name;
     }
 

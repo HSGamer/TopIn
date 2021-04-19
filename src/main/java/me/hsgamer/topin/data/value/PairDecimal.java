@@ -16,7 +16,7 @@ public abstract class PairDecimal implements Comparable<PairDecimal> {
      *
      * @param uuid the unique id
      */
-    public PairDecimal(UUID uuid) {
+    protected PairDecimal(UUID uuid) {
         this.uuid = uuid;
         update();
     }
